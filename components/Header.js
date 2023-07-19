@@ -5,20 +5,28 @@ import styled from "styled-components";
 export default function Header() {
   return (
     <StyledHeader>
-      <Brand>
-        <Image
-          src="/images/LOGO MORBIDRE-01.png"
-          alt=""
-          width={150}
-          height={150}
-        />
-      </Brand>
       <NavContainer>
         <Nav>
-          <Link href="/">HOME</Link>
-          <Link href="/portfolio">PORTFOLIO</Link>
-          <Link href="/contact">CONTACT</Link>
-          <Link href="/reviews">REVIEWS</Link>
+          <Link href="/" style={{ textDecoration: "none" }}>
+            <Button>HOME</Button>
+          </Link>
+          <Link href="/portfolio" style={{ textDecoration: "none" }}>
+            <Button>PORTFOLIO</Button>
+          </Link>
+          <Brand>
+            <Image
+              src="/images/LOGO MORBIDRE-01.png"
+              alt=""
+              width={150}
+              height={150}
+            />
+          </Brand>
+          <Link href="/contact" style={{ textDecoration: "none" }}>
+            <Button>CONTACT</Button>
+          </Link>
+          <Link href="/reviews" style={{ textDecoration: "none" }}>
+            <Button>REVIEWS</Button>
+          </Link>
         </Nav>
       </NavContainer>
     </StyledHeader>
@@ -26,28 +34,40 @@ export default function Header() {
 }
 
 const StyledHeader = styled.header`
-  display: flex;
+  display: flexbox;
+  align-items: center;
+  justify-content: space-evenly;
   width: 100vw;
   height: 70px;
   background: transparent;
-  padding-bottom: 11px;
-  border-bottom: 6px solid yellow;
+  border-bottom: 6px solid #1ce598;
+  margin: 0;
 `;
 
 const Brand = styled.div`
-  justify-content: flex-start;
-  margin: -10px;
-  margin-top: -30px;
+  margin-top: -35px;
 `;
 
 const NavContainer = styled.div`
-  margin: 0;
-  justify-content: flex-end;
+  /* justify-content: space-evenly; */
 `;
 
 const Nav = styled.nav`
-  justify-content: space-between;
-  margin-top: 20px;
+  justify-content: space-around;
   display: flex;
-  margin-right: 0;
+`;
+
+const Button = styled.button`
+  padding: 0;
+  height: 80px;
+  width: 130px;
+  margin-top: -10px;
+  background: transparent;
+  border: none;
+  color: black;
+  /* text-decoration: none; */
+  &:hover {
+    background: #2581dc;
+    color: #ffffff;
+  }
 `;
