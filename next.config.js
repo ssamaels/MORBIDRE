@@ -4,7 +4,11 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  pageExtensions: ["page.tsx", "page.ts", "page.jsx", "page.js"],
+  pageExtensions: [
+    "./portfolio/kidlit_illustrations/index.js",
+    "./portfolio/morbidre_designs/index.js",
+    "./portfolio/morbidre_illustrations/index.js",
+  ],
 };
 
 module.exports = nextConfig;
