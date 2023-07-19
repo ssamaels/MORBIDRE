@@ -1,8 +1,4 @@
-import styled from "styled-components";
-import Image from "next/image";
-import Link from "next/link";
 import Header from "@/components/Header";
-import DrawingCanvas from "@/components/DrawingCanvas";
 
 export default function Contact() {
   return (
@@ -30,10 +26,6 @@ export default function Contact() {
           cols="30"
           rows="20"
         ></textarea>
-        <div className="field">
-          <DrawingCanvas />
-        </div>
-        <button type="submit">SUBMIT</button>
       </div>
     </>
   );
