@@ -14,12 +14,7 @@ export default function Header() {
             <Button>PORTFOLIO</Button>
           </Link>
           <Brand>
-            <Image
-              src="/images/LOGO MORBIDRE-01.png"
-              alt=""
-              width={150}
-              height={150}
-            />
+            <Image src="/images/TRUE-LOGO.png" alt="" width={150} height={60} />
           </Brand>
           <Link href="/contact" style={{ textDecoration: "none" }}>
             <Button>CONTACT</Button>
@@ -42,14 +37,15 @@ const StyledHeader = styled.header`
   background: transparent;
   border-bottom: 6px solid #1ce598;
   margin: 0;
+  margin-top: 10px;
 `;
 
 const Brand = styled.div`
-  margin-top: -35px;
+  align-self: center;
 `;
 
 const NavContainer = styled.div`
-  /* justify-content: space-evenly; */
+  align-self: center;
 `;
 
 const Nav = styled.nav`
