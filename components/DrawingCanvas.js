@@ -112,7 +112,10 @@ export default function DrawingCanvas() {
 
   return (
     <CreativeArea>
-      <StyledCanvas ref={canvasRef} id="canvas"></StyledCanvas>
+      <StyledLabel htmlFor="canvas">
+        <strong>Draw what you have in mind:</strong>
+      </StyledLabel>
+      <StyledCanvas ref={canvasRef} name="canvas" id="canvas"></StyledCanvas>
       <StyledTools>
         <RangePicker
           onChange={(e) => (drawWidth.current = e.target.value)}
@@ -147,6 +150,8 @@ const CreativeArea = styled.div`
 const StyledCanvas = styled.canvas`
   border: 4px solid #1ce598;
   border-radius: 15px;
+  /* width: 500px;
+  height: 400px; */
 `;
 
 const StyledTools = styled.div`
@@ -171,4 +176,8 @@ const RangePicker = styled.input`
   margin: 10px;
   background-color: #1ce598;
   align-self: center;
+`;
+
+const StyledLabel = styled.label`
+  margin: 3px;
 `;

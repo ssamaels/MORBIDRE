@@ -9,9 +9,9 @@ export default function Contact() {
     <>
       <Header />
       <StyledForm>
-        <label htmlFor="name" className="name_label">
+        <StyledLabel htmlFor="name">
           <strong>Name:</strong>
-        </label>
+        </StyledLabel>
         <StyledInput
           type="text"
           name="name"
@@ -20,9 +20,9 @@ export default function Contact() {
           rows="5"
           required
         ></StyledInput>
-        <label htmlFor="email" className="name_label">
+        <StyledLabel htmlFor="email">
           <strong>Email:</strong>
-        </label>
+        </StyledLabel>
         <StyledInput
           type="text"
           name="email"
@@ -31,13 +31,13 @@ export default function Contact() {
           rows="5"
           required
         ></StyledInput>
-        <label htmlFor="Message" className="Message_label">
+        <StyledLabel htmlFor="message">
           <strong>Message:</strong>
-        </label>
+        </StyledLabel>
         <StyledTextArea
           type="text"
-          name="notes"
-          id="notes"
+          name="message"
+          id="message"
           cols="30"
           rows="5"
           required
@@ -63,15 +63,23 @@ const StyledForm = styled.div`
 const StyledInput = styled.input`
   border: 4px solid #1ce598;
   border-radius: 15px;
+  padding-left: 5px;
+  padding-right: 5px;
 `;
 
 const StyledTextArea = styled.textarea`
   border: 4px solid #1ce598;
   border-radius: 15px;
+  padding-left: 5px;
+  padding-right: 5px;
 `;
 
 const StyledButton = styled.button`
   margin: 10px;
   background-color: #1ce598;
   border-radius: 15px;
+`;
+
+const StyledLabel = styled.label`
+  margin: 3px;
 `;
