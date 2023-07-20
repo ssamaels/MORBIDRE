@@ -14,7 +14,7 @@ export default function Contact() {
         </StyledLabel>
         <StyledInput
           type="text"
-          name="name"
+          className="name"
           id="name"
           cols="30"
           rows="5"
@@ -25,7 +25,7 @@ export default function Contact() {
         </StyledLabel>
         <StyledInput
           type="text"
-          name="email"
+          className="email"
           id="email"
           cols="30"
           rows="5"
@@ -36,7 +36,7 @@ export default function Contact() {
         </StyledLabel>
         <StyledTextArea
           type="text"
-          name="message"
+          className="message"
           id="message"
           cols="30"
           rows="5"

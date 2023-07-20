@@ -2,8 +2,8 @@ import styles from "@/styles/Home.module.css";
 import Header from "@/components/Header";
 import Image from "next/image";
 import React from "react";
-import connectDB from "@/pages/api/projects/db/connect";
-import KidlitIllustrations from "@/pages/api/projects/db/models/kidlit_illustrations";
+import connectDB from "@/pages/api/db/connect";
+import KidlitIllustrations from "@/pages/api/db/models/kidlit_illustrations";
 
 const KidlitIllustrationsPage = ({ illustrations }) => {
   return (

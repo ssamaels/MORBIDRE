@@ -1,8 +1,8 @@
 import styles from "@/styles/Home.module.css";
 import React from "react";
 import Header from "@/components/Header";
-import connectDB from "@/pages/api/projects/db/connect";
-import Collections from "@/pages/api/projects/db/models/collections";
+import connectDB from "@/pages/api/db/connect";
+import Collections from "@/pages/api/db/models/collections";
 import Image from "next/image";
 
 const CollectionsPage = ({ collections }) => {

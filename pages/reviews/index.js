@@ -2,65 +2,31 @@ import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
+import ReviewForm from "@/components/ReviewForm";
+import Reviews from "@/components/Reviews";
 
-export default function Contact() {
+export default function ReviewsPage({ reviews }) {
+  async function handleAddReview(review) {
+    const response = await fetch("/api/reviews", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(review),
+    });
+
+    if (response.ok) {
+      await response.json();
+    } else {
+      console.error(`Error: ${response.status}`);
+    }
+  }
+
   return (
     <>
       <Header />
-      <StyledForm>
-        <label htmlFor="name" className="name_label">
-          <strong>Name:</strong>
-        </label>
-        <StyledInput
-          type="text"
-          name="name"
-          id="name"
-          cols="30"
-          rows="5"
-          required
-        ></StyledInput>
-        <label htmlFor="Message" className="Message_label">
-          <strong>Write a review:</strong>
-        </label>
-        <StyledTextArea
-          type="text"
-          name="notes"
-          id="notes"
-          cols="30"
-          rows="5"
-          required
-        ></StyledTextArea>
-        <StyledButton type="submit">SUBMIT</StyledButton>
-      </StyledForm>
+      <ReviewForm onAddReview={handleAddReview} />
+      <Reviews reviews={reviews} />
     </>
   );
 }
-
-const StyledForm = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  align-items: center;
-  justify-content: space-around;
-  margin-top: 20px;
-`;
-
-const StyledInput = styled.input`
-  border: 4px solid #1ce598;
-  border-radius: 15px;
-  padding-left: 5px;
-  padding-right: 5px;
-`;
-
-const StyledTextArea = styled.textarea`
-  border: 4px solid #1ce598;
-  border-radius: 15px;
-  padding-left: 5px;
-  padding-right: 5px;
-`;
-
-const StyledButton = styled.button`
-  margin: 10px;
-  background-color: #1ce598;
-  border-radius: 15px;
-`;

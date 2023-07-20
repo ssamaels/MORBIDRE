@@ -115,7 +115,13 @@ export default function DrawingCanvas() {
       <StyledLabel htmlFor="canvas">
         <strong>Draw what you have in mind:</strong>
       </StyledLabel>
-      <StyledCanvas ref={canvasRef} name="canvas" id="canvas"></StyledCanvas>
+      <StyledCanvas
+        ref={canvasRef}
+        className="canvas"
+        id="canvas"
+        width={700}
+        height={350}
+      ></StyledCanvas>
       <StyledTools>
         <RangePicker
           onChange={(e) => (drawWidth.current = e.target.value)}
@@ -144,7 +150,7 @@ const CreativeArea = styled.div`
   width: 100vw;
   align-items: center;
   justify-content: space-around;
-  margin: 10px;
+  margin-top: 10px;
 `;
 
 const StyledCanvas = styled.canvas`

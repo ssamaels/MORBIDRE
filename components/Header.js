@@ -14,7 +14,13 @@ export default function Header() {
             <Button>PORTFOLIO</Button>
           </Link>
           <Brand>
-            <Image src="/images/TRUE-LOGO.png" alt="" width={150} height={60} />
+            <Image
+              src="/images/TRUE-LOGO.png"
+              alt=""
+              width={150}
+              height={60}
+              priority
+            />
           </Brand>
           <Link href="/contact" style={{ textDecoration: "none" }}>
             <Button>CONTACT</Button>
