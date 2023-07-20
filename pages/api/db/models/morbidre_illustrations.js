@@ -7,9 +7,8 @@ const MorbidreIllustrationsSchema = new mongoose.Schema({
   },
 });
 
-let MorbidreIllustrations = mongoose.model(
-  "MorbidreIllustrations",
-  MorbidreIllustrationsSchema
-);
+let MorbidreIllustrations =
+  mongoose.models.MorbidreIllustrations ||
+  mongoose.model("MorbidreIllustrations", MorbidreIllustrationsSchema);
 
 export default MorbidreIllustrations;

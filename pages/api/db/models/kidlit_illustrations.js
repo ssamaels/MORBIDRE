@@ -7,9 +7,8 @@ const KidlitIllustrationsSchema = new mongoose.Schema({
   },
 });
 
-let KidlitIllustrations = mongoose.model(
-  "KidlitIllustrations",
-  KidlitIllustrationsSchema
-);
+let KidlitIllustrations =
+  mongoose.models.KidlitIllustrations ||
+  mongoose.model("KidlitIllustrations", KidlitIllustrationsSchema);
 
 export default KidlitIllustrations;
