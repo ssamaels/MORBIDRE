@@ -1,85 +1,42 @@
-import styled from "styled-components";
-import Image from "next/image";
-import Link from "next/link";
 import Header from "@/components/Header";
-import DrawingCanvas from "@/components/DrawingCanvas";
+import ContactForm from "@/components/ContactForm";
+import { useState, useEffect } from "react";
 
-export default function Contact() {
+export default function ContactPage() {
+  const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    async function handleGetContact(contact) {
+      const response = await fetch("/api/contacts");
+      if (response.ok) {
+        const responses = await response.json();
+        setContacts(responses);
+      } else {
+        console.error(`Error: ${response.status}`);
+      }
+    }
+    handleGetContact();
+  }, []);
+  async function handleAddContact(contact) {
+    const response = await fetch("/api/contacts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(contact),
+    });
+
+    if (response.ok) {
+      const responses = await response.json();
+      console.log(responses);
+    } else {
+      console.error(`Error: ${response.status}`);
+    }
+  }
   return (
     <>
       <Header />
-      <StyledForm>
-        <StyledLabel htmlFor="name">
-          <strong>Name:</strong>
-        </StyledLabel>
-        <StyledInput
-          type="text"
-          className="name"
-          id="name"
-          cols="30"
-          rows="5"
-          required
-        ></StyledInput>
-        <StyledLabel htmlFor="email">
-          <strong>Email:</strong>
-        </StyledLabel>
-        <StyledInput
-          type="text"
-          className="email"
-          id="email"
-          cols="30"
-          rows="5"
-          required
-        ></StyledInput>
-        <StyledLabel htmlFor="message">
-          <strong>Message:</strong>
-        </StyledLabel>
-        <StyledTextArea
-          type="text"
-          className="message"
-          id="message"
-          cols="30"
-          rows="5"
-          required
-        ></StyledTextArea>
-        <div className="field">
-          <DrawingCanvas />
-        </div>
-        <StyledButton type="submit">SUBMIT</StyledButton>
-      </StyledForm>
+      <ContactForm onAddContact={handleAddContact} />
     </>
   );
 }
-
-const StyledForm = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  align-items: center;
-  justify-content: space-around;
-  margin-top: 20px;
-`;
-
-const StyledInput = styled.input`
-  border: 4px solid #1ce598;
-  border-radius: 15px;
-  padding-left: 5px;
-  padding-right: 5px;
-`;
-
-const StyledTextArea = styled.textarea`
-  border: 4px solid #1ce598;
-  border-radius: 15px;
-  padding-left: 5px;
-  padding-right: 5px;
-`;
-
-const StyledButton = styled.button`
-  margin: 10px;
-  background-color: #1ce598;
-  border-radius: 15px;
-`;
-
-const StyledLabel = styled.label`
-  margin: 3px;
-`;
