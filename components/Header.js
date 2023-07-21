@@ -38,7 +38,7 @@ const StyledHeader = styled.header`
   display: flexbox;
   align-items: center;
   justify-content: space-evenly;
-  width: 100vw;
+  width: 100%;
   height: 70px;
   background: transparent;
   border-bottom: 6px solid #1ce598;

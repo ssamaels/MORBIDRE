@@ -57,7 +57,7 @@ export default ReviewForm;
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  max-width: 500;
   align-items: center;
   justify-content: space-around;
   margin-top: 20px;

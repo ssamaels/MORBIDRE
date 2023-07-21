@@ -1,21 +1,21 @@
 import connectDB from "../db/connect";
-import Review from "../db/models/reviews";
+import Contact from "../db/models/contact";
 
 export default async function handler(request, response) {
   await connectDB();
   if (request.method === "GET") {
-    const reviews = await Review.find();
+    const contacts = await Contact.find();
 
-    return response.status(200).json(reviews);
+    return response.status(200).json(contacts);
   }
   if (request.method === "POST") {
     console.log(request.body);
     try {
-      const reviewData = request.body;
-      const review = new Review(reviewData);
-      const savedReview = await review.save();
-      console.log(savedReview);
-      response.status(201).json({ status: "Review created", savedReview });
+      const contactData = request.body;
+      const contact = new Contact(contactData);
+      const savedContact = await contact.save();
+      console.log(savedContact);
+      response.status(201).json({ status: "Contact created", savedContact });
       console.log(response);
     } catch (error) {
       console.log(error);

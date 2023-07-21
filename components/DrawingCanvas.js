@@ -19,19 +19,21 @@ export default function DrawingCanvas() {
 
     function start(event) {
       isDrawing.current = true;
+      const { pageX, pageY } = event.touches ? event.touches[0] : event;
       context.current.beginPath();
       context.current.moveTo(
-        event.clientX - canvas.offsetLeft,
-        event.clientY - canvas.offsetTop
+        pageX - canvas.offsetLeft,
+        pageY - canvas.offsetTop
       );
       event.preventDefault();
     }
 
     function draw(event) {
       if (isDrawing.current) {
+        const { pageX, pageY } = event.touches ? event.touches[0] : event;
         context.current.lineTo(
-          event.clientX - canvas.offsetLeft,
-          event.clientY - canvas.offsetTop
+          pageX - canvas.offsetLeft,
+          pageY - canvas.offsetTop
         );
         context.current.strokeStyle = drawColor.current;
         context.current.lineWidth = drawWidth.current;
@@ -144,6 +146,23 @@ export default function DrawingCanvas() {
   );
 }
 
+export function convertCanvasToImage() {
+  const dataURL = canvas.toDataURL("image/png");
+  return dataURL;
+}
+
+// export function clearCanvas() {
+//   const canvas = canvas.current;
+//   const context = canvas.getContext("2d");
+//   const startBackgroundColor = "white";
+//   context.fillStyle = startBackgroundColor;
+//   context.clearRect(0, 0, canvas.width, canvas.height);
+//   context.fillRect(0, 0, canvas.width, canvas.height);
+
+//   restoreArray.current = [];
+//   index.current = -1;
+// }
+
 const CreativeArea = styled.div`
   display: flex;
   flex-direction: column;
@@ -156,8 +175,6 @@ const CreativeArea = styled.div`
 const StyledCanvas = styled.canvas`
   border: 4px solid #1ce598;
   border-radius: 15px;
-  /* width: 500px;
-  height: 400px; */
 `;
 
 const StyledTools = styled.div`
