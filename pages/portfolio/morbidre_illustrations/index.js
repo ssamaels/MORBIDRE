@@ -2,8 +2,8 @@ import styles from "@/styles/Home.module.css";
 import Header from "@/components/Header";
 import Image from "next/image";
 import React from "react";
-import connectDB from "@/pages/api/db/connect";
-import MorbidreIllustrations from "@/pages/api/db/models/morbidre_illustrations";
+import connectDB from "@/db/connect";
+import MorbidreIllustrations from "@/db/models/morbidre_illustrations";
 
 const MorbidreIllustrationsPage = ({ illustrations }) => {
   return (

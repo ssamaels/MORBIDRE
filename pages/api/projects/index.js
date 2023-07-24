@@ -1,5 +1,5 @@
-import connectDB from "../db/connect";
-import Review from "../db/models/reviews";
+import connectDB from "../../../db/connect";
+import Review from "../../../db/models/reviews";
 
 export default async function handler(request, response) {
   await connectDB();

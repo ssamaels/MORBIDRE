@@ -1,5 +1,5 @@
-import connectDB from "../db/connect";
-import Contact from "../db/models/contact";
+import connectDB from "../../../db/connect";
+import Contact from "../../../db/models/contact";
 
 export default async function handler(request, response) {
   await connectDB();
