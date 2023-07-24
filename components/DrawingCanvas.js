@@ -1,139 +1,9 @@
-// import React, { useRef, useEffect } from "react";
-
-// export default function DrawingCanvas() {
-//   const canvasRef = useRef(null);
-//   let context;
-//   let drawColor = "black";
-//   let startBackgroundColor = "white";
-//   let drawWidth = 2;
-//   let isDrawing = false;
-//   let restoreArray = [];
-//   let index = -1;
-
-//   useEffect(() => {
-//     const canvas = canvasRef.current;
-//     context.current = canvas.getContext("2d");
-//     context.fillStyle = startBackgroundColor;
-//     context.fillRect(0, 0, canvas.width, canvas.height);
-
-//     canvas.addEventListener("touchstart", start, false);
-//     canvas.addEventListener("touchmove", draw, false);
-//     canvas.addEventListener("mousedown", start, false);
-//     canvas.addEventListener("mousemove", draw, false);
-//     canvas.addEventListener("touchend", stop, false);
-//     canvas.addEventListener("mouseup", stop, false);
-//     canvas.addEventListener("mouseout", stop, false);
-
-//     return () => {
-//       canvas.removeEventListener("touchstart", start);
-//       canvas.removeEventListener("touchmove", draw);
-//       canvas.removeEventListener("mousedown", start);
-//       canvas.removeEventListener("mousemove", draw);
-//       canvas.removeEventListener("touchend", stop);
-//       canvas.removeEventListener("mouseup", stop);
-//       canvas.removeEventListener("mouseout", stop);
-//     };
-//   }, []);
-
-//   function start(event) {
-//     isDrawing = true;
-//     context.beginPath();
-//     context.moveTo(
-//       event.clientX - canvasRef.current.offsetLeft,
-//       event.clientY - canvasRef.current.offsetTop
-//     );
-//     event.preventDefault();
-//   }
-
-//   function draw(event) {
-//     if (isDrawing) {
-//       context.lineTo(
-//         event.clientX - canvasRef.current.offsetLeft,
-//         event.clientY - canvasRef.current.offsetTop
-//       );
-//       context.strokeStyle = drawColor;
-//       context.lineWidth = drawWidth;
-//       context.lineCap = "round";
-//       context.lineJoin = "round";
-//       context.stroke();
-//     }
-//     event.preventDefault();
-//   }
-
-//   function stop(event) {
-//     if (isDrawing) {
-//       context.stroke();
-//       context.closePath();
-//       isDrawing = false;
-//     }
-//     event.preventDefault();
-
-//     if (event.type !== "mouseout") {
-//       restoreArray.push(
-//         context.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height)
-//       );
-//       index += 1;
-//     }
-//   }
-
-//   function changeColor(element) {
-//     drawColor = element.style.background;
-//   }
-
-//   function clearCanvas() {
-//     context.fillStyle = startBackgroundColor;
-//     context.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-//     context.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-
-//     restoreArray = [];
-//     index = -1;
-//   }
-
-//   function undoLast() {
-//     if (index <= 0) {
-//       clearCanvas();
-//     } else {
-//       index -= 1;
-//       restoreArray.pop();
-//       context.putImageData(restoreArray[index], 0, 0);
-//     }
-//   }
-
-//   return (
-//     <div className="field">
-//       <canvas ref={canvasRef} id="canvas"></canvas>
-//       <div className="tools">
-//         <button onClick={undoLast} type="button" className="button">
-//           Undo
-//         </button>
-//         <button onClick={clearCanvas} type="button" className="button">
-//           Clear
-//         </button>
-
-//         <input
-//           onChange={(e) => (drawColor = e.target.value)}
-//           type="color"
-//           className="color-picker"
-//           id="color-picker"
-//         />
-//         <input
-//           onChange={(e) => (drawWidth = e.target.value)}
-//           type="range"
-//           className="range-picker"
-//           id="range-picker"
-//           min="1"
-//           max="100"
-//         />
-//       </div>
-//     </div>
-//   );
-// }
-
 import React, { useRef, useEffect } from "react";
+import styled from "styled-components";
 
 export default function DrawingCanvas() {
   const canvasRef = useRef(null);
-  const context = useRef(null); // Using useRef here
+  const context = useRef(null);
   const drawColor = useRef("black");
   const startBackgroundColor = useRef("white");
   const drawWidth = useRef(2);
@@ -143,25 +13,27 @@ export default function DrawingCanvas() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    context.current = canvas.getContext("2d"); // Setting the mutable value
+    context.current = canvas.getContext("2d");
     context.current.fillStyle = startBackgroundColor.current;
     context.current.fillRect(0, 0, canvas.width, canvas.height);
 
     function start(event) {
       isDrawing.current = true;
+      const { pageX, pageY } = event.touches ? event.touches[0] : event;
       context.current.beginPath();
       context.current.moveTo(
-        event.clientX - canvas.offsetLeft,
-        event.clientY - canvas.offsetTop
+        pageX - canvas.offsetLeft,
+        pageY - canvas.offsetTop
       );
       event.preventDefault();
     }
 
     function draw(event) {
       if (isDrawing.current) {
+        const { pageX, pageY } = event.touches ? event.touches[0] : event;
         context.current.lineTo(
-          event.clientX - canvas.offsetLeft,
-          event.clientY - canvas.offsetTop
+          pageX - canvas.offsetLeft,
+          pageY - canvas.offsetTop
         );
         context.current.strokeStyle = drawColor.current;
         context.current.lineWidth = drawWidth.current;
@@ -241,31 +113,94 @@ export default function DrawingCanvas() {
   }
 
   return (
-    <div className="field">
-      <canvas ref={canvasRef} id="canvas"></canvas>
-      <div className="tools">
-        <button onClick={undoLast} type="button" className="button">
-          Undo
-        </button>
-        <button onClick={clearCanvas} type="button" className="button">
-          Clear
-        </button>
-
-        <input
-          onChange={(e) => (drawColor.current = e.target.value)}
-          type="color"
-          className="color-picker"
-          id="color-picker"
-        />
-        <input
+    <CreativeArea>
+      <StyledLabel htmlFor="canvas">
+        <strong>Draw what you have in mind:</strong>
+      </StyledLabel>
+      <StyledCanvas
+        ref={canvasRef}
+        className="canvas"
+        id="canvas"
+        width={700}
+        height={350}
+      ></StyledCanvas>
+      <StyledTools>
+        <RangePicker
           onChange={(e) => (drawWidth.current = e.target.value)}
           type="range"
-          className="range-picker"
-          id="range-picker"
           min="1"
           max="100"
         />
-      </div>
-    </div>
+        <ColorPicker
+          onChange={(e) => (drawColor.current = e.target.value)}
+          type="color"
+        />
+        <StyledButton onClick={undoLast} type="button" className="button">
+          Undo
+        </StyledButton>
+        <StyledButton onClick={clearCanvas} type="button" className="button">
+          Clear
+        </StyledButton>
+      </StyledTools>
+    </CreativeArea>
   );
 }
+
+export function convertCanvasToImage() {
+  const dataURL = canvas.toDataURL("image/png");
+  return dataURL;
+}
+
+// export function clearCanvas() {
+//   const canvas = canvas.current;
+//   const context = canvas.getContext("2d");
+//   const startBackgroundColor = "white";
+//   context.fillStyle = startBackgroundColor;
+//   context.clearRect(0, 0, canvas.width, canvas.height);
+//   context.fillRect(0, 0, canvas.width, canvas.height);
+
+//   restoreArray.current = [];
+//   index.current = -1;
+// }
+
+const CreativeArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 10px;
+`;
+
+const StyledCanvas = styled.canvas`
+  border: 4px solid #1ce598;
+  border-radius: 15px;
+`;
+
+const StyledTools = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+`;
+
+const StyledButton = styled.button`
+  margin: 10px;
+  background-color: #1ce598;
+  align-self: center;
+`;
+
+const ColorPicker = styled.input`
+  margin: 10px;
+  background-color: #1ce598;
+  align-self: center;
+`;
+
+const RangePicker = styled.input`
+  margin: 10px;
+  background-color: #1ce598;
+  align-self: center;
+`;
+
+const StyledLabel = styled.label`
+  margin: 3px;
+`;

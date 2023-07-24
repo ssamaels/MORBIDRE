@@ -1,40 +1,42 @@
-import styled from "styled-components";
-import Image from "next/image";
-import Link from "next/link";
 import Header from "@/components/Header";
-import DrawingCanvas from "@/components/DrawingCanvas";
+import ContactForm from "@/components/ContactForm";
+import { useState, useEffect } from "react";
 
-export default function Contact() {
+export default function ContactPage() {
+  const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    async function handleGetContact(contact) {
+      const response = await fetch("/api/contacts");
+      if (response.ok) {
+        const responses = await response.json();
+        setContacts(responses);
+      } else {
+        console.error(`Error: ${response.status}`);
+      }
+    }
+    handleGetContact();
+  }, []);
+  async function handleAddContact(contact) {
+    const response = await fetch("/api/contacts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(contact),
+    });
+
+    if (response.ok) {
+      const responses = await response.json();
+      console.log(responses);
+    } else {
+      console.error(`Error: ${response.status}`);
+    }
+  }
   return (
     <>
       <Header />
-      <div>
-        <label htmlFor="name" className="name_label">
-          {" "}
-          <strong>Name:</strong>
-        </label>
-        <input type="text" name="name" id="name" cols="30" rows="5"></input>
-        <label htmlFor="email" className="name_label">
-          {" "}
-          <strong>Email:</strong>
-        </label>
-        <input type="text" name="email" id="email" cols="30" rows="5"></input>
-        <label htmlFor="Message" className="Message_label">
-          {" "}
-          <strong>Message:</strong>
-        </label>
-        <textarea
-          type="text"
-          name="notes"
-          id="notes"
-          cols="30"
-          rows="20"
-        ></textarea>
-        <div className="field">
-          <DrawingCanvas />
-        </div>
-        <button type="submit">SUBMIT</button>
-      </div>
+      <ContactForm onAddContact={handleAddContact} />
     </>
   );
 }

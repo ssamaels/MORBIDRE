@@ -15,10 +15,11 @@ export default function Header() {
           </Link>
           <Brand>
             <Image
-              src="/images/LOGO MORBIDRE-01.png"
+              src="/images/TRUE-LOGO.png"
               alt=""
               width={150}
-              height={150}
+              height={60}
+              priority
             />
           </Brand>
           <Link href="/contact" style={{ textDecoration: "none" }}>
@@ -37,19 +38,20 @@ const StyledHeader = styled.header`
   display: flexbox;
   align-items: center;
   justify-content: space-evenly;
-  width: 100vw;
+  width: 100%;
   height: 70px;
   background: transparent;
   border-bottom: 6px solid #1ce598;
   margin: 0;
+  margin-top: 10px;
 `;
 
 const Brand = styled.div`
-  margin-top: -35px;
+  align-self: center;
 `;
 
 const NavContainer = styled.div`
-  /* justify-content: space-evenly; */
+  align-self: center;
 `;
 
 const Nav = styled.nav`
