@@ -1,4 +1,4 @@
-import styles from "@/styles/Home.module.css";
+import styled from "styled-components";
 import Header from "@/components/Header";
 import Image from "next/image";
 import React from "react";
@@ -9,22 +9,20 @@ const KidlitIllustrationsPage = ({ illustrations }) => {
   return (
     <>
       <Header />
-      <div>
+      <KidlitDisplay>
         <h1>Kidlit Illustrations</h1>
-        {illustrations.length > 0 ? (
-          illustrations.map((illustration) => (
-            <Image
-              key={illustration._id}
-              src={illustration.image}
-              alt="Illustration"
-              width={50}
-              height={50}
-            />
-          ))
-        ) : (
-          <p>No illustrations found.</p>
-        )}
-      </div>
+        <KidlitGrid>
+          {illustrations.length > 0 ? (
+            illustrations.map((illustration) => (
+              <KidlitItem key={illustration._id}>
+                <ZoomableImage src={illustration.image} alt="Illustration" />
+              </KidlitItem>
+            ))
+          ) : (
+            <p>No illustrations found.</p>
+          )}
+        </KidlitGrid>
+      </KidlitDisplay>
     </>
   );
 };
@@ -51,3 +49,50 @@ export async function getServerSideProps() {
 }
 
 export default KidlitIllustrationsPage;
+
+const KidlitDisplay = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const KidlitGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+`;
+
+const KidlitItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid #1ce598;
+  padding: 10px;
+  position: relative;
+  overflow: hidden;
+`;
+
+const ZoomableImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+
+  ${KidlitItem}:hover & {
+    transform: scale(0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 500;
+    pointer-events: none;
+  }
+
+  ${KidlitItem}:not(:hover) & {
+    transform: scale(1);
+    pointer-events: auto;
+  }
+`;
