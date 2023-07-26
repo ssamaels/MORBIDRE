@@ -9,7 +9,7 @@ export default function ContactPage() {
 
   useEffect(() => {
     async function handleGetContact(contact) {
-      const response = await fetch("/api/contacts");
+      const response = await fetch("/api/contact");
       if (response.ok) {
         const responses = await response.json();
         setContacts(responses);
@@ -20,7 +20,7 @@ export default function ContactPage() {
     handleGetContact();
   }, []);
   async function handleAddContact(contact) {
-    const response = await fetch("/api/contacts", {
+    const response = await fetch("/api/contact", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
