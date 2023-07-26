@@ -67,7 +67,6 @@ const CollectionItem = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
-  border: 1px solid #1ce598;
   padding: 10px;
   position: relative;
   overflow: hidden;
@@ -80,6 +79,8 @@ const ZoomableImage = styled.img`
   transition: transform 0.3s ease;
 
   ${CollectionItem}:hover & {
+    background-color: rgba(62, 250, 178, 0.7);
+    border-radius: 500px;
     transform: scale(0.8);
     position: fixed;
     top: 0;
