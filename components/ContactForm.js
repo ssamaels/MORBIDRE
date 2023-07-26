@@ -79,7 +79,7 @@ export default function ContactForm({ onAddContact }) {
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  /* width: 100vw; */
   align-items: center;
   justify-content: space-around;
   margin-top: 20px;
