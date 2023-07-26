@@ -4,12 +4,6 @@ import { useState, useEffect } from "react";
 import useLocalStorage from "use-local-storage";
 
 export default function App({ Component, pageProps }) {
-  // const [reviews, setReviews] = useLocalStorage("Review: ", []);
-
-  // const handleAddReview = (newReview) => {
-  //   setReviews((prevResetReviews) => [...prevResetReviews, newReview]);
-  // };
-
   return (
     <SWRConfig
       value={{
