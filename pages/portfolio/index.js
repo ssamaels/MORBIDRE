@@ -67,7 +67,7 @@ export default function Portfolio({
       <ElementsContainer>
         <Image
           className="left"
-          src="/images/Background-element-light-left.png"
+          src="/images/Background element light left 1ce598.png"
           alt=""
           height={850}
           width={350}
@@ -76,7 +76,7 @@ export default function Portfolio({
           <LinkDisplay>
             <Link
               href="/portfolio/kidlit_illustrations"
-              style={{ textDecoration: "none", color: "#03915b" }}
+              style={{ textDecoration: "none", color: "#0aa368" }}
             >
               <strong>KIDLIT ILLUSTRATIONS:</strong>
             </Link>
@@ -93,7 +93,7 @@ export default function Portfolio({
               <Link href="/portfolio/kidlit_illustrations">
                 <BiSolidRightArrow
                   style={{
-                    color: "#03915b",
+                    color: "#0aa368",
                     width: "50",
                     height: "50",
                     marginLeft: "20",
@@ -105,7 +105,7 @@ export default function Portfolio({
           <LinkDisplay>
             <Link
               href="/portfolio/morbidre_illustrations"
-              style={{ textDecoration: "none", color: "#07945e" }}
+              style={{ textDecoration: "none", color: "#11b877" }}
             >
               <strong>MORBIDRE ILLUSTRATIONS:</strong>
             </Link>
@@ -122,7 +122,7 @@ export default function Portfolio({
               <Link href="/portfolio/morbidre_illustrations">
                 <BiSolidRightArrow
                   style={{
-                    color: "#07945e",
+                    color: "#11b877",
                     width: "50",
                     height: "50",
                     marginLeft: "20",
@@ -134,7 +134,7 @@ export default function Portfolio({
           <LinkDisplay>
             <Link
               href="/portfolio/morbidre_designs"
-              style={{ textDecoration: "none", color: "#14c782" }}
+              style={{ textDecoration: "none", color: "##1ce598" }}
             >
               <strong>MORBIDRE DESIGN:</strong>
             </Link>
@@ -151,7 +151,7 @@ export default function Portfolio({
               <Link href="/portfolio/morbidre_designs">
                 <BiSolidRightArrow
                   style={{
-                    color: "#14c782",
+                    color: "##1ce598",
                     width: "50",
                     height: "50",
                     marginLeft: "20",
@@ -163,7 +163,7 @@ export default function Portfolio({
           <LinkDisplay>
             <Link
               href="/portfolio/collections"
-              style={{ textDecoration: "none", color: "#1ce598" }}
+              style={{ textDecoration: "none", color: "#26f0a3" }}
             >
               <strong>COLLECTIONS:</strong>
             </Link>
@@ -180,7 +180,7 @@ export default function Portfolio({
               <Link href="/portfolio/collections">
                 <BiSolidRightArrow
                   style={{
-                    color: "#1ce598",
+                    color: "#26f0a3",
                     width: "50",
                     height: "50",
                     marginLeft: "20",
@@ -192,7 +192,7 @@ export default function Portfolio({
         </Container>
         <Image
           className="right"
-          src="/images/Background element light right.png"
+          src="/images/Background element light right 1ce598.png"
           alt=""
           height={850}
           width={300}

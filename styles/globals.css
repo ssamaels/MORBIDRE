@@ -4,7 +4,9 @@
 }
 
 body {
-  background-image: url("../public/images/Background\ light\ bottom\ s.png");
+  background-image: url("../public/images/Background\ light.png");
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: bottom;
+  margin: 0;
 }

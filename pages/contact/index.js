@@ -41,7 +41,7 @@ export default function ContactPage() {
       <ElementsContainer>
         <Image
           className="left"
-          src="/images/Background-element-light-left.png"
+          src="/images/Background element light left 1ce598.png"
           alt=""
           height={850}
           width={350}
@@ -49,7 +49,7 @@ export default function ContactPage() {
         <ContactForm onAddContact={handleAddContact} />
         <Image
           className="right"
-          src="/images/Background element light right.png"
+          src="/images/Background element light right 1ce598.png"
           alt=""
           height={850}
           width={300}
