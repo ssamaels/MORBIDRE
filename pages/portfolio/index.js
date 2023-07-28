@@ -206,15 +206,22 @@ const ElementsContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 25px;
+  margin-top: 2.5rem;
   justify-content: space-between;
 
-  .left {
-    align-self: flex-start;
-  }
+  @media (max-width: 1425px) {
+    .left {
+      display: none;
+    }
 
-  .right {
-    align-self: flex-end;
+    .right {
+      display: none;
+    }
+    justify-content: center;
+  }
+  @media (max-width: 768px) {
+    flex-direction: column;
+    justify-content: space-between;
   }
 `;
 
@@ -230,18 +237,25 @@ const LinkDisplay = styled.div`
 
   a {
     justify-self: flex-start;
-    margin-left: -20px;
+    margin-left: -2rem;
   }
 `;
 
 const ProjectDisplay = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 7px;
-  margin-bottom: 20px;
+  margin-top: 0.7rem;
+  margin-bottom: 2rem;
 
   img {
-    margin-left: 3px;
-    margin-right: 3px;
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    img {
+      margin-bottom: 0.5rem;
+    }
   }
 `;

@@ -134,7 +134,7 @@ const Container = styled.div`
   margin-left: 10%;
   margin-top: 50px;
   background-color: #1ce598;
-  min-height: 300px;
+  min-height: 30rem;
 `;
 
 const Introduction = styled.div`
@@ -197,7 +197,7 @@ const Tree = styled.div`
     margin-left: 135px;
 
     h3 {
-      font-size: xx-large;
+      font-size: 2rem;
     }
 
     .pg {
@@ -218,7 +218,7 @@ const Tree = styled.div`
     margin-left: 135px;
 
     h3 {
-      font-size: xx-large;
+      font-size: 2rem;
     }
 
     .pm {
@@ -239,7 +239,7 @@ const Tree = styled.div`
     margin-left: 135px;
 
     h3 {
-      font-size: xx-large;
+      font-size: 2rem;
     }
 
     .pk {

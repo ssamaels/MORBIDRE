@@ -78,21 +78,23 @@ const ZoomableImage = styled.img`
   object-fit: contain;
   transition: transform 0.3s ease;
 
-  ${CollectionItem}:hover & {
-    background-color: rgba(62, 250, 178, 0.7);
-    border-radius: 500px;
-    transform: scale(0.8);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 500;
-    pointer-events: none;
-  }
+  @media (min-width: 768px) {
+    ${CollectionItem}:hover & {
+      background-color: rgba(62, 250, 178, 0.7);
+      border-radius: 500px;
+      transform: scale(0.8);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 500;
+      pointer-events: none;
+    }
 
-  ${CollectionItem}:not(:hover) & {
-    transform: scale(1);
-    pointer-events: auto;
+    ${CollectionItem}:not(:hover) & {
+      transform: scale(1);
+      pointer-events: auto;
+    }
   }
 `;

@@ -4,7 +4,7 @@
 }
 
 body {
-  background-image: url("../public/images/Background\ light.png");
+  background-image: url("../public/images/Background light.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: bottom;
@@ -18,5 +18,9 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: bottom;
+    min-height: 100vh;
+    min-width: 100vw;
+    margin: 0;
+    padding: 0;
   }
 }
