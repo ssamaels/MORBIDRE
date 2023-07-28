@@ -134,7 +134,7 @@ export default function Portfolio({
           <LinkDisplay>
             <Link
               href="/portfolio/morbidre_designs"
-              style={{ textDecoration: "none", color: "##1ce598" }}
+              style={{ textDecoration: "none", color: "#1ce598" }}
             >
               <strong>MORBIDRE DESIGN:</strong>
             </Link>
@@ -151,7 +151,7 @@ export default function Portfolio({
               <Link href="/portfolio/morbidre_designs">
                 <BiSolidRightArrow
                   style={{
-                    color: "##1ce598",
+                    color: "#1ce598",
                     width: "50",
                     height: "50",
                     marginLeft: "20",
