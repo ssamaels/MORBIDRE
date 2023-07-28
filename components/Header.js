@@ -63,7 +63,8 @@ const StyledHeader = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  width: 100%;
+  position: sticky;
+  min-width: 100%;
   height: 70px;
   background: transparent;
   border-bottom: 6px solid #1ce598;
@@ -71,25 +72,31 @@ const StyledHeader = styled.header`
   margin-top: 10px;
   position: relative;
   z-index: 1;
+  @media (max-width: 768px) {
+    justify-content: space-between;
+  }
 `;
 
 const Brand = styled.div`
   align-self: center;
   margin-left: 10px;
+  @media (max-width: 768px) {
+    margin-left: 1rem;
+  }
 `;
 
 const Nav = styled.nav`
   display: flex;
   justify-content: space-evenly;
   margin-right: 10px;
-  @media (max-width: 690px) {
+  @media (max-width: 768px) {
     display: ${(props) => (props.showMenu ? "flex" : "none")};
     flex-direction: column;
     position: absolute;
     top: 70px;
     background: #ffffff;
     padding: 10px;
-    width: 100%;
+    width: 100vw;
     z-index: 2;
   }
 `;
@@ -111,15 +118,16 @@ const Button = styled.button`
     background: #ccc;
     color: #ffffff;
   }
-  @media (max-width: 690px) {
-    width: 100%;
+  @media (max-width: 768px) {
+    width: 100vw;
   }
 `;
 
 const BurgerButton = styled.button`
   display: none;
-  @media (max-width: 690px) {
+  @media (max-width: 768px) {
     display: block;
+    margin-right: 1rem;
     background: transparent;
     border: none;
     font-size: 1.5rem;

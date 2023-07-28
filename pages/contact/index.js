@@ -65,11 +65,18 @@ const ElementsContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  .left {
-    align-self: flex-start;
-  }
+  @media (max-width: 1425px) {
+    .left {
+      display: none;
+    }
 
-  .right {
-    align-self: flex-end;
+    .right {
+      display: none;
+    }
+    justify-content: center;
+  }
+  @media (max-width: 768px) {
+    flex-direction: column;
+    justify-content: space-between;
   }
 `;

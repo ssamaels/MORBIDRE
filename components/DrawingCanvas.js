@@ -20,10 +20,13 @@ export default function DrawingCanvas() {
     function start(event) {
       isDrawing.current = true;
       const { pageX, pageY } = event.touches ? event.touches[0] : event;
+      const canvasRect = canvasRef.current.getBoundingClientRect();
+      const scaleX = canvasRef.current.width / canvasRect.width;
+      const scaleY = canvasRef.current.height / canvasRect.height;
       context.current.beginPath();
       context.current.moveTo(
-        pageX - canvas.offsetLeft,
-        pageY - canvas.offsetTop
+        (pageX - canvasRect.left) * scaleX,
+        (pageY - canvasRect.top) * scaleY
       );
       event.preventDefault();
     }
@@ -31,9 +34,12 @@ export default function DrawingCanvas() {
     function draw(event) {
       if (isDrawing.current) {
         const { pageX, pageY } = event.touches ? event.touches[0] : event;
+        const canvasRect = canvasRef.current.getBoundingClientRect();
+        const scaleX = canvasRef.current.width / canvasRect.width;
+        const scaleY = canvasRef.current.height / canvasRect.height;
         context.current.lineTo(
-          pageX - canvas.offsetLeft,
-          pageY - canvas.offsetTop
+          (pageX - canvasRect.left) * scaleX,
+          (pageY - canvasRect.top) * scaleY
         );
         context.current.strokeStyle = drawColor.current;
         context.current.lineWidth = drawWidth.current;
@@ -151,22 +157,9 @@ export function convertCanvasToImage() {
   return dataURL;
 }
 
-// export function clearCanvas() {
-//   const canvas = canvas.current;
-//   const context = canvas.getContext("2d");
-//   const startBackgroundColor = "white";
-//   context.fillStyle = startBackgroundColor;
-//   context.clearRect(0, 0, canvas.width, canvas.height);
-//   context.fillRect(0, 0, canvas.width, canvas.height);
-
-//   restoreArray.current = [];
-//   index.current = -1;
-// }
-
 const CreativeArea = styled.div`
   display: flex;
   flex-direction: column;
-  /* width: 100vw; */
   align-items: center;
   justify-content: space-around;
   margin-top: 10px;
@@ -175,6 +168,10 @@ const CreativeArea = styled.div`
 const StyledCanvas = styled.canvas`
   border: 4px solid #1ce598;
   border-radius: 15px;
+
+  @media (max-width: 775px) {
+    width: 350px;
+  }
 `;
 
 const StyledTools = styled.div`
