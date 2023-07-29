@@ -1,19 +1,36 @@
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
-import { useState } from "react";
-import { AiOutlineMenu } from "react-icons/ai";
-import { BsPhone } from "react-icons/bs";
-import { GiFullFolder } from "react-icons/gi";
-import { TbStars } from "react-icons/tb";
-import { HiOutlineHome } from "react-icons/hi";
+import { useState, useEffect, useRef } from "react";
+import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
+import {
+  RiHomeLine,
+  RiFolderLine,
+  RiSmartphoneLine,
+  RiStarLine,
+} from "react-icons/ri";
 
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.pageYOffset;
+      setVisible(currentScrollPos < prevScrollPos || currentScrollPos < 10);
+      setPrevScrollPos(currentScrollPos);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [prevScrollPos]);
 
   return (
-    <StyledHeader>
-      <Brand>
+    <StyledHeader style={{ top: visible ? "0" : "-500px" }}>
+      <Brand onClick={() => setShowMenu(!showMenu)}>
         <Image
           src="/images/TRUE-LOGO.png"
           alt="MorbiDre"
@@ -21,36 +38,32 @@ export default function Header() {
           height={60}
           priority
         />
+        <ArrowButton>
+          <MdOutlineKeyboardDoubleArrowDown />
+        </ArrowButton>
       </Brand>
-      <BurgerButton onClick={() => setShowMenu(!showMenu)}>
-        <AiOutlineMenu />
-      </BurgerButton>
-      <Nav showMenu={showMenu}>
+      <Nav showMenu={!showMenu}>
         <Link href="/" style={{ textDecoration: "none" }}>
           <Button>
-            <HiOutlineHome
-              style={{ color: "#1ce598", width: "40", height: "40" }}
-            />
+            <RiHomeLine style={{ width: "30", height: "30" }} />
             HOME
           </Button>
         </Link>
         <Link href="/portfolio" style={{ textDecoration: "none" }}>
           <Button>
-            <GiFullFolder
-              style={{ color: "#1ce598", width: "40", height: "40" }}
-            />
+            <RiFolderLine style={{ width: "30", height: "30" }} />
             PORTFOLIO
           </Button>
         </Link>
         <Link href="/contact" style={{ textDecoration: "none" }}>
           <Button>
-            <BsPhone style={{ color: "#1ce598", width: "40", height: "40" }} />
+            <RiSmartphoneLine style={{ width: "30", height: "30" }} />
             CONTACT
           </Button>
         </Link>
         <Link href="/reviews" style={{ textDecoration: "none" }}>
           <Button>
-            <TbStars style={{ color: "#1ce598", width: "40", height: "40" }} />
+            <RiStarLine style={{ width: "30", height: "30" }} />
             REVIEWS
           </Button>
         </Link>
@@ -63,42 +76,45 @@ const StyledHeader = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  position: sticky;
-  min-width: 100%;
+  width: 100%;
   height: 70px;
   background: transparent;
-  border-bottom: 6px solid #1ce598;
   margin: 0;
-  margin-top: 10px;
+  margin-top: 2rem;
   position: relative;
-  z-index: 1;
-  @media (max-width: 768px) {
-    justify-content: space-between;
-  }
+  z-index: 5;
+  position: fixed;
+  transition: top 0.6s;
+  width: 100%;
+  top: 0;
+  z-index: 5;
 `;
 
 const Brand = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   align-self: center;
-  margin-left: 10px;
-  @media (max-width: 768px) {
-    margin-left: 1rem;
-  }
+  cursor: pointer;
 `;
 
 const Nav = styled.nav`
-  display: flex;
-  justify-content: space-evenly;
-  margin-right: 10px;
-  @media (max-width: 768px) {
-    display: ${(props) => (props.showMenu ? "flex" : "none")};
-    flex-direction: column;
-    position: absolute;
-    top: 70px;
-    background: #ffffff;
-    padding: 10px;
-    width: 100vw;
-    z-index: 2;
-  }
+  display: ${(props) => (props.showMenu ? "flex" : "none")};
+  flex-direction: column;
+  position: absolute;
+  top: 70px;
+  background: rgb(250, 250, 250, 0.8);
+  padding: 10px;
+  width: 100%;
+  z-index: 2;
+`;
+
+const ArrowButton = styled.button`
+  display: block;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
 `;
 
 const Button = styled.button`
@@ -108,7 +124,7 @@ const Button = styled.button`
   justify-content: center;
   padding: 0;
   height: 80px;
-  width: 130px;
+  width: 100%;
   margin-top: -10px;
   background: transparent;
   border: none;
@@ -117,20 +133,5 @@ const Button = styled.button`
   &:hover {
     background: #ccc;
     color: #ffffff;
-  }
-  @media (max-width: 768px) {
-    width: 100vw;
-  }
-`;
-
-const BurgerButton = styled.button`
-  display: none;
-  @media (max-width: 768px) {
-    display: block;
-    margin-right: 1rem;
-    background: transparent;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
   }
 `;
