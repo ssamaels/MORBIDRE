@@ -1,11 +1,38 @@
 import styled from "styled-components";
 import Header from "@/components/Header";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import connectDB from "@/db/connect";
 import MorbidreIllustrations from "@/db/models/morbidre_illustrations";
+import ImagePopup from "@/components/ImagePopup";
 
 const MorbidreIllustrationsPage = ({ illustrations }) => {
+  const [popupImage, setPopupImage] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const openPopup = (imageIndex) => {
+    setPopupImage(illustrations[imageIndex].image);
+    setCurrentImageIndex(imageIndex);
+  };
+
+  const closePopup = () => {
+    setPopupImage(null);
+    setCurrentImageIndex(0);
+  };
+
+  const showNextImage = () => {
+    const nextIndex = (currentImageIndex + 1) % illustrations.length;
+    setPopupImage(illustrations[nextIndex].image);
+    setCurrentImageIndex(nextIndex);
+  };
+
+  const showPreviousImage = () => {
+    const previousIndex =
+      (currentImageIndex - 1 + illustrations.length) % illustrations.length;
+    setPopupImage(illustrations[previousIndex].image);
+    setCurrentImageIndex(previousIndex);
+  };
+
   return (
     <>
       <Header />
@@ -13,8 +40,11 @@ const MorbidreIllustrationsPage = ({ illustrations }) => {
         <h1>Morbidre Illustrations</h1>
         <IllustrationGrid>
           {illustrations.length > 0 ? (
-            illustrations.map((illustration) => (
-              <IllustrationItem key={illustration._id}>
+            illustrations.map((illustration, index) => (
+              <IllustrationItem
+                key={illustration._id}
+                onClick={() => openPopup(index)}
+              >
                 <ZoomableImage src={illustration.image} alt="Illustration" />
               </IllustrationItem>
             ))
@@ -23,6 +53,14 @@ const MorbidreIllustrationsPage = ({ illustrations }) => {
           )}
         </IllustrationGrid>
       </IllustrationDisplay>
+      {popupImage && (
+        <ImagePopup
+          image={popupImage}
+          onClose={closePopup}
+          onNext={showNextImage}
+          onPrevious={showPreviousImage}
+        />
+      )}
     </>
   );
 };
@@ -78,24 +116,4 @@ const ZoomableImage = styled.img`
   height: 100%;
   object-fit: contain;
   transition: transform 0.3s ease;
-
-  @media (min-width: 768px) {
-    ${IllustrationItem}:hover & {
-      background-color: rgba(62, 250, 178, 0.7);
-      border-radius: 500px;
-      transform: scale(0.8);
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 500;
-      pointer-events: none;
-    }
-
-    ${IllustrationItem}:not(:hover) & {
-      transform: scale(1);
-      pointer-events: auto;
-    }
-  }
 `;

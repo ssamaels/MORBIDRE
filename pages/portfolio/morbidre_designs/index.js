@@ -1,11 +1,38 @@
 import styled from "styled-components";
 import Header from "@/components/Header";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import connectDB from "@/db/connect";
 import MorbidreDesign from "@/db/models/morbidre_design";
+import ImagePopup from "@/components/ImagePopup";
 
 const MorbidreDesignsPage = ({ designs }) => {
+  const [popupImage, setPopupImage] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const openPopup = (imageIndex) => {
+    setPopupImage(designs[imageIndex].image);
+    setCurrentImageIndex(imageIndex);
+  };
+
+  const closePopup = () => {
+    setPopupImage(null);
+    setCurrentImageIndex(0);
+  };
+
+  const showNextImage = () => {
+    const nextIndex = (currentImageIndex + 1) % designs.length;
+    setPopupImage(designs[nextIndex].image);
+    setCurrentImageIndex(nextIndex);
+  };
+
+  const showPreviousImage = () => {
+    const previousIndex =
+      (currentImageIndex - 1 + designs.length) % designs.length;
+    setPopupImage(designs[previousIndex].image);
+    setCurrentImageIndex(previousIndex);
+  };
+
   return (
     <>
       <Header />
@@ -13,8 +40,8 @@ const MorbidreDesignsPage = ({ designs }) => {
         <h1>Morbidre Design</h1>
         <DesignGrid>
           {designs.length > 0 ? (
-            designs.map((design) => (
-              <DesignItem key={design._id}>
+            designs.map((design, index) => (
+              <DesignItem key={design._id} onClick={() => openPopup(index)}>
                 <ZoomableImage src={design.image} alt="Design" />
               </DesignItem>
             ))
@@ -23,6 +50,14 @@ const MorbidreDesignsPage = ({ designs }) => {
           )}
         </DesignGrid>
       </DesignDisplay>
+      {popupImage && (
+        <ImagePopup
+          image={popupImage}
+          onClose={closePopup}
+          onNext={showNextImage}
+          onPrevious={showPreviousImage}
+        />
+      )}
     </>
   );
 };
@@ -78,24 +113,4 @@ const ZoomableImage = styled.img`
   height: 100%;
   object-fit: contain;
   transition: transform 0.3s ease;
-
-  @media (min-width: 768px) {
-    ${DesignItem}:hover & {
-      background-color: rgba(62, 250, 178, 0.7);
-      border-radius: 500px;
-      transform: scale(0.8);
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 500;
-      pointer-events: none;
-    }
-
-    ${DesignItem}:not(:hover) & {
-      transform: scale(1);
-      pointer-events: auto;
-    }
-  }
 `;
