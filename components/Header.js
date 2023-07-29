@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 import {
   RiHomeLine,
@@ -11,7 +11,7 @@ import {
 } from "react-icons/ri";
 
 export default function Header() {
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(true);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
 
@@ -131,7 +131,7 @@ const Button = styled.button`
   color: black;
   cursor: pointer;
   &:hover {
-    background: #ccc;
+    background: rgb(0, 0, 0, 0.3);
     color: #ffffff;
   }
 `;

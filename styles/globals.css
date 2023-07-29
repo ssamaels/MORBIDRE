@@ -1,26 +1,25 @@
+@font-face {
+  font-family: "Mont-light";
+  src: url("../public/fonts/Mont-ExtraLightDEMO.otf");
+}
+
+@font-face {
+  font-family: "Mont-heavy";
+  src: url("../public/fonts/Mont-HeavyDEMO.otf");
+}
+
 * {
   margin: 0;
   padding: 0;
+  font-family: "Mont-light", sans-serif;
 }
 
-/* body {
-  background-image: url("../public/images/Background light.png");
+body {
+  background-image: url("../public/images/background\ light.png");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: bottom;
+  background-attachment: fixed;
   margin: 0;
   padding: 0;
   min-height: 100vh;
 }
-
-@media screen and (max-width: 768px) {
-  body {
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: bottom;
-    min-height: 100vh;
-    min-width: 100vw;
-    margin: 0;
-    padding: 0;
-  }
-} */

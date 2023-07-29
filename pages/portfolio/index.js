@@ -4,7 +4,7 @@ import KidlitIllustrations from "@/db/models/kidlit_illustrations";
 import MorbidreDesign from "@/db/models/morbidre_design";
 import MorbidreIllustrations from "@/db/models/morbidre_illustrations";
 import Collections from "@/db/models/collections";
-import { BiSolidRightArrow } from "react-icons/bi";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import Header from "@/components/Header";
 import Image from "next/image";
 import Link from "next/link";
@@ -67,16 +67,16 @@ export default function Portfolio({
       <ElementsContainer>
         <Image
           className="left"
-          src="/images/Background element light left 1ce598.png"
+          src="/images/left light.png"
           alt=""
-          height={850}
-          width={350}
+          height={650}
+          width={300}
         />
         <Container>
           <LinkDisplay>
             <Link
               href="/portfolio/kidlit_illustrations"
-              style={{ textDecoration: "none", color: "#0aa368" }}
+              style={{ textDecoration: "none", color: "#000000" }}
             >
               <strong>KIDLIT ILLUSTRATIONS:</strong>
             </Link>
@@ -86,26 +86,27 @@ export default function Portfolio({
                   key={image._id}
                   src={image.image}
                   alt=""
-                  width={150}
-                  height={150}
+                  width={100}
+                  height={100}
                 />
               ))}
               <Link href="/portfolio/kidlit_illustrations">
-                <BiSolidRightArrow
+                <MdKeyboardDoubleArrowRight
                   style={{
-                    color: "#0aa368",
+                    color: "#000000",
                     width: "50",
                     height: "50",
-                    marginLeft: "20",
                   }}
+                  className="arrow"
                 />
               </Link>
             </ProjectDisplay>
           </LinkDisplay>
+          <hr></hr>
           <LinkDisplay>
             <Link
               href="/portfolio/morbidre_illustrations"
-              style={{ textDecoration: "none", color: "#11b877" }}
+              style={{ textDecoration: "none", color: "#000000" }}
             >
               <strong>MORBIDRE ILLUSTRATIONS:</strong>
             </Link>
@@ -115,26 +116,27 @@ export default function Portfolio({
                   key={image._id}
                   src={image.image}
                   alt=""
-                  width={150}
-                  height={150}
+                  width={100}
+                  height={100}
                 />
               ))}
               <Link href="/portfolio/morbidre_illustrations">
-                <BiSolidRightArrow
+                <MdKeyboardDoubleArrowRight
                   style={{
-                    color: "#11b877",
+                    color: "#000000",
                     width: "50",
                     height: "50",
-                    marginLeft: "20",
                   }}
+                  className="arrow"
                 />
               </Link>
             </ProjectDisplay>
           </LinkDisplay>
+          <hr></hr>
           <LinkDisplay>
             <Link
               href="/portfolio/morbidre_designs"
-              style={{ textDecoration: "none", color: "#1ce598" }}
+              style={{ textDecoration: "none", color: "#000000" }}
             >
               <strong>MORBIDRE DESIGN:</strong>
             </Link>
@@ -144,26 +146,27 @@ export default function Portfolio({
                   key={image._id}
                   src={image.image}
                   alt=""
-                  width={150}
-                  height={150}
+                  width={100}
+                  height={100}
                 />
               ))}
               <Link href="/portfolio/morbidre_designs">
-                <BiSolidRightArrow
+                <MdKeyboardDoubleArrowRight
                   style={{
-                    color: "#1ce598",
+                    color: "#000000",
                     width: "50",
                     height: "50",
-                    marginLeft: "20",
                   }}
+                  className="arrow"
                 />
               </Link>
             </ProjectDisplay>
           </LinkDisplay>
+          <hr></hr>
           <LinkDisplay>
             <Link
               href="/portfolio/collections"
-              style={{ textDecoration: "none", color: "#26f0a3" }}
+              style={{ textDecoration: "none", color: "#000000" }}
             >
               <strong>COLLECTIONS:</strong>
             </Link>
@@ -173,18 +176,18 @@ export default function Portfolio({
                   key={image._id}
                   src={image.image}
                   alt=""
-                  width={150}
-                  height={150}
+                  width={100}
+                  height={100}
                 />
               ))}
               <Link href="/portfolio/collections">
-                <BiSolidRightArrow
+                <MdKeyboardDoubleArrowRight
                   style={{
-                    color: "#26f0a3",
+                    color: "#000000",
                     width: "50",
                     height: "50",
-                    marginLeft: "20",
                   }}
+                  className="arrow"
                 />
               </Link>
             </ProjectDisplay>
@@ -192,10 +195,10 @@ export default function Portfolio({
         </Container>
         <Image
           className="right"
-          src="/images/Background element light right 1ce598.png"
+          src="/images/right light.png"
           alt=""
-          height={850}
-          width={300}
+          height={750}
+          width={250}
         />
       </ElementsContainer>
     </>
@@ -206,22 +209,38 @@ const ElementsContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 2.5rem;
+  margin-top: 7rem;
   justify-content: space-between;
 
-  @media (max-width: 1425px) {
+  hr {
+    border-top: 0.2rem double;
+    border-bottom: none;
+    margin-right: 2.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 1200px) {
     .left {
       display: none;
     }
-
     .right {
       display: none;
     }
     justify-content: center;
   }
   @media (max-width: 768px) {
+    margin-top: 10rem;
     flex-direction: column;
     justify-content: space-between;
+
+    hr {
+      border-top: 0.2rem double;
+      border-bottom: none;
+      margin-bottom: 2rem;
+      margin-right: 0;
+      margin-top: 0;
+    }
   }
 `;
 
@@ -229,6 +248,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-self: center;
+  justify-content: center;
 `;
 
 const LinkDisplay = styled.div`
@@ -239,23 +259,37 @@ const LinkDisplay = styled.div`
     justify-self: flex-start;
     margin-left: -2rem;
   }
+  @media (max-width: 768px) {
+    a {
+      align-self: center;
+      margin: 0;
+    }
+  }
 `;
 
 const ProjectDisplay = styled.div`
   display: flex;
   align-items: center;
   margin-top: 0.7rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 
   img {
     margin-left: 0.2rem;
     margin-right: 0.2rem;
   }
 
+  .arrow {
+    margin-left: 2.5rem;
+  }
+
   @media (max-width: 768px) {
     flex-direction: column;
     img {
       margin-bottom: 0.5rem;
+    }
+
+    .arrow {
+      margin-left: 0;
     }
   }
 `;

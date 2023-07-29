@@ -41,18 +41,18 @@ export default function ContactPage() {
       <ElementsContainer>
         <Image
           className="left"
-          src="/images/Background element light left 1ce598.png"
+          src="/images/left light.png"
           alt=""
-          height={850}
-          width={350}
+          height={650}
+          width={300}
         />
         <ContactForm onAddContact={handleAddContact} />
         <Image
           className="right"
-          src="/images/Background element light right 1ce598.png"
+          src="/images/right light.png"
           alt=""
-          height={850}
-          width={300}
+          height={750}
+          width={250}
         />
       </ElementsContainer>
     </>

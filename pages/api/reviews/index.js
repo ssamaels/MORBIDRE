@@ -12,6 +12,7 @@ export default async function handler(request, response) {
     console.log(request.body);
     try {
       const reviewData = request.body;
+      reviewData.date = new Date(reviewData.date);
       const review = new Review(reviewData);
       const savedReview = await review.save();
       console.log(savedReview);

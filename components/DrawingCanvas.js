@@ -120,9 +120,7 @@ export default function DrawingCanvas() {
 
   return (
     <CreativeArea>
-      <StyledLabel htmlFor="canvas">
-        <strong>Draw what you have in mind:</strong>
-      </StyledLabel>
+      <StyledLabel htmlFor="canvas">Draw what you have in mind:</StyledLabel>
       <StyledCanvas
         ref={canvasRef}
         className="canvas"
@@ -162,12 +160,12 @@ const CreativeArea = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  margin-top: 10px;
+  margin-top: 1rem;
 `;
 
 const StyledCanvas = styled.canvas`
-  border: 4px solid #1ce598;
-  border-radius: 15px;
+  border: 0.01rem double #000000;
+  border-radius: 1.5rem;
 
   @media (max-width: 775px) {
     width: 350px;
@@ -181,23 +179,25 @@ const StyledTools = styled.div`
 `;
 
 const StyledButton = styled.button`
-  margin: 10px;
-  background-color: #1ce598;
+  margin: 1rem;
+  border-radius: 0.2rem;
+  background-color: rgb(0, 0, 0, 0.8);
+  color: #fff;
   align-self: center;
 `;
 
 const ColorPicker = styled.input`
-  margin: 10px;
-  background-color: #1ce598;
+  margin: 1rem;
+  background-color: rgb(0, 0, 0, 0.6);
   align-self: center;
 `;
 
 const RangePicker = styled.input`
-  margin: 10px;
-  background-color: #1ce598;
+  margin: 1rem;
+  background-color: #000000;
   align-self: center;
 `;
 
 const StyledLabel = styled.label`
-  margin: 3px;
+  margin: 0.3rem;
 `;

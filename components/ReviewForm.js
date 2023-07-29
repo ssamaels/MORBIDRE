@@ -4,11 +4,15 @@ import styled from "styled-components";
 const ReviewForm = ({ onAddReview }) => {
   const [name, setName] = useState("");
   const [review, setReview] = useState("");
+  const [date, setDate] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(name, review);
+    const currentDate = Date.now();
+    setDate(currentDate);
+    console.log(date, name, review);
     const newReview = {
+      date: currentDate,
       name,
       review,
     };
@@ -21,7 +25,7 @@ const ReviewForm = ({ onAddReview }) => {
     <>
       <StyledForm id="review-form" onSubmit={handleSubmit}>
         <label htmlFor="review-name" className="name_label">
-          <strong>Name:</strong>
+          Name:
         </label>
         <StyledInput
           type="text"
@@ -33,7 +37,7 @@ const ReviewForm = ({ onAddReview }) => {
           onChange={(e) => setName(e.target.value)}
         ></StyledInput>
         <label htmlFor="review-message" className="review-message">
-          <strong>Write a review:</strong>
+          Write a review:
         </label>
         <StyledTextArea
           type="text"
@@ -60,25 +64,28 @@ const StyledForm = styled.form`
   max-width: 500;
   align-items: center;
   justify-content: space-around;
-  margin-top: 20px;
+  margin-top: 9rem;
 `;
 
 const StyledInput = styled.input`
-  border: 4px solid #1ce598;
-  border-radius: 15px;
-  padding-left: 5px;
-  padding-right: 5px;
+  border: 0.01rem double #000000;
+  border-radius: 0.2rem;
+  padding-left: 0.05rem;
+  padding-right: 0.05rem;
+  background-color: rgb(250, 250, 250, 0.7);
 `;
 
 const StyledTextArea = styled.textarea`
-  border: 4px solid #1ce598;
-  border-radius: 15px;
-  padding-left: 5px;
-  padding-right: 5px;
+  border: 0.01rem double #000000;
+  border-radius: 0.2rem;
+  padding-left: 0.05rem;
+  padding-right: 0.05rem;
+  background-color: rgb(250, 250, 250, 0.7);
 `;
 
 const StyledButton = styled.button`
-  margin: 10px;
-  background-color: #1ce598;
-  border-radius: 15px;
+  margin: 1rem;
+  background-color: #000000;
+  color: #fff;
+  border-radius: 0.2rem;
 `;
