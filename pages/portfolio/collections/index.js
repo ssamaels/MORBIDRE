@@ -1,10 +1,37 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useState } from "react";
 import Header from "@/components/Header";
 import connectDB from "@/db/connect";
 import Collections from "@/db/models/collections";
+import ImagePopup from "@/components/ImagePopup";
 
 const CollectionsPage = ({ collections }) => {
+  const [popupImage, setPopupImage] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const openPopup = (imageIndex) => {
+    setPopupImage(collections[imageIndex].image);
+    setCurrentImageIndex(imageIndex);
+  };
+
+  const closePopup = () => {
+    setPopupImage(null);
+    setCurrentImageIndex(0);
+  };
+
+  const showNextImage = () => {
+    const nextIndex = (currentImageIndex + 1) % collections.length;
+    setPopupImage(collections[nextIndex].image);
+    setCurrentImageIndex(nextIndex);
+  };
+
+  const showPreviousImage = () => {
+    const previousIndex =
+      (currentImageIndex - 1 + collections.length) % collections.length;
+    setPopupImage(collections[previousIndex].image);
+    setCurrentImageIndex(previousIndex);
+  };
+
   return (
     <>
       <Header />
@@ -12,8 +39,11 @@ const CollectionsPage = ({ collections }) => {
         <h1>Collections</h1>
         <CollectionsGrid>
           {collections.length > 0 ? (
-            collections.map((collection) => (
-              <CollectionItem key={collection._id}>
+            collections.map((collection, index) => (
+              <CollectionItem
+                key={collection._id}
+                onClick={() => openPopup(index)}
+              >
                 <ZoomableImage src={collection.image} alt="Collection" />
               </CollectionItem>
             ))
@@ -22,6 +52,14 @@ const CollectionsPage = ({ collections }) => {
           )}
         </CollectionsGrid>
       </CollectionsDisplay>
+      {popupImage && (
+        <ImagePopup
+          image={popupImage}
+          onClose={closePopup}
+          onNext={showNextImage}
+          onPrevious={showPreviousImage}
+        />
+      )}
     </>
   );
 };
@@ -77,24 +115,4 @@ const ZoomableImage = styled.img`
   height: 100%;
   object-fit: contain;
   transition: transform 0.3s ease;
-
-  @media (min-width: 768px) {
-    ${CollectionItem}:hover & {
-      background-color: rgba(62, 250, 178, 0.7);
-      border-radius: 500px;
-      transform: scale(0.8);
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 500;
-      pointer-events: none;
-    }
-
-    ${CollectionItem}:not(:hover) & {
-      transform: scale(1);
-      pointer-events: auto;
-    }
-  }
 `;

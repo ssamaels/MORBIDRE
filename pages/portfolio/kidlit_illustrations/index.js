@@ -1,11 +1,38 @@
 import styled from "styled-components";
 import Header from "@/components/Header";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import connectDB from "@/db/connect";
 import KidlitIllustrations from "@/db/models/kidlit_illustrations";
+import ImagePopup from "@/components/ImagePopup";
 
 const KidlitIllustrationsPage = ({ illustrations }) => {
+  const [popupImage, setPopupImage] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const openPopup = (imageIndex) => {
+    setPopupImage(illustrations[imageIndex].image);
+    setCurrentImageIndex(imageIndex);
+  };
+
+  const closePopup = () => {
+    setPopupImage(null);
+    setCurrentImageIndex(0);
+  };
+
+  const showNextImage = () => {
+    const nextIndex = (currentImageIndex + 1) % illustrations.length;
+    setPopupImage(illustrations[nextIndex].image);
+    setCurrentImageIndex(nextIndex);
+  };
+
+  const showPreviousImage = () => {
+    const previousIndex =
+      (currentImageIndex - 1 + illustrations.length) % illustrations.length;
+    setPopupImage(illustrations[previousIndex].image);
+    setCurrentImageIndex(previousIndex);
+  };
+
   return (
     <>
       <Header />
@@ -13,8 +40,11 @@ const KidlitIllustrationsPage = ({ illustrations }) => {
         <h1>Kidlit Illustrations</h1>
         <KidlitGrid>
           {illustrations.length > 0 ? (
-            illustrations.map((illustration) => (
-              <KidlitItem key={illustration._id}>
+            illustrations.map((illustration, index) => (
+              <KidlitItem
+                key={illustration._id}
+                onClick={() => openPopup(index)}
+              >
                 <ZoomableImage src={illustration.image} alt="Illustration" />
               </KidlitItem>
             ))
@@ -23,6 +53,14 @@ const KidlitIllustrationsPage = ({ illustrations }) => {
           )}
         </KidlitGrid>
       </KidlitDisplay>
+      {popupImage && (
+        <ImagePopup
+          image={popupImage}
+          onClose={closePopup}
+          onNext={showNextImage}
+          onPrevious={showPreviousImage}
+        />
+      )}
     </>
   );
 };
@@ -79,7 +117,7 @@ const ZoomableImage = styled.img`
   object-fit: contain;
   transition: transform 0.3s ease;
 
-  @media (min-width: 768px) {
+  /* @media (min-width: 768px) {
     ${KidlitItem}:hover & {
       background-color: rgba(62, 250, 178, 0.7);
       border-radius: 500px;
@@ -97,5 +135,5 @@ const ZoomableImage = styled.img`
       transform: scale(1);
       pointer-events: auto;
     }
-  }
+  } */
 `;
