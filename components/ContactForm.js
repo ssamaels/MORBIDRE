@@ -29,9 +29,7 @@ export default function ContactForm({ onAddContact }) {
   return (
     <>
       <StyledForm id="contact-form" onSubmit={handleSubmit}>
-        <StyledLabel htmlFor="contact-name">
-          <strong>Name:</strong>
-        </StyledLabel>
+        <StyledLabel htmlFor="contact-name">Name:</StyledLabel>
         <StyledInput
           type="text"
           className="contact-name"
@@ -41,9 +39,7 @@ export default function ContactForm({ onAddContact }) {
           required
           onChange={(e) => setName(e.target.value)}
         ></StyledInput>
-        <StyledLabel htmlFor="contact-email">
-          <strong>Email:</strong>
-        </StyledLabel>
+        <StyledLabel htmlFor="contact-email">Email:</StyledLabel>
         <StyledInput
           type="text"
           className="contact-email"
@@ -53,9 +49,7 @@ export default function ContactForm({ onAddContact }) {
           required
           onChange={(e) => setEmail(e.target.value)}
         ></StyledInput>
-        <StyledLabel htmlFor="contact-message">
-          <strong>Message:</strong>
-        </StyledLabel>
+        <StyledLabel htmlFor="contact-message">Message:</StyledLabel>
         <StyledTextArea
           type="text"
           className="contact-message"
@@ -79,32 +73,34 @@ export default function ContactForm({ onAddContact }) {
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  /* width: 100vw; */
   align-items: center;
   justify-content: space-around;
-  margin-top: 20px;
+  margin-top: 9rem;
 `;
 
 const StyledInput = styled.input`
-  border: 4px solid #1ce598;
-  border-radius: 15px;
-  padding-left: 5px;
-  padding-right: 5px;
+  border: 0.01rem double #000000;
+  border-radius: 0.2rem;
+  padding-left: 0.05rem;
+  padding-right: 0.05rem;
+  background-color: rgb(250, 250, 250, 0.7);
 `;
 
 const StyledTextArea = styled.textarea`
-  border: 4px solid #1ce598;
-  border-radius: 15px;
-  padding-left: 5px;
-  padding-right: 5px;
+  border: 0.01rem double #000000;
+  border-radius: 0.5rem;
+  padding-left: 0.05rem;
+  padding-right: 0.05rem;
+  background-color: rgb(250, 250, 250, 0.7);
 `;
 
 const StyledButton = styled.button`
-  margin: 10px;
-  background-color: #1ce598;
-  border-radius: 15px;
+  margin: 1rem;
+  background-color: rgb(0, 0, 0, 0.8);
+  border-radius: 0.2rem;
+  color: #fff;
 `;
 
 const StyledLabel = styled.label`
-  margin: 3px;
+  margin: 0.03rem;
 `;

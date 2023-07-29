@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const ReviewSchema = new mongoose.Schema({
+  date: {
+    type: Date,
+    required: false,
+  },
   name: {
     type: String,
     required: true,
