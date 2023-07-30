@@ -180,15 +180,23 @@ const StyledTools = styled.div`
 
 const StyledButton = styled.button`
   margin: 1rem;
+  padding: 0.3rem;
   border-radius: 0.2rem;
-  background-color: rgb(0, 0, 0, 0.8);
-  color: #fff;
+  background: transparent;
+  color: #000000;
   align-self: center;
+  cursor: pointer;
+  &:hover {
+    background: rgb(0, 0, 0, 0.5);
+    color: #ffffff;
+  }
 `;
 
 const ColorPicker = styled.input`
   margin: 1rem;
-  background-color: rgb(0, 0, 0, 0.6);
+  padding: 0.1rem;
+  border-radius: 0.2rem;
+  background: transparent;
   align-self: center;
 `;
 

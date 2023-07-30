@@ -13,16 +13,15 @@ export default function CategoriesButton() {
         <StyledButton onClick={() => setShowCategories(!showCategories)}>
           CATEGORIES
         </StyledButton>
-        {/* <CategoriesContainer> */}
         <Categories showCategories={!showCategories}>
-          <Category onClick={() => setShowMorbi(!showMorbi)}>
-            MORBIDRE ILLUSTRATIONS
-          </Category>
           <Category onClick={() => setShowGraphic(!showGraphic)}>
-            GRAPHIC DESIGN
+            GRAPHIC<br></br> DESIGN
+          </Category>
+          <Category onClick={() => setShowMorbi(!showMorbi)}>
+            MORBIDRE<br></br> ILLUSTRATIONS
           </Category>
           <Category onClick={() => setShowKidlit(!showKidlit)}>
-            KIDLIT AND COVER ILLUSTRATIONS
+            KIDLIT AND<br></br> COVER ILLUSTRATIONS
           </Category>
         </Categories>
         <Subcategories>
@@ -50,7 +49,6 @@ export default function CategoriesButton() {
             </div>
           </SubcategoriesKidlit>
         </Subcategories>
-        {/* </CategoriesContainer> */}
       </StyledCategories>
     </>
   );
@@ -58,125 +56,136 @@ export default function CategoriesButton() {
 
 const StyledCategories = styled.div`
   display: flex;
-  width: 100%;
+  flex-direction: column;
   justify-content: center;
-  align-content: center;
-  margin-bottom: 10rem;
+  align-items: center;
+  min-height: 80vh;
+
+  @media (max-width: 768px) {
+    width: 80%;
+  }
 `;
 
 const StyledButton = styled.button`
+  height: 4rem;
+  width: 11rem;
   padding: 0.2rem;
   border-radius: 0.4rem;
   background: transparent;
+  font-size: 1.5rem;
+  font-weight: bolder;
   color: #000000;
   cursor: pointer;
   &:hover {
     background: rgb(0, 0, 0, 0.5);
     color: #ffffff;
   }
+
+  @media (max-width: 768px) {
+    margin-left: 20rem;
+  }
 `;
 
-const Categories = styled.nav`
+const Categories = styled.div`
   display: ${(props) => (props.showCategories ? "flex" : "none")};
   flex-direction: row;
-  justify-content: space-evenly;
-  position: absolute;
-  bottom: -13rem;
-  background: transparent;
-  padding: 0.1rem;
-  width: 90%;
-  z-index: 2;
+  align-items: center;
+  justify-items: space-between;
+
+  @media (max-width: 768px) {
+    width: 80%;
+  }
 `;
 
 const Category = styled.button`
+  height: 7rem;
+  width: 11rem;
   padding: 0.2rem;
-  margin: 0.3rem;
+  margin: 5rem;
   border-radius: 0.4rem;
   background: transparent;
+  font-size: 1.3rem;
+  font-weight: bold;
   color: #000000;
   cursor: pointer;
   &:hover {
     background: rgb(0, 0, 0, 0.5);
     color: #ffffff;
   }
+
+  @media (max-width: 768px) {
+    margin: 2rem;
+  }
 `;
-
-// const Subcategories = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-evenly;
-//   bottom: -20rem;
-// `;
-
-// const SubcategoriesGraphic = styled.nav`
-//   display: ${(props) => (props.showGraphic ? "flex" : "none")};
-//   flex-direction: column;
-//   justify-content: space-evenly;
-//   position: absolute;
-//   bottom: -13rem;
-//   background: transparent;
-//   padding: 0.1rem;
-//   width: 90%;
-//   z-index: 2;
-// `;
-// const SubcategoriesMorbi = styled.nav`
-//   display: ${(props) => (props.showMorbi ? "flex" : "none")};
-//   flex-direction: column;
-//   justify-content: space-evenly;
-//   position: absolute;
-//   bottom: -13rem;
-//   background: transparent;
-//   padding: 0.1rem;
-//   width: 90%;
-//   z-index: 2;
-// `;
-// const SubcategoriesKidlit = styled.nav`
-//   display: ${(props) => (props.showKidlit ? "flex" : "none")};
-//   flex-direction: column;
-//   justify-content: space-evenly;
-//   position: absolute;
-//   bottom: -13rem;
-//   background: transparent;
-//   padding: 0.1rem;
-//   width: 90%;
-//   z-index: 2;
-// `;
-
-// const CategoriesContainer = styled.div`
-//   position: relative;
-// `;
 
 const Subcategories = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-around;
   margin-top: 1rem;
-  /* position: absolute; */
+  margin-bottom: 5rem;
+  width: 80%;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
-const SubcategoriesGraphic = styled.nav`
+const SubcategoriesGraphic = styled.div`
   display: ${(props) => (props.showGraphic ? "flex" : "none")};
+  position: ${(props) => (props.showGraphic ? "absolute" : "relative")};
   flex-direction: column;
-  bottom: -30rem;
-  justify-self: center;
-  align-self: center;
-  position: absolute;
-`;
-
-const SubcategoriesMorbi = styled.nav`
-  display: ${(props) => (props.showMorbi ? "flex" : "none")};
-  flex-direction: column;
-  bottom: -30rem;
-  justify-self: flex-start;
   align-self: flex-start;
-  position: absolute;
+  align-self: center;
+  font-size: 0.9rem;
+  line-height: 2rem;
+  font-weight: bold;
+  left: 0;
+  margin-left: 7rem;
+  margin-top: 6rem;
+
+  @media (max-width: 768px) {
+    margin-top: 8rem;
+    margin-left: 1rem;
+    font-size: 0.6rem;
+    line-height: 2rem;
+  }
 `;
 
-const SubcategoriesKidlit = styled.nav`
-  display: ${(props) => (props.showKidlit ? "flex" : "none")};
+const SubcategoriesMorbi = styled.div`
+  display: ${(props) => (props.showMorbi ? "flex" : "none")};
+  position: ${(props) => (props.showMorbi ? "absolute" : "relative")};
   flex-direction: column;
-  bottom: -30rem;
-  justify-self: flex-end;
-  align-self: flex-end;
-  position: absolute;
+  align-self: flex-start;
+  align-self: center;
+  font-size: 0.9rem;
+  line-height: 2rem;
+  font-weight: bold;
+
+  @media (max-width: 768px) {
+    margin-top: 2rem;
+    margin-right: -23rem;
+    font-size: 0.6rem;
+    line-height: 2rem;
+  }
+`;
+
+const SubcategoriesKidlit = styled.div`
+  display: ${(props) => (props.showKidlit ? "flex" : "none")};
+  position: ${(props) => (props.showKidlit ? "absolute" : "relative")};
+  flex-direction: column;
+  align-self: flex-start;
+  align-self: center;
+  font-size: 0.9rem;
+  line-height: 2rem;
+  font-weight: bold;
+  right: 0;
+  margin-right: 7rem;
+  margin-top: -2rem;
+
+  @media (max-width: 768px) {
+    margin-top: 0.1rem;
+    margin-right: -17rem;
+    font-size: 0.6rem;
+    line-height: 2rem;
+  }
 `;

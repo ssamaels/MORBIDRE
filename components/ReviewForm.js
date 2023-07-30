@@ -85,7 +85,13 @@ const StyledTextArea = styled.textarea`
 
 const StyledButton = styled.button`
   margin: 1rem;
-  background-color: #000000;
-  color: #fff;
+  padding: 0.3rem;
+  background: transparent;
+  color: #000000;
   border-radius: 0.2rem;
+  cursor: pointer;
+  &:hover {
+    background: rgb(0, 0, 0, 0.5);
+    color: #ffffff;
+  }
 `;
