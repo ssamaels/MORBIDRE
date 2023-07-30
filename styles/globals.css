@@ -23,3 +23,13 @@ body {
   padding: 0;
   min-height: 100vh;
 }
+
+body.dark-mode {
+  background-image: url("../public/images/background\ dark.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}

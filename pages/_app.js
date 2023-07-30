@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import { SWRConfig } from "swr";
 import { useState, useEffect } from "react";
 import useLocalStorage from "use-local-storage";
+import { DarkModeProvider } from "@/components/DarkModeContext";
 
 export default function App({ Component, pageProps }) {
   return (
@@ -16,7 +17,9 @@ export default function App({ Component, pageProps }) {
         },
       }}
     >
-      <Component {...pageProps} />
+      <DarkModeProvider>
+        <Component {...pageProps} />
+      </DarkModeProvider>
     </SWRConfig>
   );
 }

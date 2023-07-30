@@ -3,21 +3,24 @@ import styled from "styled-components";
 import Header from "@/components/Header";
 import CategoriesButton from "@/components/CategoriesButton";
 import { RxDoubleArrowDown } from "react-icons/rx";
+import { useDarkMode } from "@/components/DarkModeContext";
 
 export default function Home() {
+  const { darkMode, setDarkMode } = useDarkMode();
+
   return (
     <>
       <Header />
-      <ElementsContainer>
+      <ElementsContainer darkMode={darkMode}>
         <Container>
           <Image
             className="left"
-            src="/images/left light.png"
+            src={darkMode ? "/images/left dark.png" : "/images/left light.png"}
             alt=""
             height={650}
             width={300}
           />
-          <Welcome>
+          <Welcome darkMode={darkMode}>
             <h3>
               <strong>WELCOME TO MY WORLD.</strong>
             </h3>
@@ -28,7 +31,9 @@ export default function Home() {
           </Welcome>
           <Image
             className="right"
-            src="/images/right light.png"
+            src={
+              darkMode ? "/images/right dark.png" : "/images/right light.png"
+            }
             alt=""
             height={750}
             width={250}
@@ -72,6 +77,12 @@ const ElementsContainer = styled.div`
   display: flex;
   flex-direction: column;
 
+  ${(props) =>
+    props.darkMode &&
+    `
+      color: #ffffff;
+    `}
+
   @media (max-width: 768px) {
     margin-top: 10rem;
     position: relative;
@@ -113,12 +124,17 @@ const Welcome = styled.div`
   line-height: 3rem;
   font-size: 2rem;
 
+  ${(props) =>
+    props.darkMode &&
+    `
+      color: #ffffff;
+    `}
+
   @media (max-width: 768px) {
     position: absolute;
     width: 80%;
     top: 20;
     left: 50%;
-    /* transform: translateX(-50%); */
     z-index: 3;
     padding: 20px;
   }
