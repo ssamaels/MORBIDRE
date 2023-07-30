@@ -8,6 +8,7 @@ import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import Header from "@/components/Header";
 import Image from "next/image";
 import Link from "next/link";
+import { useDarkMode } from "@/components/DarkModeContext";
 
 export async function getServerSideProps() {
   await connectDB();
@@ -61,19 +62,21 @@ export default function Portfolio({
   morbidreDesigns,
   collections,
 }) {
+  const { darkMode, setDarkMode } = useDarkMode();
+
   return (
     <>
       <Header />
-      <ElementsContainer>
+      <ElementsContainer darkMode={darkMode}>
         <Image
           className="left"
-          src="/images/left light.png"
+          src={darkMode ? "/images/left dark.png" : "/images/left light.png"}
           alt=""
           height={650}
           width={300}
         />
         <Container>
-          <LinkDisplay>
+          <LinkDisplay darkMode={darkMode}>
             <Link
               href="/portfolio/kidlit_illustrations"
               style={{ textDecoration: "none", color: "#000000" }}
@@ -103,7 +106,7 @@ export default function Portfolio({
             </ProjectDisplay>
           </LinkDisplay>
           <hr></hr>
-          <LinkDisplay>
+          <LinkDisplay darkMode={darkMode}>
             <Link
               href="/portfolio/morbidre_illustrations"
               style={{ textDecoration: "none", color: "#000000" }}
@@ -133,7 +136,7 @@ export default function Portfolio({
             </ProjectDisplay>
           </LinkDisplay>
           <hr></hr>
-          <LinkDisplay>
+          <LinkDisplay darkMode={darkMode}>
             <Link
               href="/portfolio/morbidre_designs"
               style={{ textDecoration: "none", color: "#000000" }}
@@ -163,7 +166,7 @@ export default function Portfolio({
             </ProjectDisplay>
           </LinkDisplay>
           <hr></hr>
-          <LinkDisplay>
+          <LinkDisplay darkMode={darkMode}>
             <Link
               href="/portfolio/collections"
               style={{ textDecoration: "none", color: "#000000" }}
@@ -195,7 +198,7 @@ export default function Portfolio({
         </Container>
         <Image
           className="right"
-          src="/images/right light.png"
+          src={darkMode ? "/images/right dark.png" : "/images/right light.png"}
           alt=""
           height={750}
           width={250}
@@ -219,6 +222,12 @@ const ElementsContainer = styled.div`
     margin-top: 1rem;
     margin-bottom: 1.5rem;
   }
+
+  ${(props) =>
+    props.darkMode &&
+    `
+      color: #ffffff;
+    `}
 
   @media (max-width: 1200px) {
     .left {
@@ -259,6 +268,13 @@ const LinkDisplay = styled.div`
     justify-self: flex-start;
     margin-left: -2rem;
   }
+
+  ${(props) =>
+    props.darkMode &&
+    `
+      color: #ffffff;
+    `}
+
   @media (max-width: 768px) {
     a {
       align-self: center;

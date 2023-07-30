@@ -91,10 +91,7 @@ const CollectionsDisplay = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  @media (max-width: 768px) {
-    margin-top: 10rem;
-  }
+  margin-top: 10rem;
 `;
 
 const CollectionsGrid = styled.div`
