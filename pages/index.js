@@ -8,36 +8,6 @@ export default function Home() {
   return (
     <>
       <Header />
-      {/* <div className="graphic">
-          <h3>GRAPHIC DESIGN</h3>
-          <div className="pg">
-            <p>PACKAGING DESIGN</p>
-            <p>LABEL DESIGN</p>
-            <p>BRANDING AND REBRANDING SERVICES</p>
-            <p>ADVERTISING DESIGN</p>
-            <p>MARKETING DESIGN</p>
-            <p>VISUAL COMMUNICATION</p>
-          </div>
-        </div>
-        <div className="morbidre">
-          <h3>
-            MORBIDRE<br></br> ILLUSTRATIONS
-          </h3>
-          <div className="pm">
-            <p>CUSTOM T-SHIRT PRINTS</p>
-            <p>POSTER AND STICKER ILLUSTRATIONS</p>
-            <p>DARK (MORBIDRE) ILLUSTRATIONS</p>
-          </div>
-        </div>
-        <div className="kidlit">
-          <h3>
-            KIDLIT AND COVER<br></br> ILLUSTRATIONS
-          </h3>
-          <div className="pk">
-            <p>CUSTOM KIDLIT ILLUSTRATIONS</p>
-            <p>COVER AND POSTER ILLUSTRATIONS</p>
-          </div>
-        </div> */}
       <ElementsContainer>
         <Container>
           <Image
@@ -65,6 +35,7 @@ export default function Home() {
           />
         </Container>
         <RxDoubleArrowDown
+          className="arrow"
           style={{
             width: "40",
             height: "40",
@@ -100,6 +71,26 @@ export default function Home() {
 const ElementsContainer = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 768px) {
+    margin-top: 10rem;
+    position: relative;
+
+    .left {
+      opacity: 20%;
+      left: 0;
+    }
+    .right {
+      opacity: 20%;
+      right: 0;
+      margin-right: -18rem;
+    }
+
+    .arrow {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
 `;
 
 const Container = styled.div`
@@ -108,6 +99,10 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 5%;
+
+  @media (max-width: 768px) {
+    position: relative;
+  }
 `;
 
 const Welcome = styled.div`
@@ -117,88 +112,14 @@ const Welcome = styled.div`
   width: 45%;
   line-height: 3rem;
   font-size: 2rem;
+
+  @media (max-width: 768px) {
+    position: absolute;
+    width: 80%;
+    top: 20;
+    left: 50%;
+    /* transform: translateX(-50%); */
+    z-index: 3;
+    padding: 20px;
+  }
 `;
-
-//   .graphic {
-//     display: flex;
-//     flex-direction: column;
-//     margin-top: 1039px;
-//     margin-left: 135px;
-
-//     h3 {
-//       font-size: xx-large;
-//     }
-
-//     .pg {
-//       margin-top: 38px;
-//     }
-
-//     p {
-//       margin-left: 125px;
-//       font-size: 0.7rem;
-//       padding-bottom: 17px;
-//     }
-//   }
-
-//   .morbidre {
-//     display: flex;
-//     flex-direction: column;
-//     margin-top: 100px;
-//     margin-left: 135px;
-
-//     h3 {
-//       font-size: xx-large;
-//     }
-
-//     .pm {
-//       margin-top: 25px;
-//     }
-
-//     p {
-//       margin-left: 125px;
-//       font-size: 0.7rem;
-//       padding-bottom: 17px;
-//     }
-//   }
-
-//   .kidlit {
-//     display: flex;
-//     flex-direction: column;
-//     margin-top: 108px;
-//     margin-left: 135px;
-
-//     h3 {
-//       font-size: xx-large;
-//     }
-
-//     .pk {
-//       margin-top: 23px;
-//     }
-
-//     p {
-//       margin-left: 125px;
-//       font-size: 0.7rem;
-//       padding-bottom: 17px;
-//     }
-//   }
-// `;
-
-// const Pride = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   margin-top: 40%;
-//   margin-left: 20%;
-//   margin-right: 20%;
-
-//   p {
-//     font-size: 1.5rem;
-//     padding: 2%;
-//     border: 0.3rem solid #1ce598;
-//     border-radius: 100px;
-//     margin-bottom: 70%;
-//   }
-
-//   img {
-//     align-self: flex-end;
-//     margin-right: -20%;
-//   }

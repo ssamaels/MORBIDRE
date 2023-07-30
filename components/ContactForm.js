@@ -96,9 +96,15 @@ const StyledTextArea = styled.textarea`
 
 const StyledButton = styled.button`
   margin: 1rem;
-  background-color: rgb(0, 0, 0, 0.8);
+  padding: 0.3rem;
+  background: transparent;
   border-radius: 0.2rem;
-  color: #fff;
+  color: #000000;
+  cursor: pointer;
+  &:hover {
+    background: rgb(0, 0, 0, 0.5);
+    color: #ffffff;
+  }
 `;
 
 const StyledLabel = styled.label`
