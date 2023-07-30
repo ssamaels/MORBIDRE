@@ -112,6 +112,7 @@ const Nav = styled.nav`
 const ArrowButton = styled.button`
   display: block;
   background: transparent;
+  color: #000000;
   border: none;
   font-size: 1.5rem;
   cursor: pointer;

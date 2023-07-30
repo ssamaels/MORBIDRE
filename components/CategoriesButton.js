@@ -70,6 +70,7 @@ const StyledButton = styled.button`
   height: 4rem;
   width: 11rem;
   padding: 0.2rem;
+  border: 0.01rem solid #000000;
   border-radius: 0.4rem;
   background: transparent;
   font-size: 1.5rem;
@@ -102,6 +103,7 @@ const Category = styled.button`
   width: 11rem;
   padding: 0.2rem;
   margin: 5rem;
+  border: 0.01rem solid #000000;
   border-radius: 0.4rem;
   background: transparent;
   font-size: 1.3rem;

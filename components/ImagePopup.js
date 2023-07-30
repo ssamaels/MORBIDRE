@@ -1,18 +1,25 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import {
+  MdKeyboardDoubleArrowRight,
+  MdKeyboardDoubleArrowLeft,
+  MdClose,
+} from "react-icons/md";
 
 const ImagePopup = ({ image, onClose, onNext, onPrevious }) => {
   return (
     <PopupOverlay onClick={onClose}>
       <PopupContent>
-        <CloseButton onClick={onClose}>×</CloseButton>
+        <CloseButton onClick={onClose}>
+          <MdClose style={{ color: "#000000" }} />
+        </CloseButton>
         <PrevButton
           onClick={(e) => {
             e.stopPropagation();
             onPrevious();
           }}
         >
-          &lt;
+          <MdKeyboardDoubleArrowLeft style={{ color: "#000000" }} />
         </PrevButton>
         <ZoomableImage src={image} alt="Collection" />
         <NextButton
@@ -21,7 +28,7 @@ const ImagePopup = ({ image, onClose, onNext, onPrevious }) => {
             onNext();
           }}
         >
-          &gt;
+          <MdKeyboardDoubleArrowRight style={{ color: "#000000" }} />
         </NextButton>
       </PopupContent>
     </PopupOverlay>
