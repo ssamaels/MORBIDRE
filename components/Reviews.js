@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import Image from "next/image";
+import { useContext } from "react";
+import { ClientSideContext } from "@/pages/_app";
 
 const Reviews = ({ reviews }) => {
   function getTime(data) {
@@ -13,38 +15,44 @@ const Reviews = ({ reviews }) => {
     return `${date}.${month}.${year} - ${hours}:${minutes}`;
   }
 
+  const isClient = useContext(ClientSideContext);
+
   return (
     <ReviewsContainer>
-      <Image
-        className="left"
-        src="/images/left light.png"
-        alt=""
-        height={650}
-        width={300}
-      />
-      <StyledContainder className="reviews-container">
-        <h3>Customer reviews:</h3>
-        <hr></hr>
-        <ul>
-          {reviews &&
-            reviews.map((review) => (
-              <StyledListItem key={review._id}>
-                <ListInput>
-                  <strong>Date:</strong> {getTime(review.date)}
-                </ListInput>
-                {<br></br>}
-                <ListInput>
-                  <strong>Name:</strong> {review.name}
-                </ListInput>
-                {<br></br>}
-                <ListInput>
-                  <strong>Review:</strong> {review.review}
-                </ListInput>
-                <hr></hr>
-              </StyledListItem>
-            ))}
-        </ul>
-      </StyledContainder>
+      {isClient && (
+        <>
+          <Image
+            className="left"
+            src="/images/left light.png"
+            alt=""
+            height={650}
+            width={300}
+          />
+          <StyledContainder className="reviews-container">
+            <h3>Customer reviews:</h3>
+            <hr></hr>
+            <ul>
+              {reviews &&
+                reviews.map((review) => (
+                  <StyledListItem key={review._id}>
+                    <ListInput>
+                      <strong>Date:</strong> {getTime(review.date)}
+                    </ListInput>
+                    {<br></br>}
+                    <ListInput>
+                      <strong>Name:</strong> {review.name}
+                    </ListInput>
+                    {<br></br>}
+                    <ListInput>
+                      <strong>Review:</strong> {review.review}
+                    </ListInput>
+                    <hr></hr>
+                  </StyledListItem>
+                ))}
+            </ul>
+          </StyledContainder>
+        </>
+      )}
     </ReviewsContainer>
   );
 };

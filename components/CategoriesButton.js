@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useDarkMode } from "./DarkModeContext";
+import { RxValue } from "react-icons/rx";
+import { ClientSideContext } from "@/pages/_app";
 
 export default function CategoriesButton() {
   const [showcategories, setShowCategories] = useState(true);
@@ -9,61 +11,66 @@ export default function CategoriesButton() {
   const [showkidlit, setShowKidlit] = useState(true);
 
   const { darkMode, setDarkMode } = useDarkMode();
+  const isClient = useContext(ClientSideContext);
 
   return (
     <>
       <StyledCategories>
-        <StyledButton
-          onClick={() => setShowCategories(!showcategories)}
-          darkMode={darkMode}
-        >
-          CATEGORIES
-        </StyledButton>
-        <Categories showcategories={!showcategories}>
-          <Category
-            onClick={() => setShowGraphic(!showgraphic)}
-            darkMode={darkMode}
-          >
-            GRAPHIC<br></br> DESIGN
-          </Category>
-          <Category
-            onClick={() => setShowMorbi(!showmorbi)}
-            darkMode={darkMode}
-          >
-            MORBIDRE<br></br> ILLUSTRATIONS
-          </Category>
-          <Category
-            onClick={() => setShowKidlit(!showkidlit)}
-            darkMode={darkMode}
-          >
-            KIDLIT AND<br></br> COVER ILLUSTRATIONS
-          </Category>
-        </Categories>
-        <Subcategories>
-          <SubcategoriesGraphic showgraphic={!showgraphic} darkMode={darkMode}>
-            <div id="pg">
-              <p>PACKAGING DESIGN</p>
-              <p>LABEL DESIGN</p>
-              <p>BRANDING AND REBRANDING SERVICES</p>
-              <p>ADVERTISING DESIGN</p>
-              <p>MARKETING DESIGN</p>
-              <p>VISUAL COMMUNICATION</p>
-            </div>
-          </SubcategoriesGraphic>
-          <SubcategoriesMorbi showmorbi={!showmorbi} darkMode={darkMode}>
-            <div id="pm">
-              <p>CUSTOM T-SHIRT PRINTS</p>
-              <p>POSTER AND STICKER ILLUSTRATIONS</p>
-              <p>DARK (MORBIDRE) ILLUSTRATIONS</p>
-            </div>
-          </SubcategoriesMorbi>
-          <SubcategoriesKidlit showkidlit={!showkidlit} darkMode={darkMode}>
-            <div id="pk">
-              <p>CUSTOM KIDLIT ILLUSTRATIONS</p>
-              <p>COVER AND POSTER ILLUSTRATIONS</p>
-            </div>
-          </SubcategoriesKidlit>
-        </Subcategories>
+        {isClient && (
+          <>
+            <StyledButton
+              onClick={() => setShowCategories(!showcategories)}
+              $darkMode={darkMode}
+            >
+              CATEGORIES
+            </StyledButton>
+            <Categories $show={!showcategories}>
+              <Category
+                onClick={() => setShowGraphic(!showgraphic)}
+                $darkMode={darkMode}
+              >
+                GRAPHIC<br></br> DESIGN
+              </Category>
+              <Category
+                onClick={() => setShowMorbi(!showmorbi)}
+                $darkMode={darkMode}
+              >
+                MORBIDRE<br></br> ILLUSTRATIONS
+              </Category>
+              <Category
+                onClick={() => setShowKidlit(!showkidlit)}
+                $darkMode={darkMode}
+              >
+                KIDLIT AND<br></br> COVER ILLUSTRATIONS
+              </Category>
+            </Categories>
+            <Subcategories>
+              <SubcategoriesGraphic $show={!showgraphic} $darkMode={darkMode}>
+                <div id="pg">
+                  <p>PACKAGING DESIGN</p>
+                  <p>LABEL DESIGN</p>
+                  <p>BRANDING AND REBRANDING SERVICES</p>
+                  <p>ADVERTISING DESIGN</p>
+                  <p>MARKETING DESIGN</p>
+                  <p>VISUAL COMMUNICATION</p>
+                </div>
+              </SubcategoriesGraphic>
+              <SubcategoriesMorbi $show={!showmorbi} $darkMode={darkMode}>
+                <div id="pm">
+                  <p>CUSTOM T-SHIRT PRINTS</p>
+                  <p>POSTER AND STICKER ILLUSTRATIONS</p>
+                  <p>DARK (MORBIDRE) ILLUSTRATIONS</p>
+                </div>
+              </SubcategoriesMorbi>
+              <SubcategoriesKidlit $show={!showkidlit} $darkMode={darkMode}>
+                <div id="pk">
+                  <p>CUSTOM KIDLIT ILLUSTRATIONS</p>
+                  <p>COVER AND POSTER ILLUSTRATIONS</p>
+                </div>
+              </SubcategoriesKidlit>
+            </Subcategories>
+          </>
+        )}
       </StyledCategories>
     </>
   );
@@ -98,7 +105,7 @@ const StyledButton = styled.button`
   }
 
   ${(props) =>
-    props.darkMode &&
+    props.$darkMode &&
     `
     border: 0.01rem solid #ffffff;
       color: #ffffff;
@@ -115,7 +122,7 @@ const StyledButton = styled.button`
 `;
 
 const Categories = styled.div`
-  display: ${(props) => (props.showcategories ? "flex" : "none")};
+  display: ${(props) => (props.$show ? "flex" : "none")};
   flex-direction: row;
   align-items: center;
   justify-items: space-between;
@@ -143,7 +150,7 @@ const Category = styled.button`
   }
 
   ${(props) =>
-    props.darkMode &&
+    props.$darkMode &&
     `
     border: 0.01rem solid #ffffff;
       color: #ffffff;
@@ -172,8 +179,8 @@ const Subcategories = styled.div`
 `;
 
 const SubcategoriesGraphic = styled.div`
-  display: ${(props) => (props.showgraphic ? "flex" : "none")};
-  position: ${(props) => (props.showgraphic ? "absolute" : "relative")};
+  display: ${(props) => (props.$show ? "flex" : "none")};
+  position: ${(props) => (props.$show ? "absolute" : "relative")};
   flex-direction: column;
   align-self: flex-start;
   align-self: center;
@@ -192,15 +199,15 @@ const SubcategoriesGraphic = styled.div`
   }
 
   ${(props) =>
-    props.darkMode &&
+    props.$darkMode &&
     `
       color: #ffffff;
     `}
 `;
 
 const SubcategoriesMorbi = styled.div`
-  display: ${(props) => (props.showmorbi ? "flex" : "none")};
-  position: ${(props) => (props.showmorbi ? "absolute" : "relative")};
+  display: ${(props) => (props.$show ? "flex" : "none")};
+  position: ${(props) => (props.$show ? "absolute" : "relative")};
   flex-direction: column;
   align-self: flex-start;
   align-self: center;
@@ -216,15 +223,15 @@ const SubcategoriesMorbi = styled.div`
   }
 
   ${(props) =>
-    props.darkMode &&
+    props.$darkMode &&
     `
       color: #ffffff;
     `}
 `;
 
 const SubcategoriesKidlit = styled.div`
-  display: ${(props) => (props.showkidlit ? "flex" : "none")};
-  position: ${(props) => (props.showkidlit ? "absolute" : "relative")};
+  display: ${(props) => (props.$show ? "flex" : "none")};
+  position: ${(props) => (props.$show ? "absolute" : "relative")};
   flex-direction: column;
   align-self: flex-start;
   align-self: center;
@@ -243,7 +250,7 @@ const SubcategoriesKidlit = styled.div`
   }
 
   ${(props) =>
-    props.darkMode &&
+    props.$darkMode &&
     `
       color: #ffffff;
     `}

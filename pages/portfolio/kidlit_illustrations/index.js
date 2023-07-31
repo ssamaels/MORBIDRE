@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import Header from "@/components/Header";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import connectDB from "@/db/connect";
 import KidlitIllustrations from "@/db/models/kidlit_illustrations";
 import ImagePopup from "@/components/ImagePopup";
+import { ClientSideContext } from "@/pages/_app";
 
 const KidlitIllustrationsPage = ({ illustrations }) => {
   const [popupImage, setPopupImage] = useState(null);
@@ -33,26 +34,30 @@ const KidlitIllustrationsPage = ({ illustrations }) => {
     setCurrentImageIndex(previousIndex);
   };
 
+  const isClient = useContext(ClientSideContext);
+
   return (
     <>
       <Header />
-      <KidlitDisplay>
-        <h1>Kidlit Illustrations</h1>
-        <KidlitGrid>
-          {illustrations.length > 0 ? (
-            illustrations.map((illustration, index) => (
-              <KidlitItem
-                key={illustration._id}
-                onClick={() => openPopup(index)}
-              >
-                <ZoomableImage src={illustration.image} alt="Illustration" />
-              </KidlitItem>
-            ))
-          ) : (
-            <p>No illustrations found.</p>
-          )}
-        </KidlitGrid>
-      </KidlitDisplay>
+      {isClient && (
+        <KidlitDisplay>
+          <h1>Kidlit Illustrations</h1>
+          <KidlitGrid>
+            {illustrations.length > 0 ? (
+              illustrations.map((illustration, index) => (
+                <KidlitItem
+                  key={illustration._id}
+                  onClick={() => openPopup(index)}
+                >
+                  <ZoomableImage src={illustration.image} alt="Illustration" />
+                </KidlitItem>
+              ))
+            ) : (
+              <p>No illustrations found.</p>
+            )}
+          </KidlitGrid>
+        </KidlitDisplay>
+      )}
       {popupImage && (
         <ImagePopup
           image={popupImage}

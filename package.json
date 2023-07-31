@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.11.0",
     "axios": "^1.4.0",
     "cloudinary": "^1.37.3",
+    "emailjs": "^4.0.2",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.10",
     "gsap": "^3.12.2",
@@ -25,5 +27,8 @@
     "swr": "^2.2.0",
     "uid": "^2.0.2",
     "use-local-storage": "^3.0.0"
+  },
+  "devDependencies": {
+    "babel-plugin-styled-components": "^2.1.4"
   }
 }

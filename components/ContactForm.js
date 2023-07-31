@@ -1,12 +1,17 @@
 import styled from "styled-components";
 import DrawingCanvas, { convertCanvasToImage } from "./DrawingCanvas";
-import { useState } from "react";
+import React, { useState, useRef, useContext } from "react";
+import emailjs from "@emailjs/browser";
+import { ClientSideContext } from "@/pages/_app";
 
 export default function ContactForm({ onAddContact }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [image, setImage] = useState("");
+  const form = useRef();
+
+  const isClient = useContext(ClientSideContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,49 +27,76 @@ export default function ContactForm({ onAddContact }) {
       image: canvasImage,
     };
     onAddContact(newContact);
+    sendEmail();
     document.getElementById("contact-form").reset();
     document.getElementById("contact-name").focus();
   };
 
+  const sendEmail = () => {
+    emailjs
+      .sendForm(
+        "service_nmoz9jj",
+        "template_9enahyl",
+        form.current,
+        "_hu0cXPGWXRr_CSBu"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          console.log("message sent");
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
+
   return (
     <>
-      <StyledForm id="contact-form" onSubmit={handleSubmit}>
-        <StyledLabel htmlFor="contact-name">Name:</StyledLabel>
-        <StyledInput
-          type="text"
-          className="contact-name"
-          id="contact-name"
-          cols="30"
-          rows="5"
-          required
-          onChange={(e) => setName(e.target.value)}
-        ></StyledInput>
-        <StyledLabel htmlFor="contact-email">Email:</StyledLabel>
-        <StyledInput
-          type="text"
-          className="contact-email"
-          id="contact-email"
-          cols="30"
-          rows="5"
-          required
-          onChange={(e) => setEmail(e.target.value)}
-        ></StyledInput>
-        <StyledLabel htmlFor="contact-message">Message:</StyledLabel>
-        <StyledTextArea
-          type="text"
-          className="contact-message"
-          id="contact-message"
-          cols="30"
-          rows="5"
-          required
-          onChange={(e) => setMessage(e.target.value)}
-        ></StyledTextArea>
-        <div className="field">
-          <DrawingCanvas />
-        </div>
-        <StyledButton className="submit-button" type="submit">
-          SUBMIT
-        </StyledButton>
+      <StyledForm ref={form} id="contact-form" onSubmit={handleSubmit}>
+        {isClient && (
+          <>
+            <StyledLabel htmlFor="contact-name">Name:</StyledLabel>
+            <StyledInput
+              type="text"
+              className="contact-name"
+              id="contact-name"
+              name="contact-name"
+              cols="30"
+              rows="5"
+              required
+              onChange={(e) => setName(e.target.value)}
+            ></StyledInput>
+            <StyledLabel htmlFor="contact-email">Email:</StyledLabel>
+            <StyledInput
+              type="text"
+              className="contact-email"
+              id="contact-email"
+              name="contact-email"
+              cols="30"
+              rows="5"
+              required
+              onChange={(e) => setEmail(e.target.value)}
+            ></StyledInput>
+            <StyledLabel htmlFor="contact-message">Message:</StyledLabel>
+            <StyledTextArea
+              type="text"
+              className="contact-message"
+              id="contact-message"
+              name="contact-message"
+              cols="30"
+              rows="5"
+              required
+              onChange={(e) => setMessage(e.target.value)}
+            ></StyledTextArea>
+            <div className="field">
+              <DrawingCanvas />
+            </div>
+            <StyledButton className="submit-button" type="submit">
+              SUBMIT
+            </StyledButton>
+          </>
+        )}
       </StyledForm>
     </>
   );

@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import Header from "@/components/Header";
 import ContactForm from "@/components/ContactForm";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Image from "next/image";
+import { ClientSideContext } from "../_app";
 
 export default function ContactPage() {
   const [contacts, setContacts] = useState([]);
+  const isClient = useContext(ClientSideContext);
 
   useEffect(() => {
     async function handleGetContact(contact) {
@@ -38,23 +40,25 @@ export default function ContactPage() {
   return (
     <>
       <Header />
-      <ElementsContainer>
-        <Image
-          className="left"
-          src="/images/left light.png"
-          alt=""
-          height={650}
-          width={300}
-        />
-        <ContactForm onAddContact={handleAddContact} />
-        <Image
-          className="right"
-          src="/images/right light.png"
-          alt=""
-          height={750}
-          width={250}
-        />
-      </ElementsContainer>
+      {isClient && (
+        <ElementsContainer>
+          <Image
+            className="left"
+            src="/images/left light.png"
+            alt=""
+            height={650}
+            width={300}
+          />
+          <ContactForm onAddContact={handleAddContact} />
+          <Image
+            className="right"
+            src="/images/right light.png"
+            alt=""
+            height={750}
+            width={250}
+          />
+        </ElementsContainer>
+      )}
     </>
   );
 }
