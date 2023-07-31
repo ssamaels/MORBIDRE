@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import Header from "@/components/Header";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import connectDB from "@/db/connect";
 import MorbidreDesign from "@/db/models/morbidre_design";
 import ImagePopup from "@/components/ImagePopup";
+import { ClientSideContext } from "@/pages/_app";
 
 const MorbidreDesignsPage = ({ designs }) => {
   const [popupImage, setPopupImage] = useState(null);
@@ -33,23 +34,27 @@ const MorbidreDesignsPage = ({ designs }) => {
     setCurrentImageIndex(previousIndex);
   };
 
+  const isClient = useContext(ClientSideContext);
+
   return (
     <>
       <Header />
-      <DesignDisplay>
-        <h1>Morbidre Design</h1>
-        <DesignGrid>
-          {designs.length > 0 ? (
-            designs.map((design, index) => (
-              <DesignItem key={design._id} onClick={() => openPopup(index)}>
-                <ZoomableImage src={design.image} alt="Design" />
-              </DesignItem>
-            ))
-          ) : (
-            <p>No designs found.</p>
-          )}
-        </DesignGrid>
-      </DesignDisplay>
+      {isClient && (
+        <DesignDisplay>
+          <h1>Morbidre Design</h1>
+          <DesignGrid>
+            {designs.length > 0 ? (
+              designs.map((design, index) => (
+                <DesignItem key={design._id} onClick={() => openPopup(index)}>
+                  <ZoomableImage src={design.image} alt="Design" />
+                </DesignItem>
+              ))
+            ) : (
+              <p>No designs found.</p>
+            )}
+          </DesignGrid>
+        </DesignDisplay>
+      )}
       {popupImage && (
         <ImagePopup
           image={popupImage}

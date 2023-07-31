@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Header from "@/components/Header";
 import connectDB from "@/db/connect";
 import Collections from "@/db/models/collections";
 import ImagePopup from "@/components/ImagePopup";
+import { ClientSideContext } from "@/pages/_app";
 
 const CollectionsPage = ({ collections }) => {
   const [popupImage, setPopupImage] = useState(null);
@@ -32,26 +33,30 @@ const CollectionsPage = ({ collections }) => {
     setCurrentImageIndex(previousIndex);
   };
 
+  const isClient = useContext(ClientSideContext);
+
   return (
     <>
       <Header />
-      <CollectionsDisplay>
-        <h1>Collections</h1>
-        <CollectionsGrid>
-          {collections.length > 0 ? (
-            collections.map((collection, index) => (
-              <CollectionItem
-                key={collection._id}
-                onClick={() => openPopup(index)}
-              >
-                <ZoomableImage src={collection.image} alt="Collection" />
-              </CollectionItem>
-            ))
-          ) : (
-            <p>No collections found.</p>
-          )}
-        </CollectionsGrid>
-      </CollectionsDisplay>
+      {isClient && (
+        <CollectionsDisplay>
+          <h1>Collections</h1>
+          <CollectionsGrid>
+            {collections.length > 0 ? (
+              collections.map((collection, index) => (
+                <CollectionItem
+                  key={collection._id}
+                  onClick={() => openPopup(index)}
+                >
+                  <ZoomableImage src={collection.image} alt="Collection" />
+                </CollectionItem>
+              ))
+            ) : (
+              <p>No collections found.</p>
+            )}
+          </CollectionsGrid>
+        </CollectionsDisplay>
+      )}
       {popupImage && (
         <ImagePopup
           image={popupImage}

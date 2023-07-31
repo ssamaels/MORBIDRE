@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import Header from "@/components/Header";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import connectDB from "@/db/connect";
 import MorbidreIllustrations from "@/db/models/morbidre_illustrations";
 import ImagePopup from "@/components/ImagePopup";
+import { ClientSideContext } from "@/pages/_app";
 
 const MorbidreIllustrationsPage = ({ illustrations }) => {
   const [popupImage, setPopupImage] = useState(null);
@@ -33,26 +34,30 @@ const MorbidreIllustrationsPage = ({ illustrations }) => {
     setCurrentImageIndex(previousIndex);
   };
 
+  const isClient = useContext(ClientSideContext);
+
   return (
     <>
       <Header />
-      <IllustrationDisplay>
-        <h1>Morbidre Illustrations</h1>
-        <IllustrationGrid>
-          {illustrations.length > 0 ? (
-            illustrations.map((illustration, index) => (
-              <IllustrationItem
-                key={illustration._id}
-                onClick={() => openPopup(index)}
-              >
-                <ZoomableImage src={illustration.image} alt="Illustration" />
-              </IllustrationItem>
-            ))
-          ) : (
-            <p>No illustrations found.</p>
-          )}
-        </IllustrationGrid>
-      </IllustrationDisplay>
+      {isClient && (
+        <IllustrationDisplay>
+          <h1>Morbidre Illustrations</h1>
+          <IllustrationGrid>
+            {illustrations.length > 0 ? (
+              illustrations.map((illustration, index) => (
+                <IllustrationItem
+                  key={illustration._id}
+                  onClick={() => openPopup(index)}
+                >
+                  <ZoomableImage src={illustration.image} alt="Illustration" />
+                </IllustrationItem>
+              ))
+            ) : (
+              <p>No illustrations found.</p>
+            )}
+          </IllustrationGrid>
+        </IllustrationDisplay>
+      )}
       {popupImage && (
         <ImagePopup
           image={popupImage}

@@ -1,5 +1,6 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import styled from "styled-components";
+import { ClientSideContext } from "@/pages/_app";
 
 export default function DrawingCanvas() {
   const canvasRef = useRef(null);
@@ -37,6 +38,14 @@ export default function DrawingCanvas() {
         const canvasRect = canvasRef.current.getBoundingClientRect();
         const scaleX = canvasRef.current.width / canvasRect.width;
         const scaleY = canvasRef.current.height / canvasRect.height;
+        console.log(" pageX, pageY:", pageX, pageY);
+        console.log(
+          "event.offsetX, event.offset:",
+          event.offsetX,
+          event.offsetY
+        );
+
+        console.log(" scaleX, scaleY:", scaleX, scaleY);
         context.current.lineTo(
           (pageX - canvasRect.left) * scaleX,
           (pageY - canvasRect.top) * scaleY
@@ -118,34 +127,46 @@ export default function DrawingCanvas() {
     }
   }
 
+  const isClient = useContext(ClientSideContext);
+
   return (
     <CreativeArea>
-      <StyledLabel htmlFor="canvas">Draw what you have in mind:</StyledLabel>
-      <StyledCanvas
-        ref={canvasRef}
-        className="canvas"
-        id="canvas"
-        width={700}
-        height={350}
-      ></StyledCanvas>
-      <StyledTools>
-        <RangePicker
-          onChange={(e) => (drawWidth.current = e.target.value)}
-          type="range"
-          min="1"
-          max="100"
-        />
-        <ColorPicker
-          onChange={(e) => (drawColor.current = e.target.value)}
-          type="color"
-        />
-        <StyledButton onClick={undoLast} type="button" className="button">
-          Undo
-        </StyledButton>
-        <StyledButton onClick={clearCanvas} type="button" className="button">
-          Clear
-        </StyledButton>
-      </StyledTools>
+      {isClient && (
+        <>
+          <StyledLabel htmlFor="canvas">
+            Draw what you have in mind:
+          </StyledLabel>
+          <StyledCanvas
+            ref={canvasRef}
+            className="canvas"
+            id="canvas"
+            width={700}
+            height={350}
+          ></StyledCanvas>
+          <StyledTools>
+            <RangePicker
+              onChange={(e) => (drawWidth.current = e.target.value)}
+              type="range"
+              min="1"
+              max="100"
+            />
+            <ColorPicker
+              onChange={(e) => (drawColor.current = e.target.value)}
+              type="color"
+            />
+            <StyledButton onClick={undoLast} type="button" className="button">
+              Undo
+            </StyledButton>
+            <StyledButton
+              onClick={clearCanvas}
+              type="button"
+              className="button"
+            >
+              Clear
+            </StyledButton>
+          </StyledTools>
+        </>
+      )}
     </CreativeArea>
   );
 }
@@ -166,7 +187,7 @@ const CreativeArea = styled.div`
 const StyledCanvas = styled.canvas`
   border: 0.01rem double #000000;
   border-radius: 1.5rem;
-
+  overflow: hidden;
   @media (max-width: 775px) {
     width: 350px;
   }

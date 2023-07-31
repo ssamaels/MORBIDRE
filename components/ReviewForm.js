@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
+import { ClientSideContext } from "@/pages/_app";
 
 const ReviewForm = ({ onAddReview }) => {
   const [name, setName] = useState("");
@@ -21,36 +22,42 @@ const ReviewForm = ({ onAddReview }) => {
     document.getElementById("review-name").focus();
   };
 
+  const isClient = useContext(ClientSideContext);
+
   return (
     <>
       <StyledForm id="review-form" onSubmit={handleSubmit}>
-        <label htmlFor="review-name" className="name_label">
-          Name:
-        </label>
-        <StyledInput
-          type="text"
-          className="review-name"
-          id="review-name"
-          cols="30"
-          rows="5"
-          required
-          onChange={(e) => setName(e.target.value)}
-        ></StyledInput>
-        <label htmlFor="review-message" className="review-message">
-          Write a review:
-        </label>
-        <StyledTextArea
-          type="text"
-          className="review-message"
-          id="review-message"
-          cols="30"
-          rows="5"
-          required
-          onChange={(e) => setReview(e.target.value)}
-        ></StyledTextArea>
-        <StyledButton className="submitButton" type="submit">
-          SUBMIT
-        </StyledButton>
+        {isClient && (
+          <>
+            <label htmlFor="review-name" className="name_label">
+              Name:
+            </label>
+            <StyledInput
+              type="text"
+              className="review-name"
+              id="review-name"
+              cols="30"
+              rows="5"
+              required
+              onChange={(e) => setName(e.target.value)}
+            ></StyledInput>
+            <label htmlFor="review-message" className="review-message">
+              Write a review:
+            </label>
+            <StyledTextArea
+              type="text"
+              className="review-message"
+              id="review-message"
+              cols="30"
+              rows="5"
+              required
+              onChange={(e) => setReview(e.target.value)}
+            ></StyledTextArea>
+            <StyledButton className="submitButton" type="submit">
+              SUBMIT
+            </StyledButton>
+          </>
+        )}
       </StyledForm>
     </>
   );

@@ -9,6 +9,8 @@ import Header from "@/components/Header";
 import Image from "next/image";
 import Link from "next/link";
 import { useDarkMode } from "@/components/DarkModeContext";
+import { useContext } from "react";
+import { ClientSideContext } from "../_app";
 
 export async function getServerSideProps() {
   await connectDB();
@@ -63,147 +65,152 @@ export default function Portfolio({
   collections,
 }) {
   const { darkMode, setDarkMode } = useDarkMode();
+  const isClient = useContext(ClientSideContext);
 
   return (
     <>
       <Header />
-      <ElementsContainer darkMode={darkMode}>
-        <Image
-          className="left"
-          src={darkMode ? "/images/left dark.png" : "/images/left light.png"}
-          alt=""
-          height={650}
-          width={300}
-        />
-        <Container>
-          <LinkDisplay darkMode={darkMode}>
-            <Link
-              href="/portfolio/kidlit_illustrations"
-              style={{ textDecoration: "none", color: "#000000" }}
-            >
-              <strong>KIDLIT ILLUSTRATIONS:</strong>
-            </Link>
-            <ProjectDisplay>
-              {kidLitImages.map((image) => (
-                <Image
-                  key={image._id}
-                  src={image.image}
-                  alt=""
-                  width={100}
-                  height={100}
-                />
-              ))}
-              <Link href="/portfolio/kidlit_illustrations">
-                <MdKeyboardDoubleArrowRight
-                  style={{
-                    color: "#000000",
-                    width: "50",
-                    height: "50",
-                  }}
-                  className="arrow"
-                />
+      {isClient && (
+        <ElementsContainer $darkMode={darkMode}>
+          <Image
+            className="left"
+            src={darkMode ? "/images/left dark.png" : "/images/left light.png"}
+            alt=""
+            height={650}
+            width={300}
+          />
+          <Container>
+            <LinkDisplay $darkMode={darkMode}>
+              <Link
+                href="/portfolio/kidlit_illustrations"
+                style={{ textDecoration: "none", color: "#000000" }}
+              >
+                <strong>KIDLIT ILLUSTRATIONS:</strong>
               </Link>
-            </ProjectDisplay>
-          </LinkDisplay>
-          <hr></hr>
-          <LinkDisplay darkMode={darkMode}>
-            <Link
-              href="/portfolio/morbidre_illustrations"
-              style={{ textDecoration: "none", color: "#000000" }}
-            >
-              <strong>MORBIDRE ILLUSTRATIONS:</strong>
-            </Link>
-            <ProjectDisplay>
-              {morbidreImages.map((image) => (
-                <Image
-                  key={image._id}
-                  src={image.image}
-                  alt=""
-                  width={100}
-                  height={100}
-                />
-              ))}
-              <Link href="/portfolio/morbidre_illustrations">
-                <MdKeyboardDoubleArrowRight
-                  style={{
-                    color: "#000000",
-                    width: "50",
-                    height: "50",
-                  }}
-                  className="arrow"
-                />
+              <ProjectDisplay>
+                {kidLitImages.map((image) => (
+                  <Image
+                    key={image._id}
+                    src={image.image}
+                    alt=""
+                    width={100}
+                    height={100}
+                  />
+                ))}
+                <Link href="/portfolio/kidlit_illustrations">
+                  <MdKeyboardDoubleArrowRight
+                    style={{
+                      color: "#000000",
+                      width: "50",
+                      height: "50",
+                    }}
+                    className="arrow"
+                  />
+                </Link>
+              </ProjectDisplay>
+            </LinkDisplay>
+            <hr></hr>
+            <LinkDisplay $darkMode={darkMode}>
+              <Link
+                href="/portfolio/morbidre_illustrations"
+                style={{ textDecoration: "none", color: "#000000" }}
+              >
+                <strong>MORBIDRE ILLUSTRATIONS:</strong>
               </Link>
-            </ProjectDisplay>
-          </LinkDisplay>
-          <hr></hr>
-          <LinkDisplay darkMode={darkMode}>
-            <Link
-              href="/portfolio/morbidre_designs"
-              style={{ textDecoration: "none", color: "#000000" }}
-            >
-              <strong>MORBIDRE DESIGN:</strong>
-            </Link>
-            <ProjectDisplay>
-              {morbidreDesigns.map((image) => (
-                <Image
-                  key={image._id}
-                  src={image.image}
-                  alt=""
-                  width={100}
-                  height={100}
-                />
-              ))}
-              <Link href="/portfolio/morbidre_designs">
-                <MdKeyboardDoubleArrowRight
-                  style={{
-                    color: "#000000",
-                    width: "50",
-                    height: "50",
-                  }}
-                  className="arrow"
-                />
+              <ProjectDisplay>
+                {morbidreImages.map((image) => (
+                  <Image
+                    key={image._id}
+                    src={image.image}
+                    alt=""
+                    width={100}
+                    height={100}
+                  />
+                ))}
+                <Link href="/portfolio/morbidre_illustrations">
+                  <MdKeyboardDoubleArrowRight
+                    style={{
+                      color: "#000000",
+                      width: "50",
+                      height: "50",
+                    }}
+                    className="arrow"
+                  />
+                </Link>
+              </ProjectDisplay>
+            </LinkDisplay>
+            <hr></hr>
+            <LinkDisplay $darkMode={darkMode}>
+              <Link
+                href="/portfolio/morbidre_designs"
+                style={{ textDecoration: "none", color: "#000000" }}
+              >
+                <strong>MORBIDRE DESIGN:</strong>
               </Link>
-            </ProjectDisplay>
-          </LinkDisplay>
-          <hr></hr>
-          <LinkDisplay darkMode={darkMode}>
-            <Link
-              href="/portfolio/collections"
-              style={{ textDecoration: "none", color: "#000000" }}
-            >
-              <strong>COLLECTIONS:</strong>
-            </Link>
-            <ProjectDisplay>
-              {collections.map((image) => (
-                <Image
-                  key={image._id}
-                  src={image.image}
-                  alt=""
-                  width={100}
-                  height={100}
-                />
-              ))}
-              <Link href="/portfolio/collections">
-                <MdKeyboardDoubleArrowRight
-                  style={{
-                    color: "#000000",
-                    width: "50",
-                    height: "50",
-                  }}
-                  className="arrow"
-                />
+              <ProjectDisplay>
+                {morbidreDesigns.map((image) => (
+                  <Image
+                    key={image._id}
+                    src={image.image}
+                    alt=""
+                    width={100}
+                    height={100}
+                  />
+                ))}
+                <Link href="/portfolio/morbidre_designs">
+                  <MdKeyboardDoubleArrowRight
+                    style={{
+                      color: "#000000",
+                      width: "50",
+                      height: "50",
+                    }}
+                    className="arrow"
+                  />
+                </Link>
+              </ProjectDisplay>
+            </LinkDisplay>
+            <hr></hr>
+            <LinkDisplay $darkMode={darkMode}>
+              <Link
+                href="/portfolio/collections"
+                style={{ textDecoration: "none", color: "#000000" }}
+              >
+                <strong>COLLECTIONS:</strong>
               </Link>
-            </ProjectDisplay>
-          </LinkDisplay>
-        </Container>
-        <Image
-          className="right"
-          src={darkMode ? "/images/right dark.png" : "/images/right light.png"}
-          alt=""
-          height={750}
-          width={250}
-        />
-      </ElementsContainer>
+              <ProjectDisplay>
+                {collections.map((image) => (
+                  <Image
+                    key={image._id}
+                    src={image.image}
+                    alt=""
+                    width={100}
+                    height={100}
+                  />
+                ))}
+                <Link href="/portfolio/collections">
+                  <MdKeyboardDoubleArrowRight
+                    style={{
+                      color: "#000000",
+                      width: "50",
+                      height: "50",
+                    }}
+                    className="arrow"
+                  />
+                </Link>
+              </ProjectDisplay>
+            </LinkDisplay>
+          </Container>
+          <Image
+            className="right"
+            src={
+              darkMode ? "/images/right dark.png" : "/images/right light.png"
+            }
+            alt=""
+            height={750}
+            width={250}
+          />
+        </ElementsContainer>
+      )}
     </>
   );
 }
@@ -224,7 +231,7 @@ const ElementsContainer = styled.div`
   }
 
   ${(props) =>
-    props.darkMode &&
+    props.$darkMode &&
     `
       color: #ffffff;
     `}
@@ -270,7 +277,7 @@ const LinkDisplay = styled.div`
   }
 
   ${(props) =>
-    props.darkMode &&
+    props.$darkMode &&
     `
       color: #ffffff;
     `}

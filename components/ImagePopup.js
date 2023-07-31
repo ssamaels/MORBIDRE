@@ -1,36 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import {
   MdKeyboardDoubleArrowRight,
   MdKeyboardDoubleArrowLeft,
   MdClose,
 } from "react-icons/md";
+import { ClientSideContext } from "@/pages/_app";
 
 const ImagePopup = ({ image, onClose, onNext, onPrevious }) => {
+  const isClient = useContext(ClientSideContext);
+
   return (
     <PopupOverlay onClick={onClose}>
-      <PopupContent>
-        <CloseButton onClick={onClose}>
-          <MdClose style={{ color: "#000000" }} />
-        </CloseButton>
-        <PrevButton
-          onClick={(e) => {
-            e.stopPropagation();
-            onPrevious();
-          }}
-        >
-          <MdKeyboardDoubleArrowLeft style={{ color: "#000000" }} />
-        </PrevButton>
-        <ZoomableImage src={image} alt="Collection" />
-        <NextButton
-          onClick={(e) => {
-            e.stopPropagation();
-            onNext();
-          }}
-        >
-          <MdKeyboardDoubleArrowRight style={{ color: "#000000" }} />
-        </NextButton>
-      </PopupContent>
+      {isClient && (
+        <>
+          <PopupContent>
+            <CloseButton onClick={onClose}>
+              <MdClose style={{ color: "#000000" }} />
+            </CloseButton>
+            <PrevButton
+              onClick={(e) => {
+                e.stopPropagation();
+                onPrevious();
+              }}
+            >
+              <MdKeyboardDoubleArrowLeft style={{ color: "#000000" }} />
+            </PrevButton>
+            <ZoomableImage src={image} alt="Collection" />
+            <NextButton
+              onClick={(e) => {
+                e.stopPropagation();
+                onNext();
+              }}
+            >
+              <MdKeyboardDoubleArrowRight style={{ color: "#000000" }} />
+            </NextButton>
+          </PopupContent>
+        </>
+      )}
     </PopupOverlay>
   );
 };
