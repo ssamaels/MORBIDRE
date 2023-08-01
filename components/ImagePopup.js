@@ -5,26 +5,29 @@ import {
   MdKeyboardDoubleArrowLeft,
   MdClose,
 } from "react-icons/md";
+import { useDarkMode } from "./DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
 
 const ImagePopup = ({ image, onClose, onNext, onPrevious }) => {
+  const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
 
   return (
-    <PopupOverlay onClick={onClose}>
+    <>
       {isClient && (
-        <>
+        <PopupOverlay onClick={onClose} $darkMode={darkMode}>
           <PopupContent>
-            <CloseButton onClick={onClose}>
-              <MdClose style={{ color: "#000000" }} />
+            <CloseButton onClick={onClose} $darkMode={darkMode}>
+              <MdClose />
             </CloseButton>
             <PrevButton
               onClick={(e) => {
                 e.stopPropagation();
                 onPrevious();
               }}
+              $darkMode={darkMode}
             >
-              <MdKeyboardDoubleArrowLeft style={{ color: "#000000" }} />
+              <MdKeyboardDoubleArrowLeft />
             </PrevButton>
             <ZoomableImage src={image} alt="Collection" />
             <NextButton
@@ -32,13 +35,14 @@ const ImagePopup = ({ image, onClose, onNext, onPrevious }) => {
                 e.stopPropagation();
                 onNext();
               }}
+              $darkMode={darkMode}
             >
-              <MdKeyboardDoubleArrowRight style={{ color: "#000000" }} />
+              <MdKeyboardDoubleArrowRight />
             </NextButton>
           </PopupContent>
-        </>
+        </PopupOverlay>
       )}
-    </PopupOverlay>
+    </>
   );
 };
 
@@ -53,6 +57,12 @@ const PopupOverlay = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 1000;
+
+  ${(props) =>
+    props.$darkMode &&
+    `
+    background-color: rgba(0, 0, 0, 0.8);
+    `}
 `;
 
 const PopupContent = styled.div`
@@ -67,6 +77,12 @@ const CloseButton = styled.div`
   color: #000000;
   font-size: 24px;
   cursor: pointer;
+
+  ${(props) =>
+    props.$darkMode &&
+    `
+  color: #ffffff;
+  `}
 `;
 
 const PrevButton = styled.div`
@@ -77,6 +93,12 @@ const PrevButton = styled.div`
   color: #000000;
   font-size: 32px;
   cursor: pointer;
+
+  ${(props) =>
+    props.$darkMode &&
+    `
+    color: #ffffff;
+    `}
 `;
 
 const NextButton = styled.div`
@@ -87,6 +109,12 @@ const NextButton = styled.div`
   color: #000000;
   font-size: 32px;
   cursor: pointer;
+
+  ${(props) =>
+    props.$darkMode &&
+    `
+  color: #ffffff;
+  `}
 `;
 
 const ZoomableImage = styled.img`

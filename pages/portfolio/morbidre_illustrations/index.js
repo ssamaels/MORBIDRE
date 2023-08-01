@@ -5,6 +5,7 @@ import React, { useState, useContext } from "react";
 import connectDB from "@/db/connect";
 import MorbidreIllustrations from "@/db/models/morbidre_illustrations";
 import ImagePopup from "@/components/ImagePopup";
+import { useDarkMode } from "@/components/DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
 
 const MorbidreIllustrationsPage = ({ illustrations }) => {
@@ -34,14 +35,15 @@ const MorbidreIllustrationsPage = ({ illustrations }) => {
     setCurrentImageIndex(previousIndex);
   };
 
+  const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
 
   return (
     <>
       <Header />
       {isClient && (
-        <IllustrationDisplay>
-          <h1>Morbidre Illustrations</h1>
+        <IllustrationDisplay $darkMode={darkMode}>
+          <h1>MORBIDRE ILLUSTRATIONS</h1>
           <IllustrationGrid>
             {illustrations.length > 0 ? (
               illustrations.map((illustration, index) => (
@@ -98,6 +100,14 @@ const IllustrationDisplay = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 10rem;
+
+  ${(props) =>
+    props.$darkMode &&
+    `
+    h1, p {
+      color: #ffffff;
+    }
+    `}
 `;
 
 const IllustrationGrid = styled.div`

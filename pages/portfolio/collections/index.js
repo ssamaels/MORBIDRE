@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import connectDB from "@/db/connect";
 import Collections from "@/db/models/collections";
 import ImagePopup from "@/components/ImagePopup";
+import { useDarkMode } from "@/components/DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
 
 const CollectionsPage = ({ collections }) => {
@@ -33,14 +34,15 @@ const CollectionsPage = ({ collections }) => {
     setCurrentImageIndex(previousIndex);
   };
 
+  const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
 
   return (
     <>
       <Header />
       {isClient && (
-        <CollectionsDisplay>
-          <h1>Collections</h1>
+        <CollectionsDisplay $darkMode={darkMode}>
+          <h1>COLLECTIONS</h1>
           <CollectionsGrid>
             {collections.length > 0 ? (
               collections.map((collection, index) => (
@@ -97,6 +99,19 @@ const CollectionsDisplay = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 10rem;
+
+  h1,
+  p {
+    color: #000000;
+  }
+
+  ${(props) =>
+    props.$darkMode &&
+    `
+    h1, p {
+      color: #ffffff;
+    }
+    `}
 `;
 
 const CollectionsGrid = styled.div`
