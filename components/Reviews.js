@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Image from "next/image";
 import { useContext } from "react";
+import { useDarkMode } from "./DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
 
 const Reviews = ({ reviews }) => {
@@ -15,6 +16,7 @@ const Reviews = ({ reviews }) => {
     return `${date}.${month}.${year} - ${hours}:${minutes}`;
   }
 
+  const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
 
   return (
@@ -23,18 +25,18 @@ const Reviews = ({ reviews }) => {
         <>
           <Image
             className="left"
-            src="/images/left light.png"
+            src={darkMode ? "/images/left dark.png" : "/images/left light.png"}
             alt=""
             height={650}
             width={300}
           />
-          <StyledContainder className="reviews-container">
+          <StyledContainder className="reviews-container" $darkMode={darkMode}>
             <h3>Customer reviews:</h3>
             <hr></hr>
             <ul>
               {reviews &&
                 reviews.map((review) => (
-                  <StyledListItem key={review._id}>
+                  <StyledListItem key={review._id} $darkMode={darkMode}>
                     <ListInput>
                       <strong>Date:</strong> {getTime(review.date)}
                     </ListInput>
@@ -67,7 +69,7 @@ const ReviewsContainer = styled.div`
   .left {
     align-self: flex-start;
     position: fixed;
-    top: 5rem;
+    top: 8rem;
   }
 
   @media (max-width: 768px) {
@@ -84,6 +86,7 @@ const StyledContainder = styled.div`
   max-width: 70%;
   white-space: normal;
   margin-left: 20rem;
+  color: #000000;
 
   hr {
     margin-top: 0.2rem;
@@ -91,7 +94,17 @@ const StyledContainder = styled.div`
     border-bottom: none;
     margin-bottom: 1.5rem;
     width: 100%;
+    color: #000000;
   }
+
+  ${(props) =>
+    props.$darkMode &&
+    `
+    color: #ffffff;
+    hr {
+      color: #ffffff;
+    }
+    `}
 
   @media (max-width: 768px) {
     margin-left: 0;
@@ -104,6 +117,7 @@ const StyledListItem = styled.li`
   margin-bottom: 0.05rem;
   width: 100%;
   padding: 0.05rem;
+  color: #000000;
 
   hr {
     border-top: 0.2rem double;
@@ -111,7 +125,17 @@ const StyledListItem = styled.li`
     margin-top: 1rem;
     margin-bottom: 1.5rem;
     width: 100%;
+    color: #000000;
   }
+
+  ${(props) =>
+    props.$darkMode &&
+    `
+    color: #ffffff;
+    hr {
+      color: #ffffff;
+    }
+    `}
 `;
 
 const ListInput = styled.div`

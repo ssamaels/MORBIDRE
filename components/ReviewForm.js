@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import styled from "styled-components";
+import { useDarkMode } from "./DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
 
 const ReviewForm = ({ onAddReview }) => {
@@ -22,6 +23,7 @@ const ReviewForm = ({ onAddReview }) => {
     document.getElementById("review-name").focus();
   };
 
+  const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
 
   return (
@@ -29,9 +31,13 @@ const ReviewForm = ({ onAddReview }) => {
       <StyledForm id="review-form" onSubmit={handleSubmit}>
         {isClient && (
           <>
-            <label htmlFor="review-name" className="name_label">
+            <StyledLabel
+              htmlFor="review-name"
+              className="name_label"
+              $darkMode={darkMode}
+            >
               Name:
-            </label>
+            </StyledLabel>
             <StyledInput
               type="text"
               className="review-name"
@@ -40,10 +46,15 @@ const ReviewForm = ({ onAddReview }) => {
               rows="5"
               required
               onChange={(e) => setName(e.target.value)}
+              $darkMode={darkMode}
             ></StyledInput>
-            <label htmlFor="review-message" className="review-message">
+            <StyledLabel
+              htmlFor="review-message"
+              className="review-message"
+              $darkMode={darkMode}
+            >
               Write a review:
-            </label>
+            </StyledLabel>
             <StyledTextArea
               type="text"
               className="review-message"
@@ -52,8 +63,13 @@ const ReviewForm = ({ onAddReview }) => {
               rows="5"
               required
               onChange={(e) => setReview(e.target.value)}
+              $darkMode={darkMode}
             ></StyledTextArea>
-            <StyledButton className="submitButton" type="submit">
+            <StyledButton
+              className="submitButton"
+              type="submit"
+              $darkMode={darkMode}
+            >
               SUBMIT
             </StyledButton>
           </>
@@ -76,18 +92,36 @@ const StyledForm = styled.form`
 
 const StyledInput = styled.input`
   border: 0.01rem double #000000;
+  color: #000000;
   border-radius: 0.2rem;
   padding-left: 0.05rem;
   padding-right: 0.05rem;
   background-color: rgb(250, 250, 250, 0.7);
+
+  ${(props) =>
+    props.$darkMode &&
+    `
+    border: 0.01rem double #ffffff;
+    color: #ffffff;
+    background-color: rgb(0, 0, 0, 0.7);
+    `}
 `;
 
 const StyledTextArea = styled.textarea`
   border: 0.01rem double #000000;
+  color: #000000;
   border-radius: 0.2rem;
   padding-left: 0.05rem;
   padding-right: 0.05rem;
   background-color: rgb(250, 250, 250, 0.7);
+
+  ${(props) =>
+    props.$darkMode &&
+    `
+    border: 0.01rem double #ffffff;
+    color: #ffffff;
+    background-color: rgb(0, 0, 0, 0.7);
+    `}
 `;
 
 const StyledButton = styled.button`
@@ -95,10 +129,34 @@ const StyledButton = styled.button`
   padding: 0.3rem;
   background: transparent;
   color: #000000;
+  border: 0.1rem solid #000000;
   border-radius: 0.2rem;
   cursor: pointer;
   &:hover {
     background: rgb(0, 0, 0, 0.5);
     color: #ffffff;
   }
+
+  ${(props) =>
+    props.$darkMode &&
+    `
+    color: #ffffff;
+    border: 0.1rem solid #ffffff;
+    &:hover {
+      background: rgb(250, 250, 250, 0.5);
+      color: #000000;
+    }
+
+    `}
+`;
+
+const StyledLabel = styled.label`
+  color: #000000;
+  margin: 0.3rem;
+
+  ${(props) =>
+    props.$darkMode &&
+    `
+    color: #ffffff;
+    `}
 `;

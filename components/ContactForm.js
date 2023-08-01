@@ -2,6 +2,7 @@ import styled from "styled-components";
 import DrawingCanvas, { convertCanvasToImage } from "./DrawingCanvas";
 import React, { useState, useRef, useContext } from "react";
 import emailjs from "@emailjs/browser";
+import { useDarkMode } from "./DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
 
 export default function ContactForm({ onAddContact }) {
@@ -11,6 +12,7 @@ export default function ContactForm({ onAddContact }) {
   const [image, setImage] = useState("");
   const form = useRef();
 
+  const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
 
   const handleSubmit = (e) => {
@@ -56,7 +58,9 @@ export default function ContactForm({ onAddContact }) {
       <StyledForm ref={form} id="contact-form" onSubmit={handleSubmit}>
         {isClient && (
           <>
-            <StyledLabel htmlFor="contact-name">Name:</StyledLabel>
+            <StyledLabel htmlFor="contact-name" $darkMode={darkMode}>
+              Name:
+            </StyledLabel>
             <StyledInput
               type="text"
               className="contact-name"
@@ -66,8 +70,11 @@ export default function ContactForm({ onAddContact }) {
               rows="5"
               required
               onChange={(e) => setName(e.target.value)}
+              $darkMode={darkMode}
             ></StyledInput>
-            <StyledLabel htmlFor="contact-email">Email:</StyledLabel>
+            <StyledLabel htmlFor="contact-email" $darkMode={darkMode}>
+              Email:
+            </StyledLabel>
             <StyledInput
               type="text"
               className="contact-email"
@@ -77,8 +84,11 @@ export default function ContactForm({ onAddContact }) {
               rows="5"
               required
               onChange={(e) => setEmail(e.target.value)}
+              $darkMode={darkMode}
             ></StyledInput>
-            <StyledLabel htmlFor="contact-message">Message:</StyledLabel>
+            <StyledLabel htmlFor="contact-message" $darkMode={darkMode}>
+              Message:
+            </StyledLabel>
             <StyledTextArea
               type="text"
               className="contact-message"
@@ -88,11 +98,16 @@ export default function ContactForm({ onAddContact }) {
               rows="5"
               required
               onChange={(e) => setMessage(e.target.value)}
+              $darkMode={darkMode}
             ></StyledTextArea>
             <div className="field">
               <DrawingCanvas />
             </div>
-            <StyledButton className="submit-button" type="submit">
+            <StyledButton
+              className="submit-button"
+              type="submit"
+              $darkMode={darkMode}
+            >
               SUBMIT
             </StyledButton>
           </>
@@ -111,25 +126,42 @@ const StyledForm = styled.form`
 `;
 
 const StyledInput = styled.input`
-  border: 0.01rem double #000000;
+  border: 0.02rem double #000000;
   border-radius: 0.2rem;
   padding-left: 0.05rem;
   padding-right: 0.05rem;
   background-color: rgb(250, 250, 250, 0.7);
+
+  ${(props) =>
+    props.$darkMode &&
+    `
+    border: 0.2rem double #ffffff;
+    background-color: rgb(0,0,0,0.7);
+    color: #ffffff;
+    `}
 `;
 
 const StyledTextArea = styled.textarea`
-  border: 0.01rem double #000000;
+  border: 0.02rem double #000000;
   border-radius: 0.5rem;
   padding-left: 0.05rem;
   padding-right: 0.05rem;
   background-color: rgb(250, 250, 250, 0.7);
+
+  ${(props) =>
+    props.$darkMode &&
+    `
+    border: 0.2rem double #ffffff;
+    background-color: rgb(0,0,0,0.7);
+    color: #ffffff;
+    `}
 `;
 
 const StyledButton = styled.button`
   margin: 1rem;
   padding: 0.3rem;
   background: transparent;
+  border: 0.1rem solid #000000;
   border-radius: 0.2rem;
   color: #000000;
   cursor: pointer;
@@ -137,8 +169,24 @@ const StyledButton = styled.button`
     background: rgb(0, 0, 0, 0.5);
     color: #ffffff;
   }
+
+  ${(props) =>
+    props.$darkMode &&
+    `
+    border: 0.1rem solid #ffffff;
+    color: #ffffff;
+    &:hover {
+    background: rgb(250, 250, 250, 0.5);
+    color: #000000;
+    `}
 `;
 
 const StyledLabel = styled.label`
   margin: 0.03rem;
+  color: #000000;
+  ${(props) =>
+    props.$darkMode &&
+    `
+    color: #ffffff;
+    `}
 `;

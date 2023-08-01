@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useContext } from "react";
 import styled from "styled-components";
+import { useDarkMode } from "./DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
 
 export default function DrawingCanvas() {
@@ -127,13 +128,14 @@ export default function DrawingCanvas() {
     }
   }
 
+  const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
 
   return (
     <CreativeArea>
       {isClient && (
         <>
-          <StyledLabel htmlFor="canvas">
+          <StyledLabel htmlFor="canvas" $darkMode={darkMode}>
             Draw what you have in mind:
           </StyledLabel>
           <StyledCanvas
@@ -142,6 +144,7 @@ export default function DrawingCanvas() {
             id="canvas"
             width={700}
             height={350}
+            $darkMode={darkMode}
           ></StyledCanvas>
           <StyledTools>
             <RangePicker
@@ -153,16 +156,23 @@ export default function DrawingCanvas() {
             <ColorPicker
               onChange={(e) => (drawColor.current = e.target.value)}
               type="color"
+              $darkMode={darkMode}
             />
-            <StyledButton onClick={undoLast} type="button" className="button">
-              Undo
+            <StyledButton
+              onClick={undoLast}
+              type="button"
+              className="button"
+              $darkMode={darkMode}
+            >
+              UNDO
             </StyledButton>
             <StyledButton
               onClick={clearCanvas}
               type="button"
               className="button"
+              $darkMode={darkMode}
             >
-              Clear
+              CLEAR
             </StyledButton>
           </StyledTools>
         </>
@@ -185,9 +195,16 @@ const CreativeArea = styled.div`
 `;
 
 const StyledCanvas = styled.canvas`
-  border: 0.01rem double #000000;
+  border: 0.02rem double #000000;
   border-radius: 1.5rem;
   overflow: hidden;
+
+  ${(props) =>
+    props.$darkMode &&
+    `
+    border: 0.02rem double #ffffff;
+    `}
+
   @media (max-width: 775px) {
     width: 350px;
   }
@@ -202,6 +219,7 @@ const StyledTools = styled.div`
 const StyledButton = styled.button`
   margin: 1rem;
   padding: 0.3rem;
+  border: 0.1rem solid #000000;
   border-radius: 0.2rem;
   background: transparent;
   color: #000000;
@@ -211,14 +229,31 @@ const StyledButton = styled.button`
     background: rgb(0, 0, 0, 0.5);
     color: #ffffff;
   }
+
+  ${(props) =>
+    props.$darkMode &&
+    `
+    border: 0.1rem solid #ffffff;
+    color: #ffffff;
+    &:hover {
+      background: rgb(250, 250, 250, 0.5);
+      color: #000000;
+    }
+    `}
 `;
 
 const ColorPicker = styled.input`
   margin: 1rem;
   padding: 0.1rem;
+  border: 0.1rem solid #000000;
   border-radius: 0.2rem;
   background: transparent;
   align-self: center;
+  ${(props) =>
+    props.$darkMode &&
+    `
+    border: 0.1rem solid #ffffff;
+    `}
 `;
 
 const RangePicker = styled.input`
@@ -229,4 +264,10 @@ const RangePicker = styled.input`
 
 const StyledLabel = styled.label`
   margin: 0.3rem;
+  color: #000000;
+  ${(props) =>
+    props.$darkMode &&
+    `
+    color: #ffffff;
+    `}
 `;

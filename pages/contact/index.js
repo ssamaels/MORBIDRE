@@ -3,10 +3,12 @@ import Header from "@/components/Header";
 import ContactForm from "@/components/ContactForm";
 import { useState, useEffect, useContext } from "react";
 import Image from "next/image";
+import { useDarkMode } from "@/components/DarkModeContext";
 import { ClientSideContext } from "../_app";
 
 export default function ContactPage() {
   const [contacts, setContacts] = useState([]);
+  const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
 
   useEffect(() => {
@@ -44,7 +46,7 @@ export default function ContactPage() {
         <ElementsContainer>
           <Image
             className="left"
-            src="/images/left light.png"
+            src={darkMode ? "/images/left dark.png" : "/images/left light.png"}
             alt=""
             height={650}
             width={300}
@@ -52,11 +54,14 @@ export default function ContactPage() {
           <ContactForm onAddContact={handleAddContact} />
           <Image
             className="right"
-            src="/images/right light.png"
+            src={
+              darkMode ? "/images/right dark.png" : "/images/right light.png"
+            }
             alt=""
             height={750}
             width={250}
           />
+
         </ElementsContainer>
       )}
     </>
