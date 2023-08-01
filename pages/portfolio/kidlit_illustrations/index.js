@@ -5,6 +5,7 @@ import React, { useState, useContext } from "react";
 import connectDB from "@/db/connect";
 import KidlitIllustrations from "@/db/models/kidlit_illustrations";
 import ImagePopup from "@/components/ImagePopup";
+import { useDarkMode } from "@/components/DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
 
 const KidlitIllustrationsPage = ({ illustrations }) => {
@@ -34,14 +35,15 @@ const KidlitIllustrationsPage = ({ illustrations }) => {
     setCurrentImageIndex(previousIndex);
   };
 
+  const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
 
   return (
     <>
       <Header />
       {isClient && (
-        <KidlitDisplay>
-          <h1>Kidlit Illustrations</h1>
+        <KidlitDisplay $darkMode={darkMode}>
+          <h1>KIDLIT ILLUSTRATIONS</h1>
           <KidlitGrid>
             {illustrations.length > 0 ? (
               illustrations.map((illustration, index) => (
@@ -98,6 +100,14 @@ const KidlitDisplay = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 10rem;
+
+  ${(props) =>
+    props.$darkMode &&
+    `
+    h1, p {
+      color: #ffffff;
+    }
+    `}
 `;
 
 const KidlitGrid = styled.div`
