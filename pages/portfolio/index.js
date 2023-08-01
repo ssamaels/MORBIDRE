@@ -81,13 +81,10 @@ export default function Portfolio({
           />
           <Container>
             <LinkDisplay $darkMode={darkMode}>
-              <Link
-                href="/portfolio/kidlit_illustrations"
-                style={{ textDecoration: "none", color: "#000000" }}
-              >
+              <Link href="/portfolio/kidlit_illustrations">
                 <strong>KIDLIT ILLUSTRATIONS:</strong>
               </Link>
-              <ProjectDisplay>
+              <ProjectDisplay $darkMode={darkMode}>
                 {kidLitImages.map((image) => (
                   <Image
                     key={image._id}
@@ -98,26 +95,16 @@ export default function Portfolio({
                   />
                 ))}
                 <Link href="/portfolio/kidlit_illustrations">
-                  <MdKeyboardDoubleArrowRight
-                    style={{
-                      color: "#000000",
-                      width: "50",
-                      height: "50",
-                    }}
-                    className="arrow"
-                  />
+                  <MdKeyboardDoubleArrowRight className="arrow" />
                 </Link>
               </ProjectDisplay>
             </LinkDisplay>
             <hr></hr>
             <LinkDisplay $darkMode={darkMode}>
-              <Link
-                href="/portfolio/morbidre_illustrations"
-                style={{ textDecoration: "none", color: "#000000" }}
-              >
+              <Link href="/portfolio/morbidre_illustrations">
                 <strong>MORBIDRE ILLUSTRATIONS:</strong>
               </Link>
-              <ProjectDisplay>
+              <ProjectDisplay $darkMode={darkMode}>
                 {morbidreImages.map((image) => (
                   <Image
                     key={image._id}
@@ -128,26 +115,16 @@ export default function Portfolio({
                   />
                 ))}
                 <Link href="/portfolio/morbidre_illustrations">
-                  <MdKeyboardDoubleArrowRight
-                    style={{
-                      color: "#000000",
-                      width: "50",
-                      height: "50",
-                    }}
-                    className="arrow"
-                  />
+                  <MdKeyboardDoubleArrowRight className="arrow" />
                 </Link>
               </ProjectDisplay>
             </LinkDisplay>
             <hr></hr>
             <LinkDisplay $darkMode={darkMode}>
-              <Link
-                href="/portfolio/morbidre_designs"
-                style={{ textDecoration: "none", color: "#000000" }}
-              >
+              <Link href="/portfolio/morbidre_designs">
                 <strong>MORBIDRE DESIGN:</strong>
               </Link>
-              <ProjectDisplay>
+              <ProjectDisplay $darkMode={darkMode}>
                 {morbidreDesigns.map((image) => (
                   <Image
                     key={image._id}
@@ -158,26 +135,16 @@ export default function Portfolio({
                   />
                 ))}
                 <Link href="/portfolio/morbidre_designs">
-                  <MdKeyboardDoubleArrowRight
-                    style={{
-                      color: "#000000",
-                      width: "50",
-                      height: "50",
-                    }}
-                    className="arrow"
-                  />
+                  <MdKeyboardDoubleArrowRight className="arrow" />
                 </Link>
               </ProjectDisplay>
             </LinkDisplay>
             <hr></hr>
             <LinkDisplay $darkMode={darkMode}>
-              <Link
-                href="/portfolio/collections"
-                style={{ textDecoration: "none", color: "#000000" }}
-              >
+              <Link href="/portfolio/collections">
                 <strong>COLLECTIONS:</strong>
               </Link>
-              <ProjectDisplay>
+              <ProjectDisplay $darkMode={darkMode}>
                 {collections.map((image) => (
                   <Image
                     key={image._id}
@@ -188,14 +155,7 @@ export default function Portfolio({
                   />
                 ))}
                 <Link href="/portfolio/collections">
-                  <MdKeyboardDoubleArrowRight
-                    style={{
-                      color: "#000000",
-                      width: "50",
-                      height: "50",
-                    }}
-                    className="arrow"
-                  />
+                  <MdKeyboardDoubleArrowRight className="arrow" />
                 </Link>
               </ProjectDisplay>
             </LinkDisplay>
@@ -274,12 +234,16 @@ const LinkDisplay = styled.div`
   a {
     justify-self: flex-start;
     margin-left: -2rem;
+    text-decoration: none;
+    color: #000000;
   }
 
   ${(props) =>
     props.$darkMode &&
     `
-      color: #ffffff;
+      a {
+        color: #ffffff
+      };
     `}
 
   @media (max-width: 768px) {
@@ -299,11 +263,29 @@ const ProjectDisplay = styled.div`
   img {
     margin-left: 0.2rem;
     margin-right: 0.2rem;
+    border: 0.2rem double #000000;
+    border-radius: 1rem;
+    background-color: rgb(250, 250, 250, 0.5);
   }
 
   .arrow {
     margin-left: 2.5rem;
+    color: #000000;
+    width: 50px;
+    height: 50px;
   }
+
+  ${(props) =>
+    props.$darkMode &&
+    `
+    img {
+        border: 0.2rem double #ffffff;
+      }
+
+      .arrow {
+        color: #ffffff
+      };
+    `}
 
   @media (max-width: 768px) {
     flex-direction: column;
