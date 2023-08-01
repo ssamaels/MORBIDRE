@@ -23,12 +23,10 @@ export default function DrawingCanvas() {
       isDrawing.current = true;
       const { pageX, pageY } = event.touches ? event.touches[0] : event;
       const canvasRect = canvasRef.current.getBoundingClientRect();
-      const scaleX = canvasRef.current.width / canvasRect.width;
-      const scaleY = canvasRef.current.height / canvasRect.height;
       context.current.beginPath();
       context.current.moveTo(
-        (pageX - canvasRect.left) * scaleX,
-        (pageY - canvasRect.top) * scaleY
+        pageX - canvasRect.left - window.scrollX,
+        pageY - canvasRect.top - window.scrollY
       );
       event.preventDefault();
     }
@@ -37,19 +35,10 @@ export default function DrawingCanvas() {
       if (isDrawing.current) {
         const { pageX, pageY } = event.touches ? event.touches[0] : event;
         const canvasRect = canvasRef.current.getBoundingClientRect();
-        const scaleX = canvasRef.current.width / canvasRect.width;
-        const scaleY = canvasRef.current.height / canvasRect.height;
-        console.log(" pageX, pageY:", pageX, pageY);
-        console.log(
-          "event.offsetX, event.offset:",
-          event.offsetX,
-          event.offsetY
-        );
 
-        console.log(" scaleX, scaleY:", scaleX, scaleY);
         context.current.lineTo(
-          (pageX - canvasRect.left) * scaleX,
-          (pageY - canvasRect.top) * scaleY
+          pageX - canvasRect.left - window.scrollX,
+          pageY - canvasRect.top - window.scrollY
         );
         context.current.strokeStyle = drawColor.current;
         context.current.lineWidth = drawWidth.current;
@@ -142,8 +131,8 @@ export default function DrawingCanvas() {
             ref={canvasRef}
             className="canvas"
             id="canvas"
-            width={700}
-            height={350}
+            width={350}
+            height={250}
             $darkMode={darkMode}
           ></StyledCanvas>
           <StyledTools>

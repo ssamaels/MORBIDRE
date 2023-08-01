@@ -61,7 +61,6 @@ export default function ContactPage() {
             height={750}
             width={250}
           />
-
         </ElementsContainer>
       )}
     </>
@@ -73,6 +72,10 @@ const ElementsContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  .right {
+    margin-left: 3rem;
+  }
 
   @media (max-width: 1425px) {
     .left {

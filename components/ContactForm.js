@@ -30,7 +30,7 @@ export default function ContactForm({ onAddContact }) {
     };
     onAddContact(newContact);
     sendEmail();
-    document.getElementById("contact-form").reset();
+    form.current.reset();
     document.getElementById("contact-name").focus();
   };
 
