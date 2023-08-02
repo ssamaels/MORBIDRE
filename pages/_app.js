@@ -3,10 +3,14 @@ import { SWRConfig } from "swr";
 import { useState, useEffect, createContext, useContext } from "react";
 import useLocalStorage from "use-local-storage";
 import { DarkModeProvider } from "@/components/DarkModeContext";
+import { SessionProvider } from "next-auth/react";
 
 export const ClientSideContext = createContext(false);
 
-export default function App({ Component, pageProps }) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -25,11 +29,13 @@ export default function App({ Component, pageProps }) {
         },
       }}
     >
-      <ClientSideContext.Provider value={isClient}>
-        <DarkModeProvider>
-          <Component {...pageProps} />
-        </DarkModeProvider>
-      </ClientSideContext.Provider>
+      <SessionProvider session={session}>
+        <ClientSideContext.Provider value={isClient}>
+          <DarkModeProvider>
+            <Component {...pageProps} />
+          </DarkModeProvider>
+        </ClientSideContext.Provider>
+      </SessionProvider>
     </SWRConfig>
   );
 }
