@@ -7,10 +7,13 @@ import MorbidreIllustrations from "@/db/models/morbidre_illustrations";
 import ImagePopup from "@/components/ImagePopup";
 import { useDarkMode } from "@/components/DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
+import { useSession } from "next-auth/react";
+import UploadButton from "@/components/UploadButton";
 
 const MorbidreIllustrationsPage = ({ illustrations }) => {
   const [popupImage, setPopupImage] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const { data: session } = useSession();
 
   const openPopup = (imageIndex) => {
     setPopupImage(illustrations[imageIndex].image);
@@ -38,38 +41,80 @@ const MorbidreIllustrationsPage = ({ illustrations }) => {
   const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
 
-  return (
-    <>
-      <Header />
-      {isClient && (
-        <IllustrationDisplay $darkMode={darkMode}>
-          <h1>MORBIDRE ILLUSTRATIONS</h1>
-          <IllustrationGrid>
-            {illustrations.length > 0 ? (
-              illustrations.map((illustration, index) => (
-                <IllustrationItem
-                  key={illustration._id}
-                  onClick={() => openPopup(index)}
-                >
-                  <ZoomableImage src={illustration.image} alt="Illustration" />
-                </IllustrationItem>
-              ))
-            ) : (
-              <p>No illustrations found.</p>
-            )}
-          </IllustrationGrid>
-        </IllustrationDisplay>
-      )}
-      {popupImage && (
-        <ImagePopup
-          image={popupImage}
-          onClose={closePopup}
-          onNext={showNextImage}
-          onPrevious={showPreviousImage}
-        />
-      )}
-    </>
-  );
+  if (session) {
+    return (
+      <>
+        <Header />
+        {isClient && (
+          <IllustrationDisplay $darkMode={darkMode}>
+            <h1>MORBIDRE ILLUSTRATIONS</h1>
+            <IllustrationGrid>
+              {illustrations.length > 0 ? (
+                illustrations.map((illustration, index) => (
+                  <IllustrationItem
+                    key={illustration._id}
+                    onClick={() => openPopup(index)}
+                  >
+                    <ZoomableImage
+                      src={illustration.image}
+                      alt="Illustration"
+                    />
+                  </IllustrationItem>
+                ))
+              ) : (
+                <p>No illustrations found.</p>
+              )}
+            </IllustrationGrid>
+            <UploadButton uploadPath="/api/upload_morbi_i" />
+          </IllustrationDisplay>
+        )}
+        {popupImage && (
+          <ImagePopup
+            image={popupImage}
+            onClose={closePopup}
+            onNext={showNextImage}
+            onPrevious={showPreviousImage}
+          />
+        )}
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Header />
+        {isClient && (
+          <IllustrationDisplay $darkMode={darkMode}>
+            <h1>MORBIDRE ILLUSTRATIONS</h1>
+            <IllustrationGrid>
+              {illustrations.length > 0 ? (
+                illustrations.map((illustration, index) => (
+                  <IllustrationItem
+                    key={illustration._id}
+                    onClick={() => openPopup(index)}
+                  >
+                    <ZoomableImage
+                      src={illustration.image}
+                      alt="Illustration"
+                    />
+                  </IllustrationItem>
+                ))
+              ) : (
+                <p>No illustrations found.</p>
+              )}
+            </IllustrationGrid>
+          </IllustrationDisplay>
+        )}
+        {popupImage && (
+          <ImagePopup
+            image={popupImage}
+            onClose={closePopup}
+            onNext={showNextImage}
+            onPrevious={showPreviousImage}
+          />
+        )}
+      </>
+    );
+  }
 };
 
 export async function getServerSideProps() {

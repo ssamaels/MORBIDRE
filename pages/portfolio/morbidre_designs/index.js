@@ -7,10 +7,13 @@ import MorbidreDesign from "@/db/models/morbidre_design";
 import ImagePopup from "@/components/ImagePopup";
 import { useDarkMode } from "@/components/DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
+import { useSession } from "next-auth/react";
+import UploadButton from "@/components/UploadButton";
 
 const MorbidreDesignsPage = ({ designs }) => {
   const [popupImage, setPopupImage] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const { data: session } = useSession();
 
   const openPopup = (imageIndex) => {
     setPopupImage(designs[imageIndex].image);
@@ -38,35 +41,68 @@ const MorbidreDesignsPage = ({ designs }) => {
   const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
 
-  return (
-    <>
-      <Header />
-      {isClient && (
-        <DesignDisplay $darkMode={darkMode}>
-          <h1>MORBIDRE DESIGN</h1>
-          <DesignGrid>
-            {designs.length > 0 ? (
-              designs.map((design, index) => (
-                <DesignItem key={design._id} onClick={() => openPopup(index)}>
-                  <ZoomableImage src={design.image} alt="Design" />
-                </DesignItem>
-              ))
-            ) : (
-              <p>No designs found.</p>
-            )}
-          </DesignGrid>
-        </DesignDisplay>
-      )}
-      {popupImage && (
-        <ImagePopup
-          image={popupImage}
-          onClose={closePopup}
-          onNext={showNextImage}
-          onPrevious={showPreviousImage}
-        />
-      )}
-    </>
-  );
+  if (session) {
+    return (
+      <>
+        <Header />
+        {isClient && (
+          <DesignDisplay $darkMode={darkMode}>
+            <h1>MORBIDRE DESIGN</h1>
+            <DesignGrid>
+              {designs.length > 0 ? (
+                designs.map((design, index) => (
+                  <DesignItem key={design._id} onClick={() => openPopup(index)}>
+                    <ZoomableImage src={design.image} alt="Design" />
+                  </DesignItem>
+                ))
+              ) : (
+                <p>No designs found.</p>
+              )}
+            </DesignGrid>
+            <UploadButton uploadPath="/api/upload_morbi_d" />
+          </DesignDisplay>
+        )}
+        {popupImage && (
+          <ImagePopup
+            image={popupImage}
+            onClose={closePopup}
+            onNext={showNextImage}
+            onPrevious={showPreviousImage}
+          />
+        )}
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Header />
+        {isClient && (
+          <DesignDisplay $darkMode={darkMode}>
+            <h1>MORBIDRE DESIGN</h1>
+            <DesignGrid>
+              {designs.length > 0 ? (
+                designs.map((design, index) => (
+                  <DesignItem key={design._id} onClick={() => openPopup(index)}>
+                    <ZoomableImage src={design.image} alt="Design" />
+                  </DesignItem>
+                ))
+              ) : (
+                <p>No designs found.</p>
+              )}
+            </DesignGrid>
+          </DesignDisplay>
+        )}
+        {popupImage && (
+          <ImagePopup
+            image={popupImage}
+            onClose={closePopup}
+            onNext={showNextImage}
+            onPrevious={showPreviousImage}
+          />
+        )}
+      </>
+    );
+  }
 };
 
 export async function getServerSideProps() {

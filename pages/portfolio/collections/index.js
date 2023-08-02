@@ -6,10 +6,13 @@ import Collections from "@/db/models/collections";
 import ImagePopup from "@/components/ImagePopup";
 import { useDarkMode } from "@/components/DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
+import { useSession } from "next-auth/react";
+import UploadButton from "@/components/UploadButton";
 
 const CollectionsPage = ({ collections }) => {
   const [popupImage, setPopupImage] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const { data: session } = useSession();
 
   const openPopup = (imageIndex) => {
     setPopupImage(collections[imageIndex].image);
@@ -37,38 +40,74 @@ const CollectionsPage = ({ collections }) => {
   const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
 
-  return (
-    <>
-      <Header />
-      {isClient && (
-        <CollectionsDisplay $darkMode={darkMode}>
-          <h1>COLLECTIONS</h1>
-          <CollectionsGrid>
-            {collections.length > 0 ? (
-              collections.map((collection, index) => (
-                <CollectionItem
-                  key={collection._id}
-                  onClick={() => openPopup(index)}
-                >
-                  <ZoomableImage src={collection.image} alt="Collection" />
-                </CollectionItem>
-              ))
-            ) : (
-              <p>No collections found.</p>
-            )}
-          </CollectionsGrid>
-        </CollectionsDisplay>
-      )}
-      {popupImage && (
-        <ImagePopup
-          image={popupImage}
-          onClose={closePopup}
-          onNext={showNextImage}
-          onPrevious={showPreviousImage}
-        />
-      )}
-    </>
-  );
+  if (session) {
+    return (
+      <>
+        <Header />
+        {isClient && (
+          <CollectionsDisplay $darkMode={darkMode}>
+            <h1>COLLECTIONS</h1>
+            <CollectionsGrid>
+              {collections.length > 0 ? (
+                collections.map((collection, index) => (
+                  <CollectionItem
+                    key={collection._id}
+                    onClick={() => openPopup(index)}
+                  >
+                    <ZoomableImage src={collection.image} alt="Collection" />
+                  </CollectionItem>
+                ))
+              ) : (
+                <p>No collections found.</p>
+              )}
+            </CollectionsGrid>
+            <UploadButton uploadPath="/api/upload_collections" />
+          </CollectionsDisplay>
+        )}
+        {popupImage && (
+          <ImagePopup
+            image={popupImage}
+            onClose={closePopup}
+            onNext={showNextImage}
+            onPrevious={showPreviousImage}
+          />
+        )}
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Header />
+        {isClient && (
+          <CollectionsDisplay $darkMode={darkMode}>
+            <h1>COLLECTIONS</h1>
+            <CollectionsGrid>
+              {collections.length > 0 ? (
+                collections.map((collection, index) => (
+                  <CollectionItem
+                    key={collection._id}
+                    onClick={() => openPopup(index)}
+                  >
+                    <ZoomableImage src={collection.image} alt="Collection" />
+                  </CollectionItem>
+                ))
+              ) : (
+                <p>No collections found.</p>
+              )}
+            </CollectionsGrid>
+          </CollectionsDisplay>
+        )}
+        {popupImage && (
+          <ImagePopup
+            image={popupImage}
+            onClose={closePopup}
+            onNext={showNextImage}
+            onPrevious={showPreviousImage}
+          />
+        )}
+      </>
+    );
+  }
 };
 
 export async function getServerSideProps() {
