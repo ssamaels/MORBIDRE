@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useDarkMode } from "./DarkModeContext";
+import { useDarkMode } from "../DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
 import { useContext, useRef, useState } from "react";
 import { LiaCloudUploadAltSolid } from "react-icons/lia";
