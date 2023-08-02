@@ -7,10 +7,13 @@ import KidlitIllustrations from "@/db/models/kidlit_illustrations";
 import ImagePopup from "@/components/ImagePopup";
 import { useDarkMode } from "@/components/DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
+import { useSession } from "next-auth/react";
+import UploadButton from "@/components/UploadButton";
 
 const KidlitIllustrationsPage = ({ illustrations }) => {
   const [popupImage, setPopupImage] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const { data: session } = useSession();
 
   const openPopup = (imageIndex) => {
     setPopupImage(illustrations[imageIndex].image);
@@ -38,38 +41,80 @@ const KidlitIllustrationsPage = ({ illustrations }) => {
   const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
 
-  return (
-    <>
-      <Header />
-      {isClient && (
-        <KidlitDisplay $darkMode={darkMode}>
-          <h1>KIDLIT ILLUSTRATIONS</h1>
-          <KidlitGrid>
-            {illustrations.length > 0 ? (
-              illustrations.map((illustration, index) => (
-                <KidlitItem
-                  key={illustration._id}
-                  onClick={() => openPopup(index)}
-                >
-                  <ZoomableImage src={illustration.image} alt="Illustration" />
-                </KidlitItem>
-              ))
-            ) : (
-              <p>No illustrations found.</p>
-            )}
-          </KidlitGrid>
-        </KidlitDisplay>
-      )}
-      {popupImage && (
-        <ImagePopup
-          image={popupImage}
-          onClose={closePopup}
-          onNext={showNextImage}
-          onPrevious={showPreviousImage}
-        />
-      )}
-    </>
-  );
+  if (session) {
+    return (
+      <>
+        <Header />
+        {isClient && (
+          <KidlitDisplay $darkMode={darkMode}>
+            <h1>KIDLIT ILLUSTRATIONS</h1>
+            <KidlitGrid>
+              {illustrations.length > 0 ? (
+                illustrations.map((illustration, index) => (
+                  <KidlitItem
+                    key={illustration._id}
+                    onClick={() => openPopup(index)}
+                  >
+                    <ZoomableImage
+                      src={illustration.image}
+                      alt="Illustration"
+                    />
+                  </KidlitItem>
+                ))
+              ) : (
+                <p>No illustrations found.</p>
+              )}
+            </KidlitGrid>
+            <UploadButton uploadPath="/api/upload_kidlit" />
+          </KidlitDisplay>
+        )}
+        {popupImage && (
+          <ImagePopup
+            image={popupImage}
+            onClose={closePopup}
+            onNext={showNextImage}
+            onPrevious={showPreviousImage}
+          />
+        )}
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Header />
+        {isClient && (
+          <KidlitDisplay $darkMode={darkMode}>
+            <h1>KIDLIT ILLUSTRATIONS</h1>
+            <KidlitGrid>
+              {illustrations.length > 0 ? (
+                illustrations.map((illustration, index) => (
+                  <KidlitItem
+                    key={illustration._id}
+                    onClick={() => openPopup(index)}
+                  >
+                    <ZoomableImage
+                      src={illustration.image}
+                      alt="Illustration"
+                    />
+                  </KidlitItem>
+                ))
+              ) : (
+                <p>No illustrations found.</p>
+              )}
+            </KidlitGrid>
+          </KidlitDisplay>
+        )}
+        {popupImage && (
+          <ImagePopup
+            image={popupImage}
+            onClose={closePopup}
+            onNext={showNextImage}
+            onPrevious={showPreviousImage}
+          />
+        )}
+      </>
+    );
+  }
 };
 
 export async function getServerSideProps() {
