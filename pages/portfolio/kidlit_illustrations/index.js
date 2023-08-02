@@ -1,14 +1,14 @@
 import styled from "styled-components";
-import Header from "@/components/Header";
-import Image from "next/image";
 import React, { useState, useContext } from "react";
+import Header from "@/components/Header";
 import connectDB from "@/db/connect";
 import KidlitIllustrations from "@/db/models/kidlit_illustrations";
 import ImagePopup from "@/components/ImagePopup";
 import { useDarkMode } from "@/components/DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
 import { useSession } from "next-auth/react";
-import UploadButton from "@/components/UploadButton";
+import UploadButton from "@/components/Upload/UploadButton";
+import axios from "axios";
 
 const KidlitIllustrationsPage = ({ illustrations }) => {
   const [popupImage, setPopupImage] = useState(null);
@@ -40,6 +40,18 @@ const KidlitIllustrationsPage = ({ illustrations }) => {
 
   const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
+
+  const handleImageDelete = async (imageId) => {
+    const isConfirmed = window.confirm("Are you sure?");
+
+    if (isConfirmed) {
+      try {
+        await axios.delete(`/api/delete_image?model=kidlit&id=${imageId}`);
+      } catch (error) {
+        console.error("Error deleting image:", error);
+      }
+    }
+  };
 
   if (session) {
     return (
@@ -74,6 +86,9 @@ const KidlitIllustrationsPage = ({ illustrations }) => {
             onClose={closePopup}
             onNext={showNextImage}
             onPrevious={showPreviousImage}
+            onDelete={() =>
+              handleImageDelete(illustrations[currentImageIndex]._id)
+            }
           />
         )}
       </>

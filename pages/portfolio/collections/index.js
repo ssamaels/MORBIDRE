@@ -7,7 +7,8 @@ import ImagePopup from "@/components/ImagePopup";
 import { useDarkMode } from "@/components/DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
 import { useSession } from "next-auth/react";
-import UploadButton from "@/components/UploadButton";
+import UploadButton from "@/components/Upload/UploadButton";
+import axios from "axios";
 
 const CollectionsPage = ({ collections }) => {
   const [popupImage, setPopupImage] = useState(null);
@@ -40,6 +41,18 @@ const CollectionsPage = ({ collections }) => {
   const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
 
+  const handleImageDelete = async (imageId) => {
+    const isConfirmed = window.confirm("Are you sure?");
+
+    if (isConfirmed) {
+      try {
+        await axios.delete(`/api/delete_image?model=collections&id=${imageId}`);
+      } catch (error) {
+        console.error("Error deleting image:", error);
+      }
+    }
+  };
+
   if (session) {
     return (
       <>
@@ -70,6 +83,9 @@ const CollectionsPage = ({ collections }) => {
             onClose={closePopup}
             onNext={showNextImage}
             onPrevious={showPreviousImage}
+            onDelete={() =>
+              handleImageDelete(collections[currentImageIndex]._id)
+            }
           />
         )}
       </>
