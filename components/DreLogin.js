@@ -84,6 +84,16 @@ const LoginPage = styled.div`
   flex-direction: row;
   width: 100%;
   margin-top: 5rem;
+
+  @media (max-width: 768px) {
+    .left {
+      opacity: 20%;
+    }
+
+    .right {
+      display: none;
+    }
+  }
 `;
 
 const Login = styled.div`
@@ -112,6 +122,15 @@ const Login = styled.div`
       background: rgb(0, 0, 0, 0.5);
       color: #ffffff;
     }
+  }
+
+  @media (max-width: 768px) {
+    position: absolute;
+    width: 80%;
+    top: 50%;
+    left: 5%;
+    z-index: 3;
+    padding: 20px;
   }
 
   ${(props) =>

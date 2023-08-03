@@ -6,6 +6,7 @@ import MorbidreIllustrations from "@/db/models/morbidre_illustrations";
 import Collections from "@/db/models/collections";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import Image from "next/image";
 import Link from "next/link";
 import { useDarkMode } from "@/components/DarkModeContext";
@@ -171,6 +172,7 @@ export default function Portfolio({
           />
         </ElementsContainer>
       )}
+      <Footer />
     </>
   );
 }
@@ -179,7 +181,8 @@ const ElementsContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 7rem;
+  margin-top: 10rem;
+  margin-bottom: 10rem;
   justify-content: space-between;
 
   hr {

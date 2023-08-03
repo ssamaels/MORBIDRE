@@ -122,6 +122,8 @@ const ReviewsContainer = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
+  margin-top: 2rem;
+  margin-bottom: 5rem;
 
   .left {
     align-self: flex-start;
@@ -164,8 +166,8 @@ const StyledContainder = styled.div`
     `}
 
   @media (max-width: 768px) {
-    margin-left: 0;
-    max-width: 90%;
+    margin-left: 3rem;
+    /* min-width: 170%; */
   }
 `;
 

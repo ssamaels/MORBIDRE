@@ -23,7 +23,6 @@ export default function Header() {
   const [visible, setVisible] = useState(true);
 
   const { darkMode, setDarkMode } = useDarkMode();
-
   const isClient = useContext(ClientSideContext);
 
   const handleDarkModeToggle = () => {
@@ -44,7 +43,7 @@ export default function Header() {
   }, [prevScrollPos]);
 
   return (
-    <StyledHeader style={{ top: visible ? "0" : "-500px" }}>
+    <StyledHeader style={{ top: visible ? "0" : "-1000px" }}>
       {isClient && (
         <>
           <Brand onClick={() => setShowMenu(!showmenu)}>
@@ -94,12 +93,12 @@ export default function Header() {
               {darkMode ? (
                 <>
                   <LiaToggleOnSolid style={{ width: "30", height: "30" }} />
-                  {" LIGHT MODE"}
+                  {"LIGHT MODE"}
                 </>
               ) : (
                 <>
                   <LiaToggleOffSolid style={{ width: "30", height: "30" }} />
-                  {" DARK MODE"}
+                  {"DARK MODE"}
                 </>
               )}
             </Button>

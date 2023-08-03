@@ -113,6 +113,10 @@ const StyledForm = styled.form`
   align-items: center;
   justify-content: space-around;
   margin-top: 9rem;
+
+  @media (max-width: 768px) {
+    /* margin-left: 75%; */
+  }
 `;
 
 const StyledInput = styled.input`

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import ReviewForm from "@/components/ReviewForm";
 import Reviews from "@/components/Reviews";
 import { useEffect, useState } from "react";
@@ -57,6 +58,7 @@ export default function ReviewsPage() {
       <StyledReviewsList>
         <Reviews reviews={reviews} onDelete={handleReviewDelete} />
       </StyledReviewsList>
+      <Footer />
     </>
   );
 }

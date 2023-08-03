@@ -4,13 +4,32 @@ import Header from "@/components/Header";
 import CategoriesButton from "@/components/CategoriesButton";
 import { RxDoubleArrowDown } from "react-icons/rx";
 import { useDarkMode } from "@/components/DarkModeContext";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { ClientSideContext } from "./_app";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const { darkMode, setDarkMode } = useDarkMode();
-
   const isClient = useContext(ClientSideContext);
+  const [hideArrow, setHideArrow] = useState(false);
+
+  const handleScroll = () => {
+    const bottom =
+      Math.ceil(window.innerHeight + window.scrollY) >=
+      document.documentElement.scrollHeight;
+    if (bottom) {
+      setHideArrow(true);
+    } else {
+      setHideArrow(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <>
@@ -28,9 +47,9 @@ export default function Home() {
               width={300}
             />
             <Welcome $darkMode={darkMode}>
-              <h3>
+              <p className="h1">
                 <strong>WELCOME TO MY WORLD.</strong>
-              </h3>
+              </p>
               <p className="quote">
                 &quot;Maybe I&apos;m not able to change the world, but I will
                 definetly make a whole new one just for you.&quot;
@@ -46,29 +65,18 @@ export default function Home() {
               width={250}
             />
           </Container>
-          <RxDoubleArrowDown
-            className="arrow"
-            style={{
-              width: "40",
-              height: "40",
-              alignSelf: "center",
-              position: "fixed",
-              bottom: "5",
-            }}
-          />
-          {/* <Pride>
-        <p>
-          One more thing I can say about my work is that, as a graphic designer
-          and illustrator, I take pride in the fact that every line and element
-          is a product of my own mind and hands.
-        </p>
-        <Image
-          src="/images/Logo Rabbit.png"
-          alt="rabbit"
-          width={260}
-          height={260}
-        />
-      </Pride> */}
+          {!hideArrow && (
+            <RxDoubleArrowDown
+              className="arrow"
+              style={{
+                width: "40",
+                height: "40",
+                alignSelf: "center",
+                position: "fixed",
+                bottom: "5",
+              }}
+            />
+          )}
           <CategoriesButton
             style={{
               alignSelf: "center",
@@ -77,6 +85,7 @@ export default function Home() {
           />
         </ElementsContainer>
       )}
+      <Footer />
     </>
   );
 }
@@ -84,6 +93,7 @@ export default function Home() {
 const ElementsContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 
   ${(props) =>
     props.$darkMode &&
@@ -100,14 +110,7 @@ const ElementsContainer = styled.div`
       left: 0;
     }
     .right {
-      opacity: 20%;
-      right: 0;
-      margin-right: -18rem;
-    }
-
-    .arrow {
-      left: 50%;
-      transform: translateX(-50%);
+      display: none;
     }
   }
 `;
@@ -128,9 +131,19 @@ const Welcome = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
   width: 45%;
-  line-height: 3rem;
-  font-size: 2rem;
+  line-height: 4rem;
+
+  .h1 {
+    font-size: 3rem;
+    font-weight: bolder;
+  }
+
+  p {
+    font-size: 2rem;
+    font-weight: bold;
+  }
 
   ${(props) =>
     props.$darkMode &&
@@ -142,7 +155,7 @@ const Welcome = styled.div`
     position: absolute;
     width: 80%;
     top: 20;
-    left: 50%;
+    left: 5%;
     z-index: 3;
     padding: 20px;
   }
