@@ -3,8 +3,11 @@ import Image from "next/image";
 import { useContext } from "react";
 import { useDarkMode } from "./DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
+import { useSession } from "next-auth/react";
+import DeleteButton from "@/components/DeleteButton";
 
-const Reviews = ({ reviews }) => {
+const Reviews = ({ reviews, onDelete }) => {
+  const { data: session } = useSession();
   function getTime(data) {
     const currentTime = new Date(data);
     const year = currentTime.getFullYear();
@@ -19,44 +22,98 @@ const Reviews = ({ reviews }) => {
   const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
 
-  return (
-    <ReviewsContainer>
-      {isClient && (
-        <>
-          <Image
-            className="left"
-            src={darkMode ? "/images/left dark.png" : "/images/left light.png"}
-            alt=""
-            height={650}
-            width={300}
-          />
-          <StyledContainder className="reviews-container" $darkMode={darkMode}>
-            <h3>Customer reviews:</h3>
-            <hr></hr>
-            <ul>
-              {reviews &&
-                reviews.map((review) => (
-                  <StyledListItem key={review._id} $darkMode={darkMode}>
-                    <ListInput>
-                      <strong>Date:</strong> {getTime(review.date)}
-                    </ListInput>
-                    {<br></br>}
-                    <ListInput>
-                      <strong>Name:</strong> {review.name}
-                    </ListInput>
-                    {<br></br>}
-                    <ListInput>
-                      <strong>Review:</strong> {review.review}
-                    </ListInput>
-                    <hr></hr>
-                  </StyledListItem>
-                ))}
-            </ul>
-          </StyledContainder>
-        </>
-      )}
-    </ReviewsContainer>
-  );
+  if (session) {
+    return (
+      <ReviewsContainer>
+        {isClient && (
+          <>
+            <Image
+              className="left"
+              src={
+                darkMode ? "/images/left dark.png" : "/images/left light.png"
+              }
+              alt=""
+              height={650}
+              width={300}
+            />
+            <StyledContainder
+              className="reviews-container"
+              $darkMode={darkMode}
+            >
+              <h3>Customer reviews:</h3>
+              <hr></hr>
+              <ul>
+                {reviews &&
+                  reviews.map((review) => (
+                    <StyledListItem key={review._id} $darkMode={darkMode}>
+                      <Container>
+                        <ListInput>
+                          <strong>Date:</strong> {getTime(review.date)}
+                        </ListInput>
+                        <DeleteButton onDelete={() => onDelete(review._id)} />
+                      </Container>
+                      {<br></br>}
+                      <ListInput>
+                        <strong>Name:</strong> {review.name}
+                      </ListInput>
+                      {<br></br>}
+                      <ListInput>
+                        <strong>Review:</strong> {review.review}
+                      </ListInput>
+                      <hr></hr>
+                    </StyledListItem>
+                  ))}
+              </ul>
+            </StyledContainder>
+          </>
+        )}
+      </ReviewsContainer>
+    );
+  } else {
+    return (
+      <ReviewsContainer>
+        {isClient && (
+          <>
+            <Image
+              className="left"
+              src={
+                darkMode ? "/images/left dark.png" : "/images/left light.png"
+              }
+              alt=""
+              height={650}
+              width={300}
+            />
+            <StyledContainder
+              className="reviews-container"
+              $darkMode={darkMode}
+            >
+              <h3>Customer reviews:</h3>
+              <hr></hr>
+              <ul>
+                {reviews &&
+                  reviews.map((review) => (
+                    <StyledListItem key={review._id} $darkMode={darkMode}>
+                      <ListInput>
+                        <strong>Date:</strong> {getTime(review.date)}
+                      </ListInput>
+                      {<br></br>}
+                      <ListInput>
+                        <strong>Name:</strong> {review.name}
+                      </ListInput>
+                      {<br></br>}
+                      <ListInput>
+                        <strong>Review:</strong> {review.review}
+                      </ListInput>
+                      <hr></hr>
+                    </StyledListItem>
+                  ))}
+              </ul>
+            </StyledContainder>
+          </>
+        )}
+      </ReviewsContainer>
+    );
+  }
 };
 
 export default Reviews;
@@ -142,4 +199,10 @@ const ListInput = styled.div`
   margin: 0.3rem;
   display: inline-flex;
   padding: 0.2rem;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 `;

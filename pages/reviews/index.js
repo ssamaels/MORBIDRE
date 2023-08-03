@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import ReviewForm from "@/components/ReviewForm";
 import Reviews from "@/components/Reviews";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function ReviewsPage() {
   const [reviews, setReviews] = useState([]);
@@ -37,12 +38,24 @@ export default function ReviewsPage() {
     }
   }
 
+  const handleReviewDelete = async (reviewId) => {
+    const isConfirmed = window.confirm("Are you sure?");
+
+    if (isConfirmed) {
+      try {
+        await axios.delete(`/api/delete_image?model=review&id=${reviewId}`);
+      } catch (error) {
+        console.error("Error deleting review:", error);
+      }
+    }
+  };
+
   return (
     <>
       <Header />
       <ReviewForm onAddReview={handleAddReview} />
       <StyledReviewsList>
-        <Reviews reviews={reviews} />
+        <Reviews reviews={reviews} onDelete={handleReviewDelete} />
       </StyledReviewsList>
     </>
   );
