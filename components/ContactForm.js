@@ -10,12 +10,13 @@ export default function ContactForm({ onAddContact }) {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [image, setImage] = useState("");
+  const [contactLink, setContactLink] = useState("");
   const form = useRef();
 
   const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const canvasImage = convertCanvasToImage();
@@ -28,10 +29,16 @@ export default function ContactForm({ onAddContact }) {
       message,
       image: canvasImage,
     };
-    onAddContact(newContact);
-    sendEmail();
-    form.current.reset();
-    document.getElementById("contact-name").focus();
+    const response = await onAddContact(newContact);
+    console.log({ response });
+    setContactLink(
+      `https://morbidre.vercel.app/contact/${response.savedContact._id}`
+    );
+    setTimeout(() => {
+      sendEmail();
+      form.current.reset();
+      document.getElementById("contact-name").focus();
+    }, 100);
   };
 
   const sendEmail = () => {
@@ -110,6 +117,7 @@ export default function ContactForm({ onAddContact }) {
             >
               SUBMIT
             </StyledButton>
+            <input type="hidden" name="contact-link" value={contactLink} />
           </>
         )}
       </StyledForm>

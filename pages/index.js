@@ -15,51 +15,48 @@ export default function Home() {
   return (
     <>
       <Header />
-      <ElementsContainer $darkMode={darkMode}>
-        {isClient && (
-          <>
-            <Container>
-              <Image
-                className="left"
-                src={
-                  darkMode ? "/images/left dark.png" : "/images/left light.png"
-                }
-                alt=""
-                height={650}
-                width={300}
-              />
-              <Welcome $darkMode={darkMode}>
-                <h3>
-                  <strong>WELCOME TO MY WORLD.</strong>
-                </h3>
-                <p className="quote">
-                  &quot;Maybe I&apos;m not able to change the world, but I will
-                  definetly make a whole new one just for you.&quot;
-                </p>
-              </Welcome>
-              <Image
-                className="right"
-                src={
-                  darkMode
-                    ? "/images/right dark.png"
-                    : "/images/right light.png"
-                }
-                alt=""
-                height={750}
-                width={250}
-              />
-            </Container>
-            <RxDoubleArrowDown
-              className="arrow"
-              style={{
-                width: "40",
-                height: "40",
-                alignSelf: "center",
-                position: "fixed",
-                bottom: "5",
-              }}
+      {isClient && (
+        <ElementsContainer $darkMode={darkMode}>
+          <Container>
+            <Image
+              className="left"
+              src={
+                darkMode ? "/images/left dark.png" : "/images/left light.png"
+              }
+              alt=""
+              height={650}
+              width={300}
             />
-            {/* <Pride>
+            <Welcome $darkMode={darkMode}>
+              <h3>
+                <strong>WELCOME TO MY WORLD.</strong>
+              </h3>
+              <p className="quote">
+                &quot;Maybe I&apos;m not able to change the world, but I will
+                definetly make a whole new one just for you.&quot;
+              </p>
+            </Welcome>
+            <Image
+              className="right"
+              src={
+                darkMode ? "/images/right dark.png" : "/images/right light.png"
+              }
+              alt=""
+              height={750}
+              width={250}
+            />
+          </Container>
+          <RxDoubleArrowDown
+            className="arrow"
+            style={{
+              width: "40",
+              height: "40",
+              alignSelf: "center",
+              position: "fixed",
+              bottom: "5",
+            }}
+          />
+          {/* <Pride>
         <p>
           One more thing I can say about my work is that, as a graphic designer
           and illustrator, I take pride in the fact that every line and element
@@ -72,15 +69,14 @@ export default function Home() {
           height={260}
         />
       </Pride> */}
-            <CategoriesButton
-              style={{
-                alignSelf: "center",
-                justifySelf: "center",
-              }}
-            />
-          </>
-        )}
-      </ElementsContainer>
+          <CategoriesButton
+            style={{
+              alignSelf: "center",
+              justifySelf: "center",
+            }}
+          />
+        </ElementsContainer>
+      )}
     </>
   );
 }

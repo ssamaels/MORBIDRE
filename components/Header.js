@@ -9,7 +9,11 @@ import {
   RiSmartphoneLine,
   RiStarLine,
 } from "react-icons/ri";
-import { LiaToggleOffSolid, LiaToggleOnSolid } from "react-icons/lia";
+import {
+  LiaToggleOffSolid,
+  LiaToggleOnSolid,
+  LiaAddressCardSolid,
+} from "react-icons/lia";
 import { useDarkMode } from "./DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
 
@@ -21,11 +25,6 @@ export default function Header() {
   const { darkMode, setDarkMode } = useDarkMode();
 
   const isClient = useContext(ClientSideContext);
-  // const [isClient, setIsClient] = useState(false);
-
-  // useEffect(() => {
-  //   setIsClient(true);
-  // }, []);
 
   const handleDarkModeToggle = () => {
     setDarkMode(!darkMode);
@@ -49,7 +48,6 @@ export default function Header() {
       {isClient && (
         <>
           <Brand onClick={() => setShowMenu(!showmenu)}>
-            {/* {isClient && ( */}
             <Image
               src={darkMode ? "/images/LOGO-DARK.png" : "/images/TRUE-LOGO.png"}
               alt="MorbiDre"
@@ -57,7 +55,6 @@ export default function Header() {
               height={60}
               priority
             />
-            {/* )} */}
             <ArrowButton $darkMode={darkMode}>
               <MdOutlineKeyboardDoubleArrowDown />
             </ArrowButton>
@@ -67,6 +64,12 @@ export default function Header() {
               <Button $darkMode={darkMode}>
                 <RiHomeLine style={{ width: "30", height: "30" }} />
                 HOME
+              </Button>
+            </Link>
+            <Link href="/about" style={{ textDecoration: "none" }}>
+              <Button $darkMode={darkMode}>
+                <LiaAddressCardSolid style={{ width: "30", height: "30" }} />
+                ABOUT
               </Button>
             </Link>
             <Link href="/portfolio" style={{ textDecoration: "none" }}>

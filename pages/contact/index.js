@@ -35,6 +35,7 @@ export default function ContactPage() {
     if (response.ok) {
       const responses = await response.json();
       console.log(responses);
+      return responses;
     } else {
       console.error(`Error: ${response.status}`);
     }
