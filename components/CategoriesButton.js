@@ -117,7 +117,9 @@ const StyledButton = styled.button`
     `}
 
   @media (max-width: 768px) {
-    margin-left: 20rem;
+    margin-top: 5rem;
+    margin-left: 5rem;
+    font-size: 1.2rem;
   }
 `;
 
@@ -128,7 +130,8 @@ const Categories = styled.div`
   justify-items: space-between;
 
   @media (max-width: 768px) {
-    width: 80%;
+    width: 100%;
+    flex-direction: column;
   }
 `;
 
@@ -162,7 +165,14 @@ const Category = styled.button`
     `}
 
   @media (max-width: 768px) {
-    margin: 2rem;
+    margin: 1rem;
+    margin-top: 5rem;
+    margin-left: 30%;
+    height: fit-content;
+    padding: 0.4rem;
+    /* margin: 0; */
+    /* margin-top: 1rem; */
+    font-size: 0.7rem;
   }
 `;
 
@@ -182,20 +192,23 @@ const SubcategoriesGraphic = styled.div`
   display: ${(props) => (props.$show ? "flex" : "none")};
   position: ${(props) => (props.$show ? "absolute" : "relative")};
   flex-direction: column;
-  align-self: flex-start;
-  align-self: center;
+  /* justify-self: flex-start; */
+  /* align-self: center; */
   font-size: 0.9rem;
   line-height: 2rem;
   font-weight: bold;
+  text-align: center;
   left: 0;
   margin-left: 7rem;
-  margin-top: 6rem;
+  margin-top: -3rem;
 
   @media (max-width: 768px) {
-    margin-top: 8rem;
+    /* margin-top: 0.1rem;
     margin-left: 1rem;
     font-size: 0.6rem;
     line-height: 2rem;
+    align-self: center; */
+    display: none;
   }
 
   ${(props) =>
@@ -214,12 +227,14 @@ const SubcategoriesMorbi = styled.div`
   font-size: 0.9rem;
   line-height: 2rem;
   font-weight: bold;
+  text-align: center;
 
   @media (max-width: 768px) {
-    margin-top: 2rem;
+    /* margin-top: 30rem;
     margin-right: -23rem;
     font-size: 0.6rem;
-    line-height: 2rem;
+    line-height: 2rem; */
+    display: none;
   }
 
   ${(props) =>
@@ -238,15 +253,17 @@ const SubcategoriesKidlit = styled.div`
   font-size: 0.9rem;
   line-height: 2rem;
   font-weight: bold;
+  text-align: center;
   right: 0;
   margin-right: 7rem;
   margin-top: -2rem;
 
   @media (max-width: 768px) {
-    margin-top: 0.1rem;
+    /* margin-top: 45rem;
     margin-right: -17rem;
     font-size: 0.6rem;
-    line-height: 2rem;
+    line-height: 2rem; */
+    display: none;
   }
 
   ${(props) =>

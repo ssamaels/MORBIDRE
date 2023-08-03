@@ -70,7 +70,7 @@ const StyledAbout = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 9rem;
-  margin-bottom: 3rem;
+  margin-bottom: 9rem;
   width: 100%;
 
   .left {

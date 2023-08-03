@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
 import { useState, useEffect, useContext } from "react";
 import Image from "next/image";
@@ -64,6 +65,7 @@ export default function ContactPage() {
           />
         </ElementsContainer>
       )}
+      <Footer />
     </>
   );
 }
@@ -73,6 +75,8 @@ const ElementsContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  margin-top: 1rem;
+  margin-bottom: 7rem;
 
   .right {
     margin-left: 3rem;
