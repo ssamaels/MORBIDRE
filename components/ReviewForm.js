@@ -1,5 +1,6 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useRef } from "react";
 import styled from "styled-components";
+import emailjs from "@emailjs/browser";
 import { useDarkMode } from "./DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
 
@@ -7,6 +8,8 @@ const ReviewForm = ({ onAddReview }) => {
   const [name, setName] = useState("");
   const [review, setReview] = useState("");
   const [date, setDate] = useState("");
+  const [email, setEmail] = useState("");
+  const form = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,8 +22,28 @@ const ReviewForm = ({ onAddReview }) => {
       review,
     };
     onAddReview(newReview);
-    document.getElementById("review-form").reset();
+    sendEmail();
+    form.current.reset();
     document.getElementById("review-name").focus();
+  };
+
+  const sendEmail = () => {
+    emailjs
+      .sendForm(
+        "service_nmoz9jj",
+        "template_pwxndjj",
+        form.current,
+        "_hu0cXPGWXRr_CSBu"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          console.log("message sent");
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
   };
 
   const { darkMode, setDarkMode } = useDarkMode();
@@ -28,7 +51,7 @@ const ReviewForm = ({ onAddReview }) => {
 
   return (
     <>
-      <StyledForm id="review-form" onSubmit={handleSubmit}>
+      <StyledForm ref={form} id="review-form" onSubmit={handleSubmit}>
         {isClient && (
           <>
             <StyledLabel
@@ -42,6 +65,7 @@ const ReviewForm = ({ onAddReview }) => {
               type="text"
               className="review-name"
               id="review-name"
+              name="review-name"
               cols="30"
               rows="5"
               required
@@ -59,6 +83,7 @@ const ReviewForm = ({ onAddReview }) => {
               type="text"
               className="review-message"
               id="review-message"
+              name="review-message"
               cols="30"
               rows="5"
               required
