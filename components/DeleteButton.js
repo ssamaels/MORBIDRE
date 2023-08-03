@@ -32,8 +32,6 @@ const Button = styled.button`
   align-items: center;
   justify-items: center;
   padding: 0.3rem;
-  margin-bottom: 3rem;
-  font-size: large;
   border: 0.1rem solid #000000;
   border-radius: 0.2rem;
   background: transparent;
@@ -47,8 +45,8 @@ const Button = styled.button`
 
   .bin {
     color: #ff0000;
-    width: 2rem;
-    height: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
   }
 
   ${(props) =>
