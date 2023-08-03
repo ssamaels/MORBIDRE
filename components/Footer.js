@@ -50,7 +50,7 @@ export default function Footer() {
             <Image
               src="/images/Logo Rabbit.png"
               alt="rabbit"
-              width={150}
+              width={120}
               height={100}
               priority
             />
@@ -76,6 +76,10 @@ const StyledFooter = styled.div`
   width: 100%;
   bottom: 0;
   z-index: 5;
+
+  img {
+    margin-right: 1.3rem;
+  }
 
   ${(props) =>
     props.$darkMode &&
