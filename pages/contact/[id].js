@@ -9,7 +9,7 @@ import axios from "axios";
 
 const { HOST_ROOT } = process.env;
 
-async function getStaticPaths() {
+export async function getStaticPaths() {
   const res = await axios.get(`${HOST_ROOT}/api/contact/`);
   const contacts = res.data;
 
@@ -20,7 +20,7 @@ async function getStaticPaths() {
   return { paths, fallback: true };
 }
 
-async function getStaticProps({ params }) {
+export async function getStaticProps({ params }) {
   const url = `${HOST_ROOT}/api/contact/${params.id}`;
   console.log("url:", url);
   const res = await axios.get(url);
