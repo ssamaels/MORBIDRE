@@ -5,6 +5,8 @@ import emailjs from "@emailjs/browser";
 import { useDarkMode } from "./DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
 
+const { HOST_ROOT } = process.env;
+
 export default function ContactForm({ onAddContact }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -31,9 +33,7 @@ export default function ContactForm({ onAddContact }) {
     };
     const response = await onAddContact(newContact);
     console.log({ response });
-    setContactLink(
-      `https://morbidre.vercel.app/contact/${response.savedContact._id}`
-    );
+    setContactLink(`${HOST_ROOT}/contact/${response.savedContact._id}`);
     setTimeout(() => {
       sendEmail();
       form.current.reset();
