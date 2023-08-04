@@ -7,6 +7,9 @@ const nextConfig = {
   images: {
     domains: ["res.cloudinary.com"],
   },
+  env: {
+    HOST_ROOT: process.env.HOST_ROOT,
+  },
 };
 
 module.exports = nextConfig;
