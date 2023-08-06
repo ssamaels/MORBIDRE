@@ -87,7 +87,7 @@ export default function Portfolio({
           <Container>
             <LinkDisplay $darkMode={darkMode}>
               <Link href="/portfolio/kidlit_illustrations">
-                <strong>KIDLIT ILLUSTRATIONS:</strong>
+                <strong>{t("KIDLIT_ILLUSTRATIONS")}:</strong>
               </Link>
               <ProjectDisplay $darkMode={darkMode}>
                 {kidLitImages.map((image) => (
@@ -107,7 +107,7 @@ export default function Portfolio({
             <hr></hr>
             <LinkDisplay $darkMode={darkMode}>
               <Link href="/portfolio/morbidre_illustrations">
-                <strong>MORBIDRE ILLUSTRATIONS:</strong>
+                <strong>{t("MORBIDRE_ILLUSTRATIONS")}:</strong>
               </Link>
               <ProjectDisplay $darkMode={darkMode}>
                 {morbidreImages.map((image) => (
@@ -127,7 +127,7 @@ export default function Portfolio({
             <hr></hr>
             <LinkDisplay $darkMode={darkMode}>
               <Link href="/portfolio/morbidre_designs">
-                <strong>MORBIDRE DESIGN:</strong>
+                <strong>{t("MORBIDRE_DESIGN")}:</strong>
               </Link>
               <ProjectDisplay $darkMode={darkMode}>
                 {morbidreDesigns.map((image) => (
@@ -147,7 +147,7 @@ export default function Portfolio({
             <hr></hr>
             <LinkDisplay $darkMode={darkMode}>
               <Link href="/portfolio/collections">
-                <strong>COLLECTIONS:</strong>
+                <strong>{t("COLLECTIONS")}:</strong>
               </Link>
               <ProjectDisplay $darkMode={darkMode}>
                 {collections.map((image) => (

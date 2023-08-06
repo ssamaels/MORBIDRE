@@ -63,7 +63,7 @@ const MorbidreDesignsPage = ({ designs }) => {
         <Header />
         {isClient && (
           <DesignDisplay $darkMode={darkMode}>
-            <h1>MORBIDRE DESIGN</h1>
+            <h1>{t("MORBIDRE_DESIGN")}</h1>
             <DesignGrid>
               {designs.length > 0 ? (
                 designs.map((design, index) => (
@@ -72,7 +72,7 @@ const MorbidreDesignsPage = ({ designs }) => {
                   </DesignItem>
                 ))
               ) : (
-                <p>No designs found.</p>
+                <p>{t("designs_not_found")}</p>
               )}
             </DesignGrid>
             <UploadButton uploadPath="/api/upload_morbi_d" />
@@ -95,7 +95,7 @@ const MorbidreDesignsPage = ({ designs }) => {
         <Header />
         {isClient && (
           <DesignDisplay $darkMode={darkMode}>
-            <h1>MORBIDRE DESIGN</h1>
+            <h1>{t("MORBIDRE_DESIGN")}</h1>
             <DesignGrid>
               {designs.length > 0 ? (
                 designs.map((design, index) => (
@@ -104,7 +104,7 @@ const MorbidreDesignsPage = ({ designs }) => {
                   </DesignItem>
                 ))
               ) : (
-                <p>No designs found.</p>
+                <p>{t("designs_not_found")}</p>
               )}
             </DesignGrid>
           </DesignDisplay>

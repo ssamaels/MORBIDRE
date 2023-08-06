@@ -63,7 +63,7 @@ const KidlitIllustrationsPage = ({ illustrations }) => {
         <Header />
         {isClient && (
           <KidlitDisplay $darkMode={darkMode}>
-            <h1>KIDLIT ILLUSTRATIONS</h1>
+            <h1>{t("KIDLIT_ILLUSTRATIONS")}</h1>
             <KidlitGrid>
               {illustrations.length > 0 ? (
                 illustrations.map((illustration, index) => (
@@ -78,7 +78,7 @@ const KidlitIllustrationsPage = ({ illustrations }) => {
                   </KidlitItem>
                 ))
               ) : (
-                <p>No illustrations found.</p>
+                <p>{t("illustrations_not_found")}</p>
               )}
             </KidlitGrid>
             <UploadButton uploadPath="/api/upload_kidlit" />
@@ -104,7 +104,7 @@ const KidlitIllustrationsPage = ({ illustrations }) => {
         <Header />
         {isClient && (
           <KidlitDisplay $darkMode={darkMode}>
-            <h1>KIDLIT ILLUSTRATIONS</h1>
+            <h1>{t("KIDLIT_ILLUSTRATIONS")}</h1>
             <KidlitGrid>
               {illustrations.length > 0 ? (
                 illustrations.map((illustration, index) => (
@@ -119,7 +119,7 @@ const KidlitIllustrationsPage = ({ illustrations }) => {
                   </KidlitItem>
                 ))
               ) : (
-                <p>No illustrations found.</p>
+                <p>{t("illustrations_not_found")}</p>
               )}
             </KidlitGrid>
           </KidlitDisplay>

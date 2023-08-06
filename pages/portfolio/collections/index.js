@@ -63,7 +63,7 @@ const CollectionsPage = ({ collections }) => {
         <Header />
         {isClient && (
           <CollectionsDisplay $darkMode={darkMode}>
-            <h1>COLLECTIONS</h1>
+            <h1>{t("COLLECTIONS")}</h1>
             <CollectionsGrid>
               {collections.length > 0 ? (
                 collections.map((collection, index) => (
@@ -75,7 +75,7 @@ const CollectionsPage = ({ collections }) => {
                   </CollectionItem>
                 ))
               ) : (
-                <p>No collections found.</p>
+                <p>{t("collections_not_found")}</p>
               )}
             </CollectionsGrid>
             <UploadButton uploadPath="/api/upload_collections" />
@@ -101,7 +101,7 @@ const CollectionsPage = ({ collections }) => {
         <Header />
         {isClient && (
           <CollectionsDisplay $darkMode={darkMode}>
-            <h1>COLLECTIONS</h1>
+            <h1>{t("COLLECTIONS")}</h1>
             <CollectionsGrid>
               {collections.length > 0 ? (
                 collections.map((collection, index) => (
@@ -113,7 +113,7 @@ const CollectionsPage = ({ collections }) => {
                   </CollectionItem>
                 ))
               ) : (
-                <p>No collections found.</p>
+                <p>{t("collections_not_found")}</p>
               )}
             </CollectionsGrid>
           </CollectionsDisplay>

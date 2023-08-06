@@ -11,5 +11,12 @@
   "serbian": "SRPSKI",
   "welcome": "DOBRODOŠLI U MOJ SVET.",
   "quote": "Možda ne mogu da promenim svet, ali ću definitivno stvoriti potpuno novi samo za Vas.",
-  "contact_F": "Kontakt:"
+  "contact_F": "Kontakt:",
+  "KIDLIT_ILLUSTRATIONS": "KIDLIT ILUSTRACIJE",
+  "MORBIDRE_ILLUSTRATIONS": "MORBIDRE ILUSTRACIJE",
+  "MORBIDRE_DESIGN": "MORBIDRE DIZAJN",
+  "COLLECTIONS": "KOLEKCIJE",
+  "illustrations_not_found": "Ilustracije nisu pronadjene.",
+  "designs_not_found": "Dizajni nisu pronadjeni.",
+  "collections_not_found": "Kolekcije nisu pronadjene."
 }

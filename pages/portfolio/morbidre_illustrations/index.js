@@ -63,7 +63,7 @@ const MorbidreIllustrationsPage = ({ illustrations }) => {
         <Header />
         {isClient && (
           <IllustrationDisplay $darkMode={darkMode}>
-            <h1>MORBIDRE ILLUSTRATIONS</h1>
+            <h1>{t("MORBIDRE_ILLUSTRATIONS")}</h1>
             <IllustrationGrid>
               {illustrations.length > 0 ? (
                 illustrations.map((illustration, index) => (
@@ -78,7 +78,7 @@ const MorbidreIllustrationsPage = ({ illustrations }) => {
                   </IllustrationItem>
                 ))
               ) : (
-                <p>No illustrations found.</p>
+                <p>{t("illustrations_not_found")}</p>
               )}
             </IllustrationGrid>
             <UploadButton uploadPath="/api/upload_morbi_i" />
@@ -104,7 +104,7 @@ const MorbidreIllustrationsPage = ({ illustrations }) => {
         <Header />
         {isClient && (
           <IllustrationDisplay $darkMode={darkMode}>
-            <h1>MORBIDRE ILLUSTRATIONS</h1>
+            <h1>{t("MORBIDRE_ILLUSTRATIONS")}</h1>
             <IllustrationGrid>
               {illustrations.length > 0 ? (
                 illustrations.map((illustration, index) => (
@@ -119,7 +119,7 @@ const MorbidreIllustrationsPage = ({ illustrations }) => {
                   </IllustrationItem>
                 ))
               ) : (
-                <p>No illustrations found.</p>
+                <p>{t("illustrations_not_found")}</p>
               )}
             </IllustrationGrid>
           </IllustrationDisplay>
