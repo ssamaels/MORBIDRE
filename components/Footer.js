@@ -50,7 +50,7 @@ export default function Footer() {
             <Image
               src="/images/Logo Rabbit.png"
               alt="rabbit"
-              width={110}
+              width={100}
               height={100}
               priority
             />

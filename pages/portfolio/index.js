@@ -15,7 +15,7 @@ import { ClientSideContext } from "../_app";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
   await connectDB();
 
   const kidLitImagesCursor = await KidlitIllustrations.aggregate([
