@@ -22,16 +22,15 @@ export async function getStaticPaths() {
   return { paths, fallback: true };
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params, locale }) {
   const url = `${HOST_ROOT}/api/contact/${params.id}`;
   console.log("url:", url);
   const res = await axios.get(url);
   const contact = res.data;
-  const { locale } = context;
 
   return {
     props: {
-      ...(await serverSideTranslations(locale)),
+      ...(await serverSideTranslations(locale)), // Now locale is defined
       contact,
     },
   };
