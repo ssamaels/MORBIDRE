@@ -121,7 +121,7 @@ const MorbidreDesignsPage = ({ designs }) => {
   }
 };
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ locale }) {
   try {
     await connectDB();
 
