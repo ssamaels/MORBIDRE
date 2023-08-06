@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import React, { useState, useContext } from "react";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import connectDB from "@/db/connect";
 import Collections from "@/db/models/collections";
 import ImagePopup from "@/components/ImagePopup";
@@ -91,6 +92,7 @@ const CollectionsPage = ({ collections }) => {
             }
           />
         )}
+        <Footer />
       </>
     );
   } else {
@@ -124,6 +126,7 @@ const CollectionsPage = ({ collections }) => {
             onPrevious={showPreviousImage}
           />
         )}
+        <Footer />
       </>
     );
   }
@@ -158,6 +161,7 @@ const CollectionsDisplay = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 10rem;
+  margin-bottom: 5rem;
 
   h1,
   p {

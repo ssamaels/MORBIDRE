@@ -1,17 +1,37 @@
 @font-face {
-  font-family: "Mont-light";
-  src: url("../public/fonts/Mont-ExtraLightDEMO.otf");
+  font-family: "Roboto-thin";
+  src: url("../public/fonts/Roboto-Thin.woff");
 }
 
 @font-face {
-  font-family: "Mont-heavy";
-  src: url("../public/fonts/Mont-HeavyDEMO.otf");
+  font-family: "Roboto-bold";
+  src: url("../public/fonts/Roboto-Bold.woff");
 }
 
 * {
   margin: 0;
   padding: 0;
-  font-family: "Mont-light", sans-serif;
+}
+
+p,
+a,
+button,
+label,
+ul,
+li {
+  font-family: "Roboto-thin", sans-serif;
+  font-weight: bold;
+}
+
+.h1,
+h1 {
+  font-family: "Roboto-bold", sans-serif;
+  margin-bottom: 2rem;
+}
+
+h2,
+h3 {
+  font-family: "Roboto-thin", sans-serif;
 }
 
 body {

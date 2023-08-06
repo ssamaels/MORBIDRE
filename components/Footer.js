@@ -5,10 +5,12 @@ import { useDarkMode } from "./DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
 import { useContext } from "react";
 import { AiOutlineInstagram, AiOutlineMail } from "react-icons/ai";
+import { useTranslation } from "next-i18next";
 
 export default function Footer() {
   const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
+  const { t } = useTranslation("common");
 
   return (
     <>
@@ -16,21 +18,27 @@ export default function Footer() {
         <>
           <StyledFooter $darkMode={darkMode}>
             <ContactConteainer $darkMode={darkMode}>
-              <h3>Contact:</h3>
+              <p className="p">{t("contact_F")}</p>
               <Link
                 href="https://www.instagram.com/morbi.dre/"
                 style={{ textDecoration: "none" }}
               >
-                <AiOutlineInstagram /> morbidre
+                <div>
+                  <AiOutlineInstagram /> morbidre
+                </div>
               </Link>
               <Link
                 href="https://www.instagram.com/morbidredesign/"
                 style={{ textDecoration: "none" }}
               >
-                <AiOutlineInstagram /> morbidredesign
+                <div>
+                  <AiOutlineInstagram /> morbidredesign
+                </div>
               </Link>
               <p>
-                <AiOutlineMail /> andreabajceta96@gmail.com
+                <div>
+                  <AiOutlineMail /> andreabajceta96@gmail.com
+                </div>
               </p>
             </ContactConteainer>
             <TermsContainer $darkMode={darkMode}>
@@ -129,6 +137,11 @@ const ContactConteainer = styled.div`
       `
       color: #ffffff;
       `}
+  }
+
+  div {
+    display: flex;
+    align-items: center;
   }
 
   @media (max-width: 768px) {

@@ -147,7 +147,6 @@ const Welcome = styled.div`
 
   .h1 {
     font-size: 3rem;
-    font-weight: bolder;
   }
 
   p {
