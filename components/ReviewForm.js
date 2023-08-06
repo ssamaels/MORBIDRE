@@ -25,6 +25,7 @@ const ReviewForm = ({ onAddReview }) => {
     sendEmail();
     form.current.reset();
     document.getElementById("review-name").focus();
+    window.alert("Thank you for the review, Your opinion is very important!");
   };
 
   const sendEmail = () => {
