@@ -2,10 +2,14 @@ import React, { useRef, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { useDarkMode } from "./DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
+import Image from "next/image";
+import { LiaCloudUploadAltSolid } from "react-icons/lia";
 
 export default function DrawingCanvas() {
   const canvasRef = useRef(null);
   const context = useRef(null);
+  const imageRef = useRef(null);
+  const inputRef = useRef(null);
   const drawColor = useRef("black");
   const startBackgroundColor = useRef("white");
   const drawWidth = useRef(2);
@@ -117,6 +121,42 @@ export default function DrawingCanvas() {
     }
   }
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      imageRef.current.src = event.target.result;
+      imageRef.current.onload = () => {
+        context.current.drawImage(
+          imageRef.current,
+          0,
+          0,
+          canvasRef.current.width,
+          canvasRef.current.height
+        );
+
+        restoreArray.current.push(
+          context.current.getImageData(
+            0,
+            0,
+            canvasRef.current.width,
+            canvasRef.current.height
+          )
+        );
+        index.current += 1;
+      };
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleButtonClick = () => {
+    inputRef.current.click();
+  };
+
   const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
 
@@ -126,6 +166,17 @@ export default function DrawingCanvas() {
         <>
           <StyledLabel htmlFor="canvas" $darkMode={darkMode}>
             Draw what you have in mind:
+            <input
+              ref={inputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              style={{ display: "none" }}
+            />
+            <UploadButton onClick={handleButtonClick} $darkMode={darkMode}>
+              UPLOAD
+              <LiaCloudUploadAltSolid className="cloud" />
+            </UploadButton>
           </StyledLabel>
           <StyledCanvas
             ref={canvasRef}
@@ -164,6 +215,13 @@ export default function DrawingCanvas() {
               CLEAR
             </StyledButton>
           </StyledTools>
+          <Image
+            ref={imageRef}
+            style={{ display: "none" }}
+            alt=""
+            width={0}
+            height={0}
+          />
         </>
       )}
     </CreativeArea>
@@ -252,11 +310,55 @@ const RangePicker = styled.input`
 `;
 
 const StyledLabel = styled.label`
+  display: flex;
+  align-items: center;
   margin: 0.3rem;
   color: #000000;
   ${(props) =>
     props.$darkMode &&
     `
     color: #ffffff;
+    `}
+`;
+
+const UploadButton = styled.button`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  padding: 0.3rem;
+  margin: 1rem;
+  border: 0.01rem solid #000000;
+  border-radius: 0.2rem;
+  background: transparent;
+  color: #000000;
+  align-self: center;
+  cursor: pointer;
+  &:hover {
+    background: rgb(0, 0, 0, 0.5);
+    color: #ffffff;
+    .cloud {
+      color: #ffffff;
+    }
+  }
+
+  .cloud {
+    color: #000000;
+  }
+
+  ${(props) =>
+    props.$darkMode &&
+    `
+    border: 0.1rem solid #ffffff;
+    color: #ffffff;
+    &:hover {
+        background: rgb(250, 250, 250, 0.5);
+        color: #000000;
+        .cloud {
+            color: #000000
+        }
+    }
+    .cloud{
+        color: #ffffff;
     `}
 `;
