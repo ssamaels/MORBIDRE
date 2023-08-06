@@ -4,13 +4,11 @@ import { useState, useEffect, createContext, useContext } from "react";
 import useLocalStorage from "use-local-storage";
 import { DarkModeProvider } from "@/components/DarkModeContext";
 import { SessionProvider } from "next-auth/react";
+import { appWithTranslation } from "next-i18next";
 
 export const ClientSideContext = createContext(false);
 
-export default function App({
-  Component,
-  pageProps: { session, ...pageProps },
-}) {
+function App({ Component, pageProps: { session, ...pageProps } }) {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -39,3 +37,5 @@ export default function App({
     </SWRConfig>
   );
 }
+
+export default appWithTranslation(App);

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 import { useState, useEffect, useContext } from "react";
-import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
+import { MdOutlineKeyboardDoubleArrowDown, MdLanguage } from "react-icons/md";
 import {
   RiHomeLine,
   RiFolderLine,
@@ -16,11 +16,18 @@ import {
 } from "react-icons/lia";
 import { useDarkMode } from "./DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
+import { i18n } from "next-i18next";
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 
 export default function Header() {
   const [showmenu, setShowMenu] = useState(true);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
+  const router = useRouter();
+  const [language, setLanguage] = useState(i18n.language);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const { t } = useTranslation("common");
 
   const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
@@ -42,6 +49,13 @@ export default function Header() {
     };
   }, [prevScrollPos]);
 
+  const handleLanguageChange = (newLanguage) => {
+    setShowDropdown(false);
+    setLanguage(newLanguage);
+    i18n.changeLanguage(newLanguage);
+    router.push(router.pathname, router.asPath, { locale: newLanguage });
+  };
+
   return (
     <StyledHeader style={{ top: visible ? "0" : "-1000px" }}>
       {isClient && (
@@ -62,44 +76,67 @@ export default function Header() {
             <Link href="/" style={{ textDecoration: "none" }}>
               <Button $darkMode={darkMode}>
                 <RiHomeLine style={{ width: "30", height: "30" }} />
-                HOME
+                {t("home")}
               </Button>
             </Link>
             <Link href="/about" style={{ textDecoration: "none" }}>
               <Button $darkMode={darkMode}>
                 <LiaAddressCardSolid style={{ width: "30", height: "30" }} />
-                ABOUT
+                {t("about")}
               </Button>
             </Link>
             <Link href="/portfolio" style={{ textDecoration: "none" }}>
               <Button $darkMode={darkMode}>
                 <RiFolderLine style={{ width: "30", height: "30" }} />
-                PORTFOLIO
+                {t("portfolio")}
               </Button>
             </Link>
             <Link href="/contact" style={{ textDecoration: "none" }}>
               <Button $darkMode={darkMode}>
                 <RiSmartphoneLine style={{ width: "30", height: "30" }} />
-                CONTACT
+                {t("contact")}
               </Button>
             </Link>
             <Link href="/reviews" style={{ textDecoration: "none" }}>
               <Button $darkMode={darkMode}>
                 <RiStarLine style={{ width: "30", height: "30" }} />
-                REVIEWS
+                {t("reviews")}
               </Button>
             </Link>
             <Button onClick={handleDarkModeToggle} $darkMode={darkMode}>
               {darkMode ? (
                 <>
                   <LiaToggleOnSolid style={{ width: "30", height: "30" }} />
-                  {"LIGHT MODE"}
+                  {t("L_mode")}
                 </>
               ) : (
                 <>
                   <LiaToggleOffSolid style={{ width: "30", height: "30" }} />
-                  {"DARK MODE"}
+                  {t("D_mode")}
                 </>
+              )}
+            </Button>
+            <Button
+              onClick={() => setShowDropdown(!showDropdown)}
+              $darkMode={darkMode}
+            >
+              <MdLanguage style={{ width: "30", height: "30" }} />
+              {t("language")}
+              {showDropdown && (
+                <DropdownContent $darkMode={darkMode}>
+                  <DropdownItem
+                    onClick={() => handleLanguageChange("en")}
+                    $darkMode={darkMode}
+                  >
+                    {t("english")}
+                  </DropdownItem>
+                  <DropdownItem
+                    onClick={() => handleLanguageChange("sr")}
+                    $darkMode={darkMode}
+                  >
+                    {t("serbian")}
+                  </DropdownItem>
+                </DropdownContent>
               )}
             </Button>
           </Nav>
@@ -140,7 +177,7 @@ const Nav = styled.nav`
   flex-direction: column;
   position: absolute;
   top: 70px;
-  background: rgb(250, 250, 250, 0.7);
+  background: rgb(250, 250, 250, 0.9);
   padding: 10px;
   width: 100%;
   z-index: 2;
@@ -148,7 +185,7 @@ const Nav = styled.nav`
   ${(props) =>
     props.$darkMode &&
     `
-      background: rgb(0, 0, 0, 0.7);
+      background: rgb(0, 0, 0, 0.9);
     `}
 `;
 
@@ -188,7 +225,43 @@ const Button = styled.button`
   ${(props) =>
     props.$darkMode &&
     `
-      background: transparent;
+      color: white;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.3);
+        color: #000000;
+      }
+    `}
+`;
+
+const DropdownContent = styled.div`
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+
+  ${(props) =>
+    props.$darkMode &&
+    `
+      background: rgb(0, 0, 0, 0.9);
+    `}
+`;
+
+const DropdownItem = styled.div`
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+
+  &:hover {
+    background-color: rgb(0, 0, 0, 0.3);
+    color: #ffffff;
+  }
+
+  ${(props) =>
+    props.$darkMode &&
+    `
       color: white;
 
       &:hover {
