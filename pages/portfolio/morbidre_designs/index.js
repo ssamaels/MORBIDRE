@@ -121,16 +121,6 @@ const MorbidreDesignsPage = ({ designs }) => {
   }
 };
 
-export async function getStaticProps(context) {
-  const { locale } = context;
-
-  return {
-    props: {
-      ...(await serverSideTranslations(locale)),
-    },
-  };
-}
-
 export async function getServerSideProps() {
   try {
     await connectDB();
@@ -140,6 +130,7 @@ export async function getServerSideProps() {
     return {
       props: {
         designs: JSON.parse(JSON.stringify(designs)),
+        ...(await serverSideTranslations(locale)),
       },
     };
   } catch (error) {

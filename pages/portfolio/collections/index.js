@@ -129,16 +129,6 @@ const CollectionsPage = ({ collections }) => {
   }
 };
 
-export async function getStaticProps(context) {
-  const { locale } = context;
-
-  return {
-    props: {
-      ...(await serverSideTranslations(locale)),
-    },
-  };
-}
-
 export async function getServerSideProps() {
   try {
     await connectDB();
@@ -148,6 +138,7 @@ export async function getServerSideProps() {
     return {
       props: {
         collections: JSON.parse(JSON.stringify(collections)),
+        ...(await serverSideTranslations(locale)),
       },
     };
   } catch (error) {
