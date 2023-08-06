@@ -173,7 +173,11 @@ export default function DrawingCanvas() {
               onChange={handleImageUpload}
               style={{ display: "none" }}
             />
-            <UploadButton onClick={handleButtonClick} $darkMode={darkMode}>
+            <UploadButton
+              type="button"
+              onClick={handleButtonClick}
+              $darkMode={darkMode}
+            >
               UPLOAD
               <LiaCloudUploadAltSolid className="cloud" />
             </UploadButton>
