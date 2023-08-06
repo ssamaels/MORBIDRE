@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import DrawingCanvas, { convertCanvasToImage } from "./DrawingCanvas";
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { useDarkMode } from "./DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
@@ -13,6 +13,7 @@ export default function ContactForm({ onAddContact }) {
   const [message, setMessage] = useState("");
   const [image, setImage] = useState("");
   const [contactLink, setContactLink] = useState("");
+  const canvasRef = useRef(null);
   const form = useRef();
 
   const { darkMode, setDarkMode } = useDarkMode();
@@ -33,11 +34,15 @@ export default function ContactForm({ onAddContact }) {
     };
     const response = await onAddContact(newContact);
     console.log({ response });
+    const canvas = document.getElementById("canvas");
+    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+
     setContactLink(`${HOST_ROOT}/contact/${response.savedContact._id}`);
     setTimeout(() => {
       sendEmail();
       form.current.reset();
       document.getElementById("contact-name").focus();
+      window.alert("Contact form submitted successfully! Thank you!");
     }, 100);
   };
 
@@ -108,7 +113,7 @@ export default function ContactForm({ onAddContact }) {
               $darkMode={darkMode}
             ></StyledTextArea>
             <div className="field">
-              <DrawingCanvas />
+              <DrawingCanvas ref={canvasRef} id="canvas" />
             </div>
             <StyledButton
               className="submit-button"
