@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import React, { useState, useContext } from "react";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import connectDB from "@/db/connect";
 import MorbidreDesign from "@/db/models/morbidre_design";
 import ImagePopup from "@/components/ImagePopup";
@@ -85,6 +86,7 @@ const MorbidreDesignsPage = ({ designs }) => {
             onPrevious={showPreviousImage}
           />
         )}
+        <Footer />
       </>
     );
   } else {
@@ -116,6 +118,7 @@ const MorbidreDesignsPage = ({ designs }) => {
             onDelete={() => handleImageDelete(designs[currentImageIndex]._id)}
           />
         )}
+        <Footer />
       </>
     );
   }
@@ -150,6 +153,7 @@ const DesignDisplay = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 10rem;
+  margin-bottom: 5rem;
 
   ${(props) =>
     props.$darkMode &&

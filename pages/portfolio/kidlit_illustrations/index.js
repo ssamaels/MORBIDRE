@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import React, { useState, useContext } from "react";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import connectDB from "@/db/connect";
 import KidlitIllustrations from "@/db/models/kidlit_illustrations";
 import ImagePopup from "@/components/ImagePopup";
@@ -94,6 +95,7 @@ const KidlitIllustrationsPage = ({ illustrations }) => {
             }
           />
         )}
+        <Footer />
       </>
     );
   } else {
@@ -130,6 +132,7 @@ const KidlitIllustrationsPage = ({ illustrations }) => {
             onPrevious={showPreviousImage}
           />
         )}
+        <Footer />
       </>
     );
   }
@@ -164,6 +167,7 @@ const KidlitDisplay = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 10rem;
+  margin-bottom: 5rem;
 
   ${(props) =>
     props.$darkMode &&

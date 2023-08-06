@@ -94,15 +94,16 @@ const Reviews = ({ reviews, onDelete }) => {
                   reviews.map((review) => (
                     <StyledListItem key={review._id} $darkMode={darkMode}>
                       <ListInput>
-                        <strong>Date:</strong> {getTime(review.date)}
+                        <div className="label">Date:</div>{" "}
+                        {getTime(review.date)}
                       </ListInput>
                       {<br></br>}
                       <ListInput>
-                        <strong>Name:</strong> {review.name}
+                        <div className="label">Name:</div> {review.name}
                       </ListInput>
                       {<br></br>}
                       <ListInput>
-                        <strong>Review:</strong> {review.review}
+                        <div className="label">Review:</div> {review.review}
                       </ListInput>
                       <hr></hr>
                     </StyledListItem>
@@ -128,7 +129,7 @@ const ReviewsContainer = styled.div`
   .left {
     align-self: flex-start;
     position: fixed;
-    top: 8rem;
+    top: 3.5rem;
   }
 
   @media (max-width: 768px) {
@@ -167,7 +168,6 @@ const StyledContainder = styled.div`
 
   @media (max-width: 768px) {
     margin-left: 3rem;
-    /* min-width: 170%; */
   }
 `;
 
@@ -201,6 +201,11 @@ const ListInput = styled.div`
   margin: 0.3rem;
   display: inline-flex;
   padding: 0.2rem;
+
+  .label {
+    font-family: "Roboto-bold", sans-serif;
+    margin-right: 1rem;
+  }
 `;
 
 const Container = styled.div`

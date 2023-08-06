@@ -74,12 +74,10 @@ const StyledAbout = styled.div`
   width: 100%;
 
   .left {
-    position: fixed;
     left: 0;
   }
 
   .right {
-    position: fixed;
     right: 0;
   }
 
@@ -101,20 +99,21 @@ const AboutText = styled.div`
   align-content: center;
   justify-items: center;
   justify-content: center;
-  text-align: center;
   color: #000000;
   line-height: 3rem;
   z-index: 2;
 
   .h1 {
+    text-align: center;
     font-size: 3rem;
     font-weight: bolder;
   }
 
   p {
-    width: 50%;
+    width: 80%;
     font-size: 1.5rem;
     font-weight: bold;
+    text-align: justify;
   }
 
   ${(props) =>
