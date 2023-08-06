@@ -12,6 +12,8 @@ import Link from "next/link";
 import { useDarkMode } from "@/components/DarkModeContext";
 import { useContext } from "react";
 import { ClientSideContext } from "../_app";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export async function getServerSideProps() {
   await connectDB();
@@ -67,6 +69,7 @@ export default function Portfolio({
 }) {
   const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -175,6 +178,16 @@ export default function Portfolio({
       <Footer />
     </>
   );
+}
+
+export async function getStaticProps(context) {
+  const { locale } = context;
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale)),
+    },
+  };
 }
 
 const ElementsContainer = styled.div`

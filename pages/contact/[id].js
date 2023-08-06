@@ -6,6 +6,8 @@ import { useDarkMode } from "@/components/DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 const { HOST_ROOT } = process.env;
 
@@ -25,8 +27,14 @@ export async function getStaticProps({ params }) {
   console.log("url:", url);
   const res = await axios.get(url);
   const contact = res.data;
+  const { locale } = context;
 
-  return { props: { contact } };
+  return {
+    props: {
+      ...(await serverSideTranslations(locale)),
+      contact,
+    },
+  };
 }
 
 const ContactDetail = ({ contact }) => {
@@ -35,6 +43,7 @@ const ContactDetail = ({ contact }) => {
   const isClient = useContext(ClientSideContext);
   const router = useRouter();
   const { id } = router.query;
+  const { t } = useTranslation();
 
   useEffect(() => {
     setIsLoading(false);

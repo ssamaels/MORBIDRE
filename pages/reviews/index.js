@@ -7,9 +7,13 @@ import ReviewForm from "@/components/ReviewForm";
 import Reviews from "@/components/Reviews";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export default function ReviewsPage() {
   const [reviews, setReviews] = useState([]);
+  const { t } = useTranslation();
+
   useEffect(() => {
     async function handleGetReview(review) {
       const response = await fetch("/api/reviews");
@@ -61,6 +65,16 @@ export default function ReviewsPage() {
       <Footer />
     </>
   );
+}
+
+export async function getStaticProps(context) {
+  const { locale } = context;
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale)),
+    },
+  };
 }
 
 const StyledReviewsList = styled.div`

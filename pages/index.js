@@ -7,11 +7,14 @@ import { useDarkMode } from "@/components/DarkModeContext";
 import { useContext, useState, useEffect } from "react";
 import { ClientSideContext } from "./_app";
 import Footer from "@/components/Footer";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export default function Home() {
   const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
   const [hideArrow, setHideArrow] = useState(false);
+  const { t } = useTranslation();
 
   const handleScroll = () => {
     const bottom =
@@ -48,12 +51,9 @@ export default function Home() {
             />
             <Welcome $darkMode={darkMode}>
               <p className="h1">
-                <strong>WELCOME TO MY WORLD.</strong>
+                <strong>{t("welcome")}</strong>
               </p>
-              <p className="quote">
-                &quot;Maybe I&apos;m not able to change the world, but I will
-                definetly make a whole new one just for you.&quot;
-              </p>
+              <p className="quote">{t("quote")}</p>
             </Welcome>
             <Image
               className="right"
@@ -88,6 +88,16 @@ export default function Home() {
       <Footer />
     </>
   );
+}
+
+export async function getStaticProps(context) {
+  const { locale } = context;
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale)),
+    },
+  };
 }
 
 const ElementsContainer = styled.div`

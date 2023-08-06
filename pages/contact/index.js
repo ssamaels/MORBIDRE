@@ -6,11 +6,14 @@ import { useState, useEffect, useContext } from "react";
 import Image from "next/image";
 import { useDarkMode } from "@/components/DarkModeContext";
 import { ClientSideContext } from "../_app";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export default function ContactPage() {
   const [contacts, setContacts] = useState([]);
   const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
+  const { t } = useTranslation();
 
   useEffect(() => {
     async function handleGetContact(contact) {
@@ -68,6 +71,16 @@ export default function ContactPage() {
       <Footer />
     </>
   );
+}
+
+export async function getStaticProps(context) {
+  const { locale } = context;
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale)),
+    },
+  };
 }
 
 const ElementsContainer = styled.div`
