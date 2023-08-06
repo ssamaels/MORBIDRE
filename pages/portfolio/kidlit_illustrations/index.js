@@ -9,11 +9,14 @@ import { ClientSideContext } from "@/pages/_app";
 import { useSession } from "next-auth/react";
 import UploadButton from "@/components/Upload/UploadButton";
 import axios from "axios";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 const KidlitIllustrationsPage = ({ illustrations }) => {
   const [popupImage, setPopupImage] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { data: session } = useSession();
+  const { t } = useTranslation();
 
   const openPopup = (imageIndex) => {
     setPopupImage(illustrations[imageIndex].image);
@@ -131,6 +134,16 @@ const KidlitIllustrationsPage = ({ illustrations }) => {
     );
   }
 };
+
+export async function getStaticProps(context) {
+  const { locale } = context;
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale)),
+    },
+  };
+}
 
 export async function getServerSideProps() {
   try {
