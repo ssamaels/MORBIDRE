@@ -53,6 +53,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
+      ...(await serverSideTranslations(context.locale)), // Add this line to include server-side translations
       kidLitImages,
       morbidreImages,
       morbidreDesigns,
@@ -178,16 +179,6 @@ export default function Portfolio({
       <Footer />
     </>
   );
-}
-
-export async function getStaticProps(context) {
-  const { locale } = context;
-
-  return {
-    props: {
-      ...(await serverSideTranslations(locale)),
-    },
-  };
 }
 
 const ElementsContainer = styled.div`
