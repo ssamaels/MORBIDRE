@@ -138,7 +138,7 @@ const KidlitIllustrationsPage = ({ illustrations }) => {
   }
 };
 
-export async function getStaticProps({ locale }) {
+export async function getServerSideProps({ locale }) {
   try {
     await connectDB();
 
