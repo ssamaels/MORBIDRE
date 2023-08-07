@@ -15,7 +15,7 @@ import { ClientSideContext } from "../_app";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   await connectDB();
 
   const kidLitImagesCursor = await KidlitIllustrations.aggregate([
@@ -51,9 +51,11 @@ export async function getStaticProps(context) {
     collections.push(JSON.parse(JSON.stringify(doc)));
   }
 
+  const translation = await serverSideTranslations(context.locale);
+
   return {
     props: {
-      ...(await serverSideTranslations(context.locale)),
+      ...translation,
       kidLitImages,
       morbidreImages,
       morbidreDesigns,
