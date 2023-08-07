@@ -4,6 +4,7 @@ import React, { useState, useRef, useContext, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { useDarkMode } from "./DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
+import { useTranslation } from "next-i18next";
 
 const { HOST_ROOT } = process.env;
 
@@ -15,6 +16,7 @@ export default function ContactForm({ onAddContact }) {
   const [contactLink, setContactLink] = useState("");
   const canvasRef = useRef(null);
   const form = useRef();
+  const { t } = useTranslation("common");
 
   const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
@@ -71,7 +73,7 @@ export default function ContactForm({ onAddContact }) {
         {isClient && (
           <>
             <StyledLabel htmlFor="contact-name" $darkMode={darkMode}>
-              Name:
+              {t("name")}:
             </StyledLabel>
             <StyledInput
               type="text"
@@ -85,7 +87,7 @@ export default function ContactForm({ onAddContact }) {
               $darkMode={darkMode}
             ></StyledInput>
             <StyledLabel htmlFor="contact-email" $darkMode={darkMode}>
-              Email:
+              {t("email")}:
             </StyledLabel>
             <StyledInput
               type="text"
@@ -99,7 +101,7 @@ export default function ContactForm({ onAddContact }) {
               $darkMode={darkMode}
             ></StyledInput>
             <StyledLabel htmlFor="contact-message" $darkMode={darkMode}>
-              Message:
+              {t("message")}:
             </StyledLabel>
             <StyledTextArea
               type="text"
@@ -120,7 +122,7 @@ export default function ContactForm({ onAddContact }) {
               type="submit"
               $darkMode={darkMode}
             >
-              SUBMIT
+              {t("submit")}
             </StyledButton>
             <input type="hidden" name="contact-link" value={contactLink} />
           </>

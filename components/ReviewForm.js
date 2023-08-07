@@ -3,6 +3,7 @@ import styled from "styled-components";
 import emailjs from "@emailjs/browser";
 import { useDarkMode } from "./DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
+import { useTranslation } from "next-i18next";
 
 const ReviewForm = ({ onAddReview }) => {
   const [name, setName] = useState("");
@@ -10,6 +11,7 @@ const ReviewForm = ({ onAddReview }) => {
   const [date, setDate] = useState("");
   const [email, setEmail] = useState("");
   const form = useRef();
+  const { t } = useTranslation("common");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -60,7 +62,7 @@ const ReviewForm = ({ onAddReview }) => {
               className="name_label"
               $darkMode={darkMode}
             >
-              Name:
+              {t("name")}:
             </StyledLabel>
             <StyledInput
               type="text"
@@ -78,7 +80,7 @@ const ReviewForm = ({ onAddReview }) => {
               className="review-message"
               $darkMode={darkMode}
             >
-              Write a review:
+              {t("write_review")}:
             </StyledLabel>
             <StyledTextArea
               type="text"
@@ -96,7 +98,7 @@ const ReviewForm = ({ onAddReview }) => {
               type="submit"
               $darkMode={darkMode}
             >
-              SUBMIT
+              {t("submit")}
             </StyledButton>
           </>
         )}

@@ -3,12 +3,14 @@ import { useState, useContext } from "react";
 import { useDarkMode } from "./DarkModeContext";
 import { RxValue } from "react-icons/rx";
 import { ClientSideContext } from "@/pages/_app";
+import { useTranslation } from "next-i18next";
 
 export default function CategoriesButton() {
   const [showcategories, setShowCategories] = useState(true);
   const [showgraphic, setShowGraphic] = useState(true);
   const [showmorbi, setShowMorbi] = useState(true);
   const [showkidlit, setShowKidlit] = useState(true);
+  const { t } = useTranslation("common");
 
   const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
@@ -22,53 +24,55 @@ export default function CategoriesButton() {
               onClick={() => setShowCategories(!showcategories)}
               $darkMode={darkMode}
             >
-              CATEGORIES
+              {t("categories")}
             </StyledButton>
             <Categories $show={!showcategories}>
               <Category
                 onClick={() => setShowGraphic(!showgraphic)}
                 $darkMode={darkMode}
               >
-                GRAPHIC<br></br> DESIGN
+                {t("graphic_design")}
               </Category>
               <Category
                 onClick={() => setShowMorbi(!showmorbi)}
                 $darkMode={darkMode}
               >
-                MORBIDRE<br></br> ILLUSTRATIONS
+                {t("MORBIDRE_ILLUSTRATIONS")}
               </Category>
               <Category
                 onClick={() => setShowKidlit(!showkidlit)}
                 $darkMode={darkMode}
               >
-                KIDLIT AND<br></br> COVER ILLUSTRATIONS
+                {t("kidlit_and_cover")}
               </Category>
             </Categories>
-            <Subcategories>
-              <SubcategoriesGraphic $show={!showgraphic} $darkMode={darkMode}>
-                <div id="pg">
-                  <p>PACKAGING DESIGN</p>
-                  <p>LABEL DESIGN</p>
-                  <p>BRANDING AND REBRANDING SERVICES</p>
-                  <p>ADVERTISING DESIGN</p>
-                  <p>MARKETING DESIGN</p>
-                  <p>VISUAL COMMUNICATION</p>
-                </div>
-              </SubcategoriesGraphic>
-              <SubcategoriesMorbi $show={!showmorbi} $darkMode={darkMode}>
-                <div id="pm">
-                  <p>CUSTOM T-SHIRT PRINTS</p>
-                  <p>POSTER AND STICKER ILLUSTRATIONS</p>
-                  <p>DARK (MORBIDRE) ILLUSTRATIONS</p>
-                </div>
-              </SubcategoriesMorbi>
-              <SubcategoriesKidlit $show={!showkidlit} $darkMode={darkMode}>
-                <div id="pk">
-                  <p>CUSTOM KIDLIT ILLUSTRATIONS</p>
-                  <p>COVER AND POSTER ILLUSTRATIONS</p>
-                </div>
-              </SubcategoriesKidlit>
-            </Subcategories>
+            {!showcategories && (
+              <Subcategories>
+                <SubcategoriesGraphic $show={!showgraphic} $darkMode={darkMode}>
+                  <div id="pg">
+                    <p>{t("packaging")}</p>
+                    <p>{t("label")}</p>
+                    <p>{t("branding")}</p>
+                    <p>{t("advertising")}</p>
+                    <p>{t("marketing")}</p>
+                    <p>{t("visual")}</p>
+                  </div>
+                </SubcategoriesGraphic>
+                <SubcategoriesMorbi $show={!showmorbi} $darkMode={darkMode}>
+                  <div id="pm">
+                    <p>{t("custom")}</p>
+                    <p>{t("poster")}</p>
+                    <p>{t("dark_morbi")}</p>
+                  </div>
+                </SubcategoriesMorbi>
+                <SubcategoriesKidlit $show={!showkidlit} $darkMode={darkMode}>
+                  <div id="pk">
+                    <p>{t("custom_kidlit")}</p>
+                    <p>{t("cover")}</p>
+                  </div>
+                </SubcategoriesKidlit>
+              </Subcategories>
+            )}
           </>
         )}
       </StyledCategories>
