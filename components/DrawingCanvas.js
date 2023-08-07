@@ -271,7 +271,7 @@ const StyledTools = styled.div`
 
 const StyledButton = styled.button`
   margin: 1rem;
-  padding: 0.3rem;
+  padding: 0.5rem;
   border: 0.1rem solid #000000;
   border-radius: 0.2rem;
   background: transparent;
@@ -332,7 +332,7 @@ const UploadButton = styled.button`
   flex-direction: column;
   align-items: center;
   justify-items: center;
-  padding: 0.3rem;
+  padding: 0.5rem;
   margin: 1rem;
   border: 0.01rem solid #000000;
   border-radius: 0.2rem;
