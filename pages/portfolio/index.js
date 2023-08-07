@@ -15,7 +15,7 @@ import { ClientSideContext } from "../_app";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   await connectDB();
 
   const kidLitImagesCursor = await KidlitIllustrations.aggregate([
@@ -53,7 +53,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      ...(await serverSideTranslations(context.locale)), // Add this line to include server-side translations
+      ...(await serverSideTranslations(context.locale)),
       kidLitImages,
       morbidreImages,
       morbidreDesigns,

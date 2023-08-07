@@ -138,7 +138,7 @@ const MorbidreIllustrationsPage = ({ illustrations }) => {
   }
 };
 
-export async function getServerSideProps({ locale }) {
+export async function getStaticProps({ locale }) {
   try {
     await connectDB();
 
