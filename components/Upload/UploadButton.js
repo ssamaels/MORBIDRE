@@ -66,7 +66,8 @@ const Button = styled.button`
   flex-direction: column;
   align-items: center;
   justify-items: center;
-  padding: 0.3rem;
+  padding: 0.5rem;
+  margin-top: 3rem;
   margin-bottom: 3rem;
   font-size: large;
   border: 0.1rem solid #000000;

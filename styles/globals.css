@@ -18,7 +18,9 @@ a,
 button,
 label,
 ul,
-li {
+li,
+input,
+textarea {
   font-family: "Roboto-thin", sans-serif;
   font-weight: bold;
 }

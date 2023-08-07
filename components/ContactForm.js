@@ -143,9 +143,12 @@ const StyledForm = styled.form`
 const StyledInput = styled.input`
   border: 0.02rem double #000000;
   border-radius: 0.2rem;
-  padding-left: 0.05rem;
-  padding-right: 0.05rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.1rem 0.5rem 0.1rem 0.5rem;
   background-color: rgb(250, 250, 250, 0.7);
+  width: 20rem;
+  text-align: center;
 
   ${(props) =>
     props.$darkMode &&
@@ -159,9 +162,11 @@ const StyledInput = styled.input`
 const StyledTextArea = styled.textarea`
   border: 0.02rem double #000000;
   border-radius: 0.5rem;
-  padding-left: 0.05rem;
-  padding-right: 0.05rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.1rem 0.5rem 0.1rem 0.5rem;
   background-color: rgb(250, 250, 250, 0.7);
+  width: 20rem;
 
   ${(props) =>
     props.$darkMode &&
@@ -174,7 +179,7 @@ const StyledTextArea = styled.textarea`
 
 const StyledButton = styled.button`
   margin: 1rem;
-  padding: 0.3rem;
+  padding: 0.5rem;
   background: transparent;
   border: 0.1rem solid #000000;
   border-radius: 0.2rem;
