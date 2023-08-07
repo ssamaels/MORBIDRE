@@ -5,9 +5,12 @@ import { useDarkMode } from "./DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
 import { useSession } from "next-auth/react";
 import DeleteButton from "@/components/DeleteButton";
+import { useTranslation } from "next-i18next";
 
 const Reviews = ({ reviews, onDelete }) => {
   const { data: session } = useSession();
+  const { t } = useTranslation("common");
+
   function getTime(data) {
     const currentTime = new Date(data);
     const year = currentTime.getFullYear();
@@ -40,7 +43,9 @@ const Reviews = ({ reviews, onDelete }) => {
               className="reviews-container"
               $darkMode={darkMode}
             >
-              <h3>Customer reviews:</h3>
+              <div className="CR">
+                <strong>{t("customer_reviews")}:</strong>
+              </div>
               <hr></hr>
               <ul>
                 {reviews &&
@@ -48,17 +53,17 @@ const Reviews = ({ reviews, onDelete }) => {
                     <StyledListItem key={review._id} $darkMode={darkMode}>
                       <Container>
                         <ListInput>
-                          <strong>Date:</strong> {getTime(review.date)}
+                          <strong>{t("DATE")}:</strong> {getTime(review.date)}
                         </ListInput>
                         <DeleteButton onDelete={() => onDelete(review._id)} />
                       </Container>
                       {<br></br>}
                       <ListInput>
-                        <strong>Name:</strong> {review.name}
+                        <strong>{t("NAME")}:</strong> {review.name}
                       </ListInput>
                       {<br></br>}
                       <ListInput>
-                        <strong>Review:</strong> {review.review}
+                        <strong>{t("REVIEW")}:</strong> {review.review}
                       </ListInput>
                       <hr></hr>
                     </StyledListItem>
@@ -87,23 +92,26 @@ const Reviews = ({ reviews, onDelete }) => {
               className="reviews-container"
               $darkMode={darkMode}
             >
-              <h3>Customer reviews:</h3>
+              <div className="CR">
+                <strong>{t("customer_reviews")}:</strong>
+              </div>
               <hr></hr>
               <ul>
                 {reviews &&
                   reviews.map((review) => (
                     <StyledListItem key={review._id} $darkMode={darkMode}>
                       <ListInput>
-                        <div className="label">Date:</div>{" "}
+                        <div className="label">{t("DATE")}:</div>{" "}
                         {getTime(review.date)}
                       </ListInput>
                       {<br></br>}
                       <ListInput>
-                        <div className="label">Name:</div> {review.name}
+                        <div className="label">{t("NAME")}:</div> {review.name}
                       </ListInput>
                       {<br></br>}
                       <ListInput>
-                        <div className="label">Review:</div> {review.review}
+                        <div className="label">{t("REVIEW")}:</div>{" "}
+                        {review.review}
                       </ListInput>
                       <hr></hr>
                     </StyledListItem>
@@ -147,6 +155,11 @@ const StyledContainder = styled.div`
   white-space: normal;
   margin-left: 20rem;
   color: #000000;
+
+  .CR {
+    font-family: "Roboto-bold", sans-serif;
+    font-size: 1.3rem;
+  }
 
   hr {
     margin-top: 0.2rem;

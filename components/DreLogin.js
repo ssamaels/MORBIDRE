@@ -5,11 +5,13 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import { useDarkMode } from "./DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
+import { useTranslation } from "next-i18next";
 
 const DreLogin = () => {
   const { data: session } = useSession();
   const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
+  const { t } = useTranslation("common");
 
   if (session) {
     return (
@@ -26,9 +28,11 @@ const DreLogin = () => {
               width={300}
             />
             <Login $darkMode={darkMode}>
-              <h1>Welcome {session.user.name}</h1>
+              <h1>
+                {t("Welcome")} {session.user.name}
+              </h1>
               <h3>Now do your thing...</h3>
-              <button onClick={() => signOut()}>Log out</button>
+              <button onClick={() => signOut()}>{t("log_out")}</button>
             </Login>
             <Image
               className="right"
@@ -58,8 +62,8 @@ const DreLogin = () => {
               width={300}
             />
             <Login $darkMode={darkMode}>
-              <h1>Welcome Dre!</h1>
-              <button onClick={() => signIn()}>Log in</button>
+              <h1>{t("Welcome")} Dre!</h1>
+              <button onClick={() => signIn()}>{t("log_in")}</button>
             </Login>
             <Image
               className="right"

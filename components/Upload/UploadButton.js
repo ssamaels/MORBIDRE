@@ -3,12 +3,14 @@ import { useDarkMode } from "../DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
 import { useContext, useRef, useState } from "react";
 import { LiaCloudUploadAltSolid } from "react-icons/lia";
+import { useTranslation } from "next-i18next";
 
 export default function UploadButton({ uploadPath }) {
   const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
   const fileInputRef = useRef();
   const [imageData, setImageData] = useState(null);
+  const { t } = useTranslation("common");
 
   const handleUpload = async (e) => {
     const file = e.target.files[0];
@@ -50,7 +52,7 @@ export default function UploadButton({ uploadPath }) {
             $darkMode={darkMode}
             onClick={() => fileInputRef.current.click()}
           >
-            UPLOAD
+            {t("upload")}
             <LiaCloudUploadAltSolid className="cloud" />
           </Button>
         </>

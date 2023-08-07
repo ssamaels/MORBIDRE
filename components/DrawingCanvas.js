@@ -4,6 +4,7 @@ import { useDarkMode } from "./DarkModeContext";
 import { ClientSideContext } from "@/pages/_app";
 import Image from "next/image";
 import { LiaCloudUploadAltSolid } from "react-icons/lia";
+import { useTranslation } from "next-i18next";
 
 export default function DrawingCanvas() {
   const canvasRef = useRef(null);
@@ -16,6 +17,7 @@ export default function DrawingCanvas() {
   const isDrawing = useRef(false);
   const restoreArray = useRef([]);
   const index = useRef(-1);
+  const { t } = useTranslation("common");
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -165,7 +167,7 @@ export default function DrawingCanvas() {
       {isClient && (
         <>
           <StyledLabel htmlFor="canvas" $darkMode={darkMode}>
-            Draw what you have in mind:
+            {t("draw")}:
             <input
               ref={inputRef}
               type="file"
@@ -178,7 +180,7 @@ export default function DrawingCanvas() {
               onClick={handleButtonClick}
               $darkMode={darkMode}
             >
-              UPLOAD
+              {t("upload")}
               <LiaCloudUploadAltSolid className="cloud" />
             </UploadButton>
           </StyledLabel>
@@ -208,7 +210,7 @@ export default function DrawingCanvas() {
               className="button"
               $darkMode={darkMode}
             >
-              UNDO
+              {t("undo")}
             </StyledButton>
             <StyledButton
               onClick={clearCanvas}
@@ -216,7 +218,7 @@ export default function DrawingCanvas() {
               className="button"
               $darkMode={darkMode}
             >
-              CLEAR
+              {t("clear")}
             </StyledButton>
           </StyledTools>
           <Image
