@@ -1,10 +1,10 @@
 import "@/styles/globals.css";
 import { SWRConfig } from "swr";
-import { useState, useEffect, createContext, useContext } from "react";
-import useLocalStorage from "use-local-storage";
+import { useState, useEffect, createContext } from "react";
 import { DarkModeProvider } from "@/components/DarkModeContext";
 import { SessionProvider } from "next-auth/react";
 import { appWithTranslation } from "next-i18next";
+import Cursor from "@/components/Cursor";
 
 export const ClientSideContext = createContext(false);
 
@@ -30,6 +30,7 @@ function App({ Component, pageProps: { session, ...pageProps } }) {
       <SessionProvider session={session}>
         <ClientSideContext.Provider value={isClient}>
           <DarkModeProvider>
+            <Cursor />
             <Component {...pageProps} />
           </DarkModeProvider>
         </ClientSideContext.Provider>
