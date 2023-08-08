@@ -56,6 +56,10 @@ export default function Header() {
     router.push(router.pathname, router.asPath, { locale: newLanguage });
   };
 
+  const handleMouseLeave = () => {
+    setShowMenu(true);
+  };
+
   return (
     <StyledHeader style={{ top: visible ? "0" : "-1000px" }}>
       {isClient && (
@@ -72,7 +76,11 @@ export default function Header() {
               <MdOutlineKeyboardDoubleArrowDown />
             </ArrowButton>
           </Brand>
-          <Nav $show={!showmenu} $darkMode={darkMode}>
+          <Nav
+            $show={!showmenu}
+            $darkMode={darkMode}
+            onMouseLeave={handleMouseLeave}
+          >
             <Link href="/" style={{ textDecoration: "none" }}>
               <Button $darkMode={darkMode}>
                 <RiHomeLine style={{ width: "30", height: "30" }} />

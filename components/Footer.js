@@ -108,16 +108,22 @@ const StyledFooter = styled.div`
 const TermsContainer = styled.div`
   display: flex;
   flex-direction: column;
+  /* text-align: center; */
+  padding-left: 0.2rem;
+  border-left: 2px solid #000000;
 
   a {
     color: #000000;
-
-    ${(props) =>
-      props.$darkMode &&
-      `
-      color: #ffffff;
-      `}
   }
+
+  ${(props) =>
+    props.$darkMode &&
+    `
+      border-left: 2px solid #ffffff;
+      a {
+        color: #ffffff;
+      }
+      `}
 
   @media (max-width: 768px) {
     margin-right: 0.5rem;
