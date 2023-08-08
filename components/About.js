@@ -102,4 +102,15 @@ const AboutText = styled.div`
     `
     color: #ffffff;
     `}
+
+  @media (max-width: 768px) {
+    position: absolute;
+    top: 10rem;
+
+    p {
+      width: 70%;
+      font-size: 0.7rem;
+      line-height: 1.5rem;
+    }
+  }
 `;

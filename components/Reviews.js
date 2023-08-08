@@ -53,17 +53,19 @@ const Reviews = ({ reviews, onDelete }) => {
                     <StyledListItem key={review._id} $darkMode={darkMode}>
                       <Container>
                         <ListInput>
-                          <strong>{t("DATE")}:</strong> {getTime(review.date)}
+                          <div className="label">{t("DATE")}:</div>{" "}
+                          {getTime(review.date)}
                         </ListInput>
                         <DeleteButton onDelete={() => onDelete(review._id)} />
                       </Container>
                       {<br></br>}
                       <ListInput>
-                        <strong>{t("NAME")}:</strong> {review.name}
+                        <div className="label">{t("NAME")}:</div> {review.name}
                       </ListInput>
                       {<br></br>}
                       <ListInput>
-                        <strong>{t("REVIEW")}:</strong> {review.review}
+                        <div className="label">{t("REVIEW")}:</div>
+                        {review.review}
                       </ListInput>
                       <hr></hr>
                     </StyledListItem>
@@ -101,7 +103,7 @@ const Reviews = ({ reviews, onDelete }) => {
                   reviews.map((review) => (
                     <StyledListItem key={review._id} $darkMode={darkMode}>
                       <ListInput>
-                        <div className="label">{t("DATE")}:</div>{" "}
+                        <div className="label">{t("DATE")}:</div>
                         {getTime(review.date)}
                       </ListInput>
                       {<br></br>}
@@ -110,7 +112,7 @@ const Reviews = ({ reviews, onDelete }) => {
                       </ListInput>
                       {<br></br>}
                       <ListInput>
-                        <div className="label">{t("REVIEW")}:</div>{" "}
+                        <div className="label">{t("REVIEW")}:</div>
                         {review.review}
                       </ListInput>
                       <hr></hr>
