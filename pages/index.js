@@ -105,6 +105,17 @@ const ElementsContainer = styled.div`
   flex-direction: column;
   width: 100%;
 
+  .left {
+    left: 0;
+    top: 10rem;
+    position: fixed;
+  }
+  .right {
+    right: 0;
+    top: 10rem;
+    position: fixed;
+  }
+
   ${(props) =>
     props.$darkMode &&
     `
@@ -129,17 +140,21 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-  margin-top: 5%;
+  justify-content: center;
+  margin-top: 25rem;
+  margin-bottom: 5rem;
 
   @media (max-width: 768px) {
     position: relative;
+    margin-top: 10rem;
   }
 `;
 
 const Welcome = styled.div`
   display: flex;
   flex-direction: column;
+  align-self: center;
+  justify-self: center;
   align-items: center;
   text-align: center;
   width: 45%;
@@ -151,21 +166,29 @@ const Welcome = styled.div`
 
   p {
     font-size: 2rem;
-    font-weight: bold;
   }
 
   ${(props) =>
     props.$darkMode &&
     `
-      color: #ffffff;
+    color: #ffffff;
     `}
 
   @media (max-width: 768px) {
     position: absolute;
-    width: 80%;
-    top: 20;
-    left: 5%;
+    width: 60%;
+    align-self: center;
     z-index: 3;
     padding: 20px;
+    line-height: 2rem;
+
+    .h1 {
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
   }
 `;

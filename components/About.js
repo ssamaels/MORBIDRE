@@ -21,8 +21,8 @@ export default function About() {
                 darkMode ? "/images/left dark.png" : "/images/left light.png"
               }
               alt=""
-              height={850}
-              width={500}
+              height={650}
+              width={300}
             />
             <AboutText $darkMode={darkMode}>
               <p className="h1">{t("about")}</p>
@@ -53,6 +53,8 @@ const StyledAbout = styled.div`
 
   .left {
     left: 0;
+    position: sticky;
+    top: 2rem;
   }
 
   .right {
@@ -92,7 +94,7 @@ const AboutText = styled.div`
     font-size: 1.5rem;
     font-weight: bold;
     text-align: justify;
-    line-height: 4rem;
+    line-height: 3rem;
   }
 
   ${(props) =>
