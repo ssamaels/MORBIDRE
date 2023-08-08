@@ -55,7 +55,7 @@ export default function Footer() {
                 Terms And Conditions
               </Link>
               <Link href="/copyrights" style={{ textDecoration: "none" }}>
-                Copyright © 2023
+                Copyrights © 2023
               </Link>
             </TermsContainer>
             <Image
