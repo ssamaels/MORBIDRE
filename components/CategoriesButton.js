@@ -106,6 +106,7 @@ const StyledButton = styled.button`
   color: #000000;
   font-size: 1.5rem;
   font-weight: bolder;
+  z-index: 3;
   cursor: pointer;
   &:hover {
     background: rgb(0, 0, 0, 0.5);
@@ -128,6 +129,7 @@ const StyledButton = styled.button`
   @media (max-width: 990px) {
     margin-top: 5rem;
     font-size: 1.2rem;
+    margin-bottom: 0;
   }
 `;
 
@@ -158,6 +160,7 @@ const Category = styled.button`
   color: #000000;
   font-size: 1.3rem;
   font-weight: bold;
+  z-index: 2;
   cursor: pointer;
   &:hover {
     background: rgb(0, 0, 0, 0.5);
@@ -215,8 +218,9 @@ const SubcategoriesGraphic = styled.div`
   padding: 0.3rem;
 
   @media (max-width: 990px) {
-    position: relative;
-    left: 0;
+    top: 0;
+    left: 50%;
+    translate: -50%;
     margin-top: -46rem;
     font-size: 0.6rem;
     align-self: center;
@@ -243,12 +247,9 @@ const SubcategoriesMorbi = styled.div`
   padding: 0.3rem;
 
   @media (max-width: 990px) {
-    margin-top: 8rem;
+    top: -25rem;
     font-size: 0.6rem;
     align-self: center;
-    position: relative;
-    left: 0;
-    translate: 0;
   }
 `;
 
@@ -265,9 +266,9 @@ const SubcategoriesKidlit = styled.div`
   padding: 0.3rem;
 
   @media (max-width: 990px) {
-    position: relative;
-    right: 0;
-    margin-top: 10rem;
+    left: 50%;
+    translate: -50%;
+    top: -7.5rem;
     font-size: 0.6rem;
     align-self: center;
   }
