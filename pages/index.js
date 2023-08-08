@@ -107,12 +107,12 @@ const ElementsContainer = styled.div`
 
   .left {
     left: 0;
-    top: 10rem;
+    top: 3rem;
     position: fixed;
   }
   .right {
     right: 0;
-    top: 10rem;
+    top: 1rem;
     position: fixed;
   }
 
