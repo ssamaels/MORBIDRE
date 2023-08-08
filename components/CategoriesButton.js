@@ -86,8 +86,10 @@ const StyledCategories = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 80vh;
+  align-self: center;
+  justify-self: center;
 
-  @media (max-width: 768px) {
+  @media (max-width: 990px) {
     width: 80%;
   }
 `;
@@ -95,23 +97,26 @@ const StyledCategories = styled.div`
 const StyledButton = styled.button`
   height: 4rem;
   width: 11rem;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
   padding: 0.2rem;
-  border: 0.01rem solid #000000;
+  border: 0.4rem double #000000;
   border-radius: 0.4rem;
   background: transparent;
+  color: #000000;
   font-size: 1.5rem;
   font-weight: bolder;
-  color: #000000;
   cursor: pointer;
   &:hover {
     background: rgb(0, 0, 0, 0.5);
     color: #ffffff;
+    border: 0.4rem double #ffffff;
   }
 
   ${(props) =>
     props.$darkMode &&
     `
-    border: 0.01rem solid #ffffff;
+    border: 0.4rem double #ffffff;
       color: #ffffff;
 
       &:hover {
@@ -120,46 +125,50 @@ const StyledButton = styled.button`
       }
     `}
 
-  @media (max-width: 768px) {
+  @media (max-width: 990px) {
     margin-top: 5rem;
-    margin-left: 5rem;
     font-size: 1.2rem;
   }
 `;
 
 const Categories = styled.div`
   display: ${(props) => (props.$show ? "flex" : "none")};
+  position: relative;
   flex-direction: row;
   align-items: center;
-  justify-items: space-between;
+  width: 150%;
+  justify-content: space-between;
+  padding: 0.3rem;
 
-  @media (max-width: 768px) {
+  @media (max-width: 990px) {
     width: 100%;
     flex-direction: column;
   }
 `;
 
 const Category = styled.button`
+  position: relative;
   height: 7rem;
   width: 11rem;
   padding: 0.2rem;
-  margin: 5rem;
-  border: 0.01rem solid #000000;
+  margin: 0.5rem;
+  border: 0.4rem double #000000;
   border-radius: 0.4rem;
   background: transparent;
+  color: #000000;
   font-size: 1.3rem;
   font-weight: bold;
-  color: #000000;
   cursor: pointer;
   &:hover {
     background: rgb(0, 0, 0, 0.5);
     color: #ffffff;
+    border: 0.4rem double #ffffff;
   }
 
   ${(props) =>
     props.$darkMode &&
     `
-    border: 0.01rem solid #ffffff;
+    border: 0.4rem double #ffffff;
       color: #ffffff;
 
       &:hover {
@@ -168,51 +177,49 @@ const Category = styled.button`
       }
     `}
 
-  @media (max-width: 768px) {
+  @media (max-width: 990px) {
     margin: 1rem;
     margin-top: 5rem;
-    margin-left: 30%;
+    margin-bottom: 10rem;
     height: fit-content;
     padding: 0.4rem;
-    /* margin: 0; */
-    /* margin-top: 1rem; */
     font-size: 0.7rem;
   }
 `;
 
 const Subcategories = styled.div`
+  position: relative;
   display: flex;
-  justify-content: space-around;
-  margin-top: 1rem;
+  flex-direction: row;
+  width: 120%;
+  justify-content: space-between;
   margin-bottom: 5rem;
-  width: 80%;
 
-  @media (max-width: 768px) {
-    width: 100%;
+  @media (max-width: 990px) {
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
   }
 `;
 
 const SubcategoriesGraphic = styled.div`
   display: ${(props) => (props.$show ? "flex" : "none")};
-  position: ${(props) => (props.$show ? "absolute" : "relative")};
+  color: ${(props) => (props.$darkMode ? "#ffffff" : "#000000")};
+  position: absolute;
+  left: -8rem;
   flex-direction: column;
-  /* justify-self: flex-start; */
-  /* align-self: center; */
   font-size: 0.9rem;
   line-height: 2rem;
   font-weight: bold;
   text-align: center;
-  left: 0;
-  margin-left: 7rem;
-  margin-top: -3rem;
+  padding: 0.3rem;
 
-  @media (max-width: 768px) {
-    /* margin-top: 0.1rem;
-    margin-left: 1rem;
+  @media (max-width: 990px) {
+    position: relative;
+    left: 0;
+    margin-top: -46rem;
     font-size: 0.6rem;
-    line-height: 2rem;
-    align-self: center; */
-    display: none;
+    align-self: center;
   }
 
   ${(props) =>
@@ -224,55 +231,44 @@ const SubcategoriesGraphic = styled.div`
 
 const SubcategoriesMorbi = styled.div`
   display: ${(props) => (props.$show ? "flex" : "none")};
-  position: ${(props) => (props.$show ? "absolute" : "relative")};
+  color: ${(props) => (props.$darkMode ? "#ffffff" : "#000000")};
+  position: absolute;
+  left: 50%;
+  translate: -50%;
   flex-direction: column;
-  align-self: flex-start;
-  align-self: center;
   font-size: 0.9rem;
   line-height: 2rem;
   font-weight: bold;
   text-align: center;
+  padding: 0.3rem;
 
-  @media (max-width: 768px) {
-    /* margin-top: 30rem;
-    margin-right: -23rem;
+  @media (max-width: 990px) {
+    margin-top: 8rem;
     font-size: 0.6rem;
-    line-height: 2rem; */
-    display: none;
+    align-self: center;
+    position: relative;
+    left: 0;
+    translate: 0;
   }
-
-  ${(props) =>
-    props.$darkMode &&
-    `
-      color: #ffffff;
-    `}
 `;
 
 const SubcategoriesKidlit = styled.div`
   display: ${(props) => (props.$show ? "flex" : "none")};
-  position: ${(props) => (props.$show ? "absolute" : "relative")};
+  color: ${(props) => (props.$darkMode ? "#ffffff" : "#000000")};
+  position: absolute;
+  right: -7.5rem;
   flex-direction: column;
-  align-self: flex-start;
-  align-self: center;
   font-size: 0.9rem;
   line-height: 2rem;
   font-weight: bold;
   text-align: center;
-  right: 0;
-  margin-right: 7rem;
-  margin-top: -2rem;
+  padding: 0.3rem;
 
-  @media (max-width: 768px) {
-    /* margin-top: 45rem;
-    margin-right: -17rem;
+  @media (max-width: 990px) {
+    position: relative;
+    right: 0;
+    margin-top: 10rem;
     font-size: 0.6rem;
-    line-height: 2rem; */
-    display: none;
+    align-self: center;
   }
-
-  ${(props) =>
-    props.$darkMode &&
-    `
-      color: #ffffff;
-    `}
 `;
