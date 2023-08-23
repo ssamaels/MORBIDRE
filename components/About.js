@@ -111,6 +111,7 @@ const AboutText = styled.div`
       width: 70%;
       font-size: 0.7rem;
       line-height: 1.5rem;
+      margin-bottom: 2rem;
     }
   }
 `;

@@ -7,76 +7,102 @@ import { useTranslation } from "next-i18next";
 
 export default function CategoriesButton() {
   const [showcategories, setShowCategories] = useState(true);
-  const [showgraphic, setShowGraphic] = useState(true);
-  const [showmorbi, setShowMorbi] = useState(true);
-  const [showkidlit, setShowKidlit] = useState(true);
+  // const [showgraphic, setShowGraphic] = useState(true);
+  // const [showmorbi, setShowMorbi] = useState(true);
+  // const [showkidlit, setShowKidlit] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const { t } = useTranslation("common");
 
   const { darkMode, setDarkMode } = useDarkMode();
   const isClient = useContext(ClientSideContext);
 
   return (
-    <>
-      <StyledCategories>
-        {isClient && (
-          <>
-            <StyledButton
-              onClick={() => setShowCategories(!showcategories)}
+    <StyledCategories>
+      {isClient && (
+        <>
+          <StyledButton
+            onClick={() => {
+              setShowCategories(!showcategories);
+              setSelectedCategory(null); // Resets the selected category when the main button is clicked
+            }}
+            $darkMode={darkMode}
+          >
+            {t("categories")}
+          </StyledButton>
+          <Categories $show={!showcategories}>
+            <Category
+              onClick={() =>
+                setSelectedCategory(
+                  selectedCategory !== "graphic" ? "graphic" : null
+                )
+              }
               $darkMode={darkMode}
+              $expanded={selectedCategory === "graphic"}
             >
-              {t("categories")}
-            </StyledButton>
-            <Categories $show={!showcategories}>
-              <Category
-                onClick={() => setShowGraphic(!showgraphic)}
+              {t("graphic_design")}
+            </Category>
+            <Category
+              onClick={() =>
+                setSelectedCategory(
+                  selectedCategory !== "morbi" ? "morbi" : null
+                )
+              }
+              $darkMode={darkMode}
+              $expanded={selectedCategory === "morbi"}
+            >
+              {t("MORBIDRE_ILLUSTRATIONS")}
+            </Category>
+            <Category
+              onClick={() =>
+                setSelectedCategory(
+                  selectedCategory !== "kidlit" ? "kidlit" : null
+                )
+              }
+              $darkMode={darkMode}
+              $expanded={selectedCategory === "kidlit"}
+            >
+              {t("kidlit_and_cover")}
+            </Category>
+          </Categories>
+          {!showcategories && (
+            <Subcategories>
+              <SubcategoriesGraphic
+                $show={selectedCategory === "graphic"}
                 $darkMode={darkMode}
               >
-                {t("graphic_design")}
-              </Category>
-              <Category
-                onClick={() => setShowMorbi(!showmorbi)}
+                <div id="pg">
+                  <p>{t("packaging")}</p>
+                  <p>{t("label")}</p>
+                  <p>{t("branding")}</p>
+                  <p>{t("advertising")}</p>
+                  <p>{t("marketing")}</p>
+                  <p>{t("visual")}</p>
+                </div>
+              </SubcategoriesGraphic>
+              <SubcategoriesMorbi
+                $show={selectedCategory === "morbi"}
                 $darkMode={darkMode}
               >
-                {t("MORBIDRE_ILLUSTRATIONS")}
-              </Category>
-              <Category
-                onClick={() => setShowKidlit(!showkidlit)}
+                <div id="pm">
+                  <p>{t("custom")}</p>
+                  <p>{t("poster")}</p>
+                  <p>{t("dark_morbi")}</p>
+                </div>
+              </SubcategoriesMorbi>
+              <SubcategoriesKidlit
+                $show={selectedCategory === "kidlit"}
                 $darkMode={darkMode}
               >
-                {t("kidlit_and_cover")}
-              </Category>
-            </Categories>
-            {!showcategories && (
-              <Subcategories>
-                <SubcategoriesGraphic $show={!showgraphic} $darkMode={darkMode}>
-                  <div id="pg">
-                    <p>{t("packaging")}</p>
-                    <p>{t("label")}</p>
-                    <p>{t("branding")}</p>
-                    <p>{t("advertising")}</p>
-                    <p>{t("marketing")}</p>
-                    <p>{t("visual")}</p>
-                  </div>
-                </SubcategoriesGraphic>
-                <SubcategoriesMorbi $show={!showmorbi} $darkMode={darkMode}>
-                  <div id="pm">
-                    <p>{t("custom")}</p>
-                    <p>{t("poster")}</p>
-                    <p>{t("dark_morbi")}</p>
-                  </div>
-                </SubcategoriesMorbi>
-                <SubcategoriesKidlit $show={!showkidlit} $darkMode={darkMode}>
-                  <div id="pk">
-                    <p>{t("custom_kidlit")}</p>
-                    <p>{t("cover")}</p>
-                  </div>
-                </SubcategoriesKidlit>
-              </Subcategories>
-            )}
-          </>
-        )}
-      </StyledCategories>
-    </>
+                <div id="pk">
+                  <p>{t("custom_kidlit")}</p>
+                  <p>{t("cover")}</p>
+                </div>
+              </SubcategoriesKidlit>
+            </Subcategories>
+          )}
+        </>
+      )}
+    </StyledCategories>
   );
 }
 
@@ -149,11 +175,11 @@ const Categories = styled.div`
 `;
 
 const Category = styled.button`
+  margin-bottom: ${(props) => (props.$expanded ? "5rem" : "0.5rem")};
   position: relative;
   height: 7rem;
   width: 11rem;
   padding: 0.2rem;
-  margin: 0.5rem;
   border: 0.4rem double #000000;
   border-radius: 0.4rem;
   background: transparent;
@@ -183,7 +209,8 @@ const Category = styled.button`
   @media (max-width: 990px) {
     margin: 1rem;
     margin-top: 5rem;
-    margin-bottom: 10rem;
+    display: ${(props) => (props.$show ? "flex" : "block")};
+    margin-bottom: ${(props) => (props.$expanded ? "10rem" : "0.5rem")};
     height: fit-content;
     padding: 0.4rem;
     font-size: 0.7rem;
@@ -218,10 +245,11 @@ const SubcategoriesGraphic = styled.div`
   padding: 0.3rem;
 
   @media (max-width: 990px) {
-    top: 0;
+    position: ${(props) => (props.$show ? "absolute" : "relative")};
+    margin-top: ${(props) => (props.$show ? "1rem" : "0")};
+    top: -28rem;
     left: 50%;
     translate: -50%;
-    margin-top: -46rem;
     font-size: 0.6rem;
     align-self: center;
   }
@@ -247,7 +275,11 @@ const SubcategoriesMorbi = styled.div`
   padding: 0.3rem;
 
   @media (max-width: 990px) {
-    top: -25rem;
+    position: ${(props) => (props.$show ? "absolute" : "relative")};
+    margin-top: ${(props) => (props.$show ? "1rem" : "0")};
+    top: -16rem;
+    left: 50%;
+    translate: -50%;
     font-size: 0.6rem;
     align-self: center;
   }
@@ -266,9 +298,11 @@ const SubcategoriesKidlit = styled.div`
   padding: 0.3rem;
 
   @media (max-width: 990px) {
+    position: ${(props) => (props.$show ? "absolute" : "relative")};
+    margin-top: ${(props) => (props.$show ? "1rem" : "0")};
     left: 50%;
     translate: -50%;
-    top: -7.5rem;
+    top: -8rem;
     font-size: 0.6rem;
     align-self: center;
   }
