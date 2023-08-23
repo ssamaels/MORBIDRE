@@ -23,7 +23,7 @@ export default function CategoriesButton() {
           <StyledButton
             onClick={() => {
               setShowCategories(!showcategories);
-              setSelectedCategory(null); // Resets the selected category when the main button is clicked
+              setSelectedCategory(null);
             }}
             $darkMode={darkMode}
           >
@@ -247,7 +247,8 @@ const SubcategoriesGraphic = styled.div`
   @media (max-width: 990px) {
     position: ${(props) => (props.$show ? "absolute" : "relative")};
     margin-top: ${(props) => (props.$show ? "1rem" : "0")};
-    top: -28rem;
+    width: 100%;
+    top: -27rem;
     left: 50%;
     translate: -50%;
     font-size: 0.6rem;
@@ -277,6 +278,7 @@ const SubcategoriesMorbi = styled.div`
   @media (max-width: 990px) {
     position: ${(props) => (props.$show ? "absolute" : "relative")};
     margin-top: ${(props) => (props.$show ? "1rem" : "0")};
+    width: 100%;
     top: -16rem;
     left: 50%;
     translate: -50%;
@@ -300,6 +302,7 @@ const SubcategoriesKidlit = styled.div`
   @media (max-width: 990px) {
     position: ${(props) => (props.$show ? "absolute" : "relative")};
     margin-top: ${(props) => (props.$show ? "1rem" : "0")};
+    width: 100%;
     left: 50%;
     translate: -50%;
     top: -8rem;

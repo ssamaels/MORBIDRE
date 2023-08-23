@@ -109,9 +109,9 @@ const AboutText = styled.div`
 
     p {
       width: 70%;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       line-height: 1.5rem;
-      margin-bottom: 2rem;
+      /* margin-bottom: -2rem; */
     }
   }
 `;
